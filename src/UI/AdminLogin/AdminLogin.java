@@ -110,11 +110,16 @@ public class AdminLogin extends javax.swing.JFrame implements ActionListener{
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
         String adminPassword = String.valueOf(jPasswordField1.getPassword());
+
         if(AdminService.adminLogin("root", adminPassword)==1)
         	System.out.println("Login Success");
         else
-        	System.out.println("Login failure");
+        	System.out.println("Login failure!! ");
     }
+
+
+                                            
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
     }                                        
