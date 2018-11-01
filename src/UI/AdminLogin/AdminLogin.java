@@ -1,15 +1,11 @@
 package UI.AdminLogin;
 
-
-import Service.AdminService;
-
 import java.awt.event.*;
 import UI.Homepage.*;
 import java.awt.*;
 import javax.swing.*;
 
 public class AdminLogin extends javax.swing.JFrame implements ActionListener{
-
 
     /**
      * Creates new form AdminLogin
@@ -112,10 +108,7 @@ public class AdminLogin extends javax.swing.JFrame implements ActionListener{
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
         String adminPassword = String.valueOf(jPasswordField1.getPassword());
-        if(AdminService.adminLogin("root", adminPassword)==1)
-        	System.out.println("Login Success");
-        else
-        	System.out.println("Login failure");
+        customFunction(adminPassword);
     }                                        
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
