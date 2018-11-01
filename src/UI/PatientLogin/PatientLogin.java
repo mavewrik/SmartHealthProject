@@ -5,17 +5,14 @@
  */
 package UI.PatientLogin;
 
-
-import Service.PatientService;
-
-
 import java.awt.event.*;
 import UI.Homepage.*;
 import java.awt.*;
 import javax.swing.*;
 
-public class PatientLogin extends javax.swing.JFrame implements ActionListener{
+import Service.PatientService;
 
+public class PatientLogin extends javax.swing.JFrame implements ActionListener{
 
     /**
      * Creates new form UserLogin
@@ -151,7 +148,8 @@ public class PatientLogin extends javax.swing.JFrame implements ActionListener{
         String patientPassword = String.valueOf(jPasswordField1.getPassword());
         //customFunction(patientUsername, patientPassword);
         PatientService.login(patientUsername, patientPassword);
-    }                                        
+    }  
+	                                       
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:

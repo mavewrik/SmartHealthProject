@@ -1,15 +1,13 @@
 package UI.AdminLogin;
 
-
-import Service.AdminService;
-
 import java.awt.event.*;
 import UI.Homepage.*;
 import java.awt.*;
 import javax.swing.*;
 
-public class AdminLogin extends javax.swing.JFrame implements ActionListener{
+import Service.AdminService;
 
+public class AdminLogin extends javax.swing.JFrame implements ActionListener{
 
     /**
      * Creates new form AdminLogin
@@ -116,8 +114,7 @@ public class AdminLogin extends javax.swing.JFrame implements ActionListener{
         	System.out.println("Login Success");
         else
         	System.out.println("Login failure");
-    }                                        
-
+    }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
     }                                        

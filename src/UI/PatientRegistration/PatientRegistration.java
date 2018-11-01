@@ -1,8 +1,5 @@
 package UI.PatientRegistration;
 
-
-import Service.PatientService;
-
 import java.awt.event.*;
 import UI.*;
 import UI.Homepage.Homepage;
@@ -10,8 +7,9 @@ import UI.Homepage.Homepage;
 import java.awt.*;
 import javax.swing.*;
 
-public class PatientRegistration extends javax.swing.JFrame implements ActionListener{
+import Service.PatientService;
 
+public class PatientRegistration extends javax.swing.JFrame implements ActionListener{
 
     /**
      * Creates new form PatientRegistration
@@ -232,7 +230,7 @@ public class PatientRegistration extends javax.swing.JFrame implements ActionLis
        
         PatientService.regsiter(patientName, patientAge, patientAddress, patientPhone, patientEmail, patientAilment, patientPassword, patientGender);
         
-    }                                        
+    }                                       
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
