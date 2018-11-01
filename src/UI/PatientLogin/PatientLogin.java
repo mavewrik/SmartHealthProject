@@ -10,6 +10,8 @@ import UI.Homepage.*;
 import java.awt.*;
 import javax.swing.*;
 
+import Service.PatientService;
+
 public class PatientLogin extends javax.swing.JFrame implements ActionListener{
 
     /**
@@ -144,8 +146,10 @@ public class PatientLogin extends javax.swing.JFrame implements ActionListener{
         // TODO add your handling code here:
         String patientUsername = jTextField1.getText();
         String patientPassword = String.valueOf(jPasswordField1.getPassword());
-        customFunction(patientUsername, patientPassword);
-    }                                        
+        //customFunction(patientUsername, patientPassword);
+        PatientService.login(patientUsername, patientPassword);
+    }  
+	                                       
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:

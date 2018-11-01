@@ -7,6 +7,8 @@ import UI.Homepage.Homepage;
 import java.awt.*;
 import javax.swing.*;
 
+import Service.PatientService;
+
 public class PatientRegistration extends javax.swing.JFrame implements ActionListener{
 
     /**
@@ -218,14 +220,17 @@ public class PatientRegistration extends javax.swing.JFrame implements ActionLis
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
         String patientName = jTextField1.getText();
-        String patientAge = jTextField2.getText();
+        int patientAge = Integer.parseInt(jTextField2.getText());
         String patientAddress = jTextArea1.getText();
         String patientPhone = jTextField3.getText();
         String patientEmail = jTextField4.getText();
         String patientAilment = jTextField5.getText();
         String patientPassword = String.valueOf(jPasswordField1.getPassword());
-        customFunction(patientName, patientAge, patientAddress, patientPhone, patientEmail, patientAilment, patientPassword);
-    }                                        
+        String patientGender = "M";
+       
+        PatientService.regsiter(patientName, patientAge, patientAddress, patientPhone, patientEmail, patientAilment, patientPassword, patientGender);
+        
+    }                                       
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
