@@ -1,19 +1,31 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package UI.PatientRegistration;
+
 
 import Service.PatientService;
 
-public class PatientRegistration extends javax.swing.JFrame {
+import java.awt.event.*;
+import UI.*;
+import UI.Homepage.Homepage;
+
+import java.awt.*;
+import javax.swing.*;
+
+public class PatientRegistration extends javax.swing.JFrame implements ActionListener{
+
 
     /**
      * Creates new form PatientRegistration
      */
     public PatientRegistration() {
         initComponents();
+        jButton1.addActionListener(this);
+        jButton2.addActionListener(this);
+        addWindowListener(new WindowAdapter(){
+            public void windowClosing(WindowEvent we)
+            {
+                System.exit(0);
+            }
+        });
     }
 
     /**
@@ -229,42 +241,27 @@ public class PatientRegistration extends javax.swing.JFrame {
     private static void customFunction(String name, String age, String address, String phone, String email, String ailment, String password) {
         
     }
-    
-    /**
-     * @param args the command line arguments
-     */
-    // public static void main(String args[]) {
-        // /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        // /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         // * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         // */
-        // try {
-            // for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                // if ("Nimbus".equals(info.getName())) {
-                    // javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    // break;
-                // }
-            // }
-        // } catch (ClassNotFoundException ex) {
-            // java.util.logging.Logger.getLogger(PatientRegistration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        // } catch (InstantiationException ex) {
-            // java.util.logging.Logger.getLogger(PatientRegistration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        // } catch (IllegalAccessException ex) {
-            // java.util.logging.Logger.getLogger(PatientRegistration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        // } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            // java.util.logging.Logger.getLogger(PatientRegistration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        // }
-        //</editor-fold>
-        //</editor-fold>
-
-        // /* Create and display the form */
-        // java.awt.EventQueue.invokeLater(new Runnable() {
-            // public void run() {
-                // new PatientRegistration().setVisible(true);
-            // }
-        // });
-    // }
+    public void actionPerformed(ActionEvent ae)
+    { 	String s=ae.getActionCommand();
+        if(s.equals("BACK"))
+        {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new Homepage().setVisible(true);
+                }
+            });
+            this.setVisible(false);
+        }
+        else if(s.equals("REGISTER"))
+        {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new PatientRegistration().setVisible(true);
+                }
+            });
+            this.setVisible(false);
+        }
+    }
 
     // Variables declaration - do not modify                     
     private javax.swing.JButton jButton1;
