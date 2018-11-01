@@ -34,7 +34,7 @@ public class AdminHome extends JFrame {
         button1.setBounds(80, 65, 155, button1.getPreferredSize().height);
 
         //---- label1 ----
-        label1.setText("ADMIN HOME");
+        label1.setText("ADMIN HOMEPAGE");
         contentPane.add(label1);
         label1.setBounds(205, 10, 150, label1.getPreferredSize().height);
 
