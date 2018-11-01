@@ -1,5 +1,7 @@
 package UI.AdminLogin;
 
+import Service.AdminService;
+
 public class AdminLogin extends javax.swing.JFrame {
 
     /**
@@ -93,7 +95,10 @@ public class AdminLogin extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
         String adminPassword = String.valueOf(jPasswordField1.getPassword());
-        customFunction(adminPassword);
+        if(AdminService.adminLogin("root", adminPassword)==1)
+        	System.out.println("Login Success");
+        else
+        	System.out.println("Login failure");
     }                                        
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
