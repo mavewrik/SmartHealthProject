@@ -1,5 +1,4 @@
-import Homepage.*;
-import AdminLogin.*;
+import UI.Homepage.*;
 
 public class SHS {
     public static void main(String args[]) {

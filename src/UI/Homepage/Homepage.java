@@ -2,16 +2,13 @@
  * Created by JFormDesigner on Wed Oct 31 22:01:55 IST 2018
  */
 
-package Homepage;
-import java.io.*;
+package UI.Homepage;
 import java.awt.event.*;
 import java.awt.*;
-import AdminLogin.*;
-import PatientRegistration.*;
-import PatientLogin.*;
-import java.sql.*;
-import javax.swing.*;
-import java.awt.*;
+import UI.AdminLogin.*;
+import UI.PatientRegistration.*;
+import UI.PatientLogin.*;
+
 import javax.swing.*;
 
 /**

@@ -1,4 +1,4 @@
-package PatientLogin;
+package UI.PatientLogin;
 public class PatientLogin extends javax.swing.JFrame {
     public PatientLogin() {
         initComponents();

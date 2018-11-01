@@ -1,4 +1,4 @@
-package AdminLogin;
+package UI.AdminLogin;
 public class AdminLogin extends javax.swing.JFrame {
     public AdminLogin() {
         initComponents();

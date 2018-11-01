@@ -1,4 +1,4 @@
-package PatientRegistration;
+package UI.PatientRegistration;
 public class PatientRegistration extends javax.swing.JFrame{
     public PatientRegistration() {
         initComponents();
