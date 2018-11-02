@@ -10,19 +10,45 @@ new FormModel {
 				"text": "Enter/Modify Logs"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 310
-				"y": 210
+				"y": 235
 				"width": 165
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "textField1"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 70
-				"y": 210
+				"x": 60
+				"y": 235
 				"width": 160
 			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label1"
+				"text": "PATIENT LIST"
+				"horizontalAlignment": 0
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 170
+				"y": 5
+				"width": 205
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button2"
+				"text": "BACK"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 230
+				"y": 275
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane1"
+				add( new FormComponent( "javax.swing.JTable" ) {
+					name: "table1"
+				} )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 45
+				"y": 35
+				"height": 155
+			} )
 		}, new FormLayoutConstraints( null ) {
-			"location": new java.awt.Point( 5, 5 )
-			"size": new java.awt.Dimension( 540, 300 )
+			"location": new java.awt.Point( 0, 10 )
+			"size": new java.awt.Dimension( 540, 345 )
 		} )
 	}
 }

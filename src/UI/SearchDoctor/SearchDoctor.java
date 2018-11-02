@@ -1,8 +1,8 @@
 /*
- * Created by JFormDesigner on Thu Nov 01 20:03:34 IST 2018
+ * Created by JFormDesigner on Fri Nov 02 13:01:22 IST 2018
  */
 
-package UI.AdminHome;
+package UI.SearchDoctor;
 
 import java.awt.*;
 import javax.swing.*;
@@ -10,60 +10,55 @@ import javax.swing.*;
 /**
  * @author Alvin Dey
  */
-public class AdminHome extends JFrame {
-    public AdminHome() {
+public class SearchDoctor extends JFrame {
+    public SearchDoctor() {
         initComponents();
     }
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Alvin Dey
-        button1 = new JButton();
+        comboBox1 = new JComboBox();
         label1 = new JLabel();
+        label2 = new JLabel();
+        label3 = new JLabel();
+        textField1 = new JTextField();
+        button1 = new JButton();
         button2 = new JButton();
-        button3 = new JButton();
-        button4 = new JButton();
-        button5 = new JButton();
-        button6 = new JButton();
 
         //======== this ========
         Container contentPane = getContentPane();
         contentPane.setLayout(null);
-
-        //---- button1 ----
-        button1.setText("Add Doctor");
-        contentPane.add(button1);
-        button1.setBounds(80, 65, 155, button1.getPreferredSize().height);
+        contentPane.add(comboBox1);
+        comboBox1.setBounds(250, 60, 195, comboBox1.getPreferredSize().height);
 
         //---- label1 ----
-        label1.setText("ADMIN HOMEPAGE");
+        label1.setText("Department");
         contentPane.add(label1);
-        label1.setBounds(205, 10, 150, label1.getPreferredSize().height);
+        label1.setBounds(55, 65, 160, label1.getPreferredSize().height);
+
+        //---- label2 ----
+        label2.setText("Date of Appointment");
+        contentPane.add(label2);
+        label2.setBounds(40, 110, 170, label2.getPreferredSize().height);
+
+        //---- label3 ----
+        label3.setText("DOCTOR SEARCH");
+        label3.setHorizontalAlignment(SwingConstants.CENTER);
+        contentPane.add(label3);
+        label3.setBounds(170, 5, 150, label3.getPreferredSize().height);
+        contentPane.add(textField1);
+        textField1.setBounds(250, 105, 195, textField1.getPreferredSize().height);
+
+        //---- button1 ----
+        button1.setText("SEARCH");
+        contentPane.add(button1);
+        button1.setBounds(new Rectangle(new Point(300, 200), button1.getPreferredSize()));
 
         //---- button2 ----
-        button2.setText("Reassignment Requests");
+        button2.setText("BACK");
         contentPane.add(button2);
-        button2.setBounds(new Rectangle(new Point(285, 65), button2.getPreferredSize()));
-
-        //---- button3 ----
-        button3.setText("View Patients");
-        contentPane.add(button3);
-        button3.setBounds(80, 135, 155, button3.getPreferredSize().height);
-
-        //---- button4 ----
-        button4.setText("View Doctors");
-        contentPane.add(button4);
-        button4.setBounds(285, 135, 195, button4.getPreferredSize().height);
-
-        //---- button5 ----
-        button5.setText("LOGOUT");
-        contentPane.add(button5);
-        button5.setBounds(210, 265, 110, button5.getPreferredSize().height);
-
-        //---- button6 ----
-        button6.setText("Add Department");
-        contentPane.add(button6);
-        button6.setBounds(190, 195, 150, 35);
+        button2.setBounds(115, 200, 83, button2.getPreferredSize().height);
 
         { // compute preferred size
             Dimension preferredSize = new Dimension();
@@ -85,12 +80,12 @@ public class AdminHome extends JFrame {
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - Alvin Dey
-    private JButton button1;
+    private JComboBox comboBox1;
     private JLabel label1;
+    private JLabel label2;
+    private JLabel label3;
+    private JTextField textField1;
+    private JButton button1;
     private JButton button2;
-    private JButton button3;
-    private JButton button4;
-    private JButton button5;
-    private JButton button6;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

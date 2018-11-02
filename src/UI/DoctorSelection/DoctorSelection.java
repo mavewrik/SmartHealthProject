@@ -1,8 +1,8 @@
 /*
- * Created by JFormDesigner on Thu Nov 01 20:21:34 IST 2018
+ * Created by JFormDesigner on Fri Nov 02 13:16:42 IST 2018
  */
 
-package UI.ViewPatient;
+package UI.DoctorSelection;
 
 import java.awt.*;
 import javax.swing.*;
@@ -10,49 +10,64 @@ import javax.swing.*;
 /**
  * @author Alvin Dey
  */
-public class ViewPatient extends JFrame {
-    public ViewPatient() {
+public class DoctorSelection extends JFrame {
+    public DoctorSelection() {
         initComponents();
     }
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Alvin Dey
+        label1 = new JLabel();
+        label2 = new JLabel();
+        label3 = new JLabel();
+        label4 = new JLabel();
         button1 = new JButton();
         textField1 = new JTextField();
-        label1 = new JLabel();
+        comboBox1 = new JComboBox();
+        comboBox2 = new JComboBox();
         button2 = new JButton();
-        scrollPane1 = new JScrollPane();
-        table1 = new JTable();
 
         //======== this ========
         Container contentPane = getContentPane();
         contentPane.setLayout(null);
 
-        //---- button1 ----
-        button1.setText("Enter/Modify Logs");
-        contentPane.add(button1);
-        button1.setBounds(310, 235, 165, button1.getPreferredSize().height);
-        contentPane.add(textField1);
-        textField1.setBounds(60, 235, 160, textField1.getPreferredSize().height);
-
         //---- label1 ----
-        label1.setText("PATIENT LIST");
+        label1.setText("SHS DOCTOR SELECTION");
         label1.setHorizontalAlignment(SwingConstants.CENTER);
         contentPane.add(label1);
-        label1.setBounds(170, 5, 205, label1.getPreferredSize().height);
+        label1.setBounds(135, 10, 195, label1.getPreferredSize().height);
+
+        //---- label2 ----
+        label2.setText("Department");
+        contentPane.add(label2);
+        label2.setBounds(new Rectangle(new Point(70, 65), label2.getPreferredSize()));
+
+        //---- label3 ----
+        label3.setText("Date of Appointment");
+        contentPane.add(label3);
+        label3.setBounds(new Rectangle(new Point(40, 105), label3.getPreferredSize()));
+
+        //---- label4 ----
+        label4.setText("Preferrable Slot");
+        contentPane.add(label4);
+        label4.setBounds(new Rectangle(new Point(60, 145), label4.getPreferredSize()));
+
+        //---- button1 ----
+        button1.setText("SUBMIT");
+        contentPane.add(button1);
+        button1.setBounds(new Rectangle(new Point(275, 215), button1.getPreferredSize()));
+        contentPane.add(textField1);
+        textField1.setBounds(225, 100, 200, textField1.getPreferredSize().height);
+        contentPane.add(comboBox1);
+        comboBox1.setBounds(225, 140, 195, comboBox1.getPreferredSize().height);
+        contentPane.add(comboBox2);
+        comboBox2.setBounds(225, 60, 195, comboBox2.getPreferredSize().height);
 
         //---- button2 ----
         button2.setText("BACK");
         contentPane.add(button2);
-        button2.setBounds(new Rectangle(new Point(230, 275), button2.getPreferredSize()));
-
-        //======== scrollPane1 ========
-        {
-            scrollPane1.setViewportView(table1);
-        }
-        contentPane.add(scrollPane1);
-        scrollPane1.setBounds(45, 35, scrollPane1.getPreferredSize().width, 155);
+        button2.setBounds(new Rectangle(new Point(80, 215), button2.getPreferredSize()));
 
         { // compute preferred size
             Dimension preferredSize = new Dimension();
@@ -74,11 +89,14 @@ public class ViewPatient extends JFrame {
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - Alvin Dey
+    private JLabel label1;
+    private JLabel label2;
+    private JLabel label3;
+    private JLabel label4;
     private JButton button1;
     private JTextField textField1;
-    private JLabel label1;
+    private JComboBox comboBox1;
+    private JComboBox comboBox2;
     private JButton button2;
-    private JScrollPane scrollPane1;
-    private JTable table1;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
