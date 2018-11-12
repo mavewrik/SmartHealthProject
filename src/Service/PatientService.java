@@ -3,6 +3,8 @@ package Service;
 import DAO.patientDAO;
 import DTO.Patient;
 
+import java.io.IOException;
+
 public class PatientService {
 	
 	public static void regsiter(String patientName,int patientAge, String patientAddress,String patientPhone,String patientEmail,String patientAilment,String patientPassword,String patientGender) {
@@ -10,8 +12,12 @@ public class PatientService {
 		patientDAO.savePatientInfo(patient);
 	}
 	
-	public void updateInfo() {
-		
+	public void updatePatientInfo(Patient patient) {
+		Boolean val = patientDAO.updatePatientInfo(patient);
+		if (val == true)
+			System.out.println("Updated Successfull");
+		else
+			System.out.println("Update failed");
 	}
 	
 	public static void login(String patientId,String password) {
@@ -20,5 +26,10 @@ public class PatientService {
 			System.out.println("Login failure");
 		else
 			System.out.println("Login Success");
+	}
+	public static void main(String args[])throws IOException {
+		PatientService p1 = new PatientService();
+		Patient p = new Patient("Swagatam","1234","M","9748409298","Kolkata",20,"","swag@iitd.ac.in","swag");
+		p1.updatePatientInfo(p);
 	}
 }

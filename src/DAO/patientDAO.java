@@ -114,7 +114,110 @@ public class patientDAO {
         return result;
 
     }
-    
+
+    public static boolean updateDoctorInfo(Patient patient) {
+
+        DatabaseConnectionClass databseConnectionClass = DatabaseConnectionClass.getInstance();
+
+        boolean result = true;
+
+        Connection conn = databseConnectionClass.getMySqlConnection("jdbc:mysql://localhost:3306/", "hospitalManagement", "root", "", "com.mysql.jdbc.Driver");
+
+        //Step 2. Now Use PreparedStatement class to pass SQL to create employee
+        String insertSQL = "UPDATE patient SET Name = ? , "
+                + "Gender = ? ,"
+                + "PhoneNumber = ? ,"
+                + "Address = ? ,"
+                + "Age = ? ,"
+                + "Ailment = ? ,"
+                + "Email = ? ,"
+                + "Password = ?"
+                + "WHERE Id = ? ";
+
+        PreparedStatement stmt = null; //will explain later
+        int row = 0;
+
+        if (conn == null) {
+            return false;
+        }
+
+        try {
+            stmt = conn.prepareStatement(insertSQL);
+            stmt.setString(1, patient.getName());
+            stmt.setString(2, patient.getGender());
+            stmt.setString(3, patient.getPhoneNumber());
+            stmt.setString(4, patient.getAddress());
+            stmt.setInt(5, patient.getAge());
+            stmt.setString(6, patient.getAilment());
+            stmt.setString(7, patient.getEmail());
+            stmt.setString(8, patient.getPassword());
+            stmt.setString(9, patient.getId());
+
+            row = stmt.executeUpdate();
+
+            if (row > 0) {
+                result = true;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            result = false;
+        } finally {
+            try {
+                conn.close(); //very important
+            } catch (SQLException ex) {
+                result = false;
+            }
+        }
+
+        return result;
+
+    }
+
+    public static ArrayList showAllPatientInfo() {
+
+        ArrayList listOfPatient = new ArrayList();
+
+        DatabaseConnectionClass databseConnectionClass = DatabaseConnectionClass.getInstance();
+
+        Connection conn = databseConnectionClass.getMySqlConnection("jdbc:mysql://localhost:3306/", "hospitalManagement", "root", "", "com.mysql.jdbc.Driver");
+
+        //Step 2. Now Use PreparedStatement class to pass SQL to create employee
+        String selectSQL = "SELECT * FROM patient";
+
+        PreparedStatement stmt = null; //will explain later
+
+        try {
+            stmt = conn.prepareStatement(selectSQL);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Patient patient = new Patient();
+                patient.setId(rs.getString("Id"));
+                patient.setName(rs.getString("Name"));
+                patient.setGender(rs.getString("Gender"));
+                patient.setPhoneNumber(rs.getString("PhoneNumber"));
+                patient.setAddress(rs.getString("Address"));
+                patient.setPassword(rs.getString("Password"));
+
+                listOfPatient.add(patient);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        } finally {
+            try {
+                conn.close(); //very important
+            } catch (SQLException ex1) {
+                return null;
+            }
+        }
+
+        return listOfPatient;
+
+    }
+
+
     public static Patient getPatientInfo(String patientId, String password) {
 
         Patient patient = new Patient();
