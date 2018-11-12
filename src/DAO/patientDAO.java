@@ -22,7 +22,7 @@ public class patientDAO {
         Connection conn = databseConnectionClass.getMySqlConnection("jdbc:mysql://localhost:3306/", "hospitalManagement", "root", "", "com.mysql.jdbc.Driver");
 
         //Step 2. Now Use PreparedStatement class to pass SQL to create employee
-        String insertSQL = "INSERT INTO patient (Name, Id, Gender, PhoneNumber, Address, Password, Ailment, Email, Age) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        String insertSQL = "INSERT INTO patient (Name, Id, Gender, PhoneNumber, Address, Password, Ailment, Email, Age) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         //PreparedStatement stmt = null; //will explain later
         int row = 0;
@@ -42,7 +42,7 @@ public class patientDAO {
             stmt.setString(7, patient.getAilment());
             stmt.setString(8, patient.getEmail());
             stmt.setInt(9, patient.getAge());
-            
+            stmt.setString(10, patient.getHealthStatus());
             row = stmt.executeUpdate();
             
             if (row > 0) {
@@ -76,7 +76,10 @@ public class patientDAO {
                 + "Gender = ? ,"
         		+ "PhoneNumber = ? ,"
                 + "Address = ? ,"
-        		+ "Age = ?"
+        		+ "Age = ? ,"
+                + "Password = ? ,"
+                + "Ailment = ? ,"
+                + "Email = ? "
                 + "WHERE Id = ? ";
 
         PreparedStatement stmt = null; //will explain later
@@ -93,7 +96,11 @@ public class patientDAO {
             stmt.setString(3, patient.getPhoneNumber());
             stmt.setString(4, patient.getAddress());
             stmt.setInt(5, patient.getAge());
-            stmt.setString(6, patient.getId());
+            stmt.setString(6, patient.getPassword());
+            stmt.setString(7, patient.getAilment());
+            stmt.setString(8, patient.getEmail());
+            stmt.setString(9, patient.getId());
+            stmt.setString(10, patient.getHealthStatus());
 
             row = stmt.executeUpdate();
 
@@ -131,7 +138,8 @@ public class patientDAO {
                 + "Age = ? ,"
                 + "Ailment = ? ,"
                 + "Email = ? ,"
-                + "Password = ?"
+                + "Password = ? ,"
+                + "HealthStatus = ?"
                 + "WHERE Id = ? ";
 
         PreparedStatement stmt = null; //will explain later
@@ -152,6 +160,7 @@ public class patientDAO {
             stmt.setString(7, patient.getEmail());
             stmt.setString(8, patient.getPassword());
             stmt.setString(9, patient.getId());
+            stmt.setString(10, patient.getHealthStatus());
 
             row = stmt.executeUpdate();
 
@@ -199,6 +208,10 @@ public class patientDAO {
                 patient.setPhoneNumber(rs.getString("PhoneNumber"));
                 patient.setAddress(rs.getString("Address"));
                 patient.setPassword(rs.getString("Password"));
+                patient.setEmail(rs.getString("Email"));
+                patient.setAge(rs.getInt("Age"));
+                patient.setAilment(rs.getString("Ailment"));
+                patient.setHealthStatus(rs.getString("HealthStatus"));
 
                 listOfPatient.add(patient);
             }
@@ -245,7 +258,10 @@ public class patientDAO {
                 patient.setPhoneNumber(rs.getString("PhoneNumber"));
                 patient.setAddress(rs.getString("Address"));
                 patient.setPassword(rs.getString("Password"));
-                
+                patient.setEmail(rs.getString("Email"));
+                patient.setAge(rs.getInt("Age"));
+                patient.setAilment(rs.getString("Ailment"));
+                patient.setHealthStatus(rs.getString("HealthStatus"));
 
             }
         } catch (SQLException ex) {

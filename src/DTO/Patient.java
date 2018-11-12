@@ -11,6 +11,7 @@ public class Patient {
 	private String password;
 	private String ailment;
 	private String email;
+	private String healthStatus;
 	
 	public Patient() {
 		this.name = " ";
@@ -22,9 +23,18 @@ public class Patient {
 		this.password = " ";
 		this.email = " ";
 		this.ailment = " ";
+		this.healthStatus = " ";
 	}
-	
-	public Patient(String name, String id, String gender, String phoneNumber, String address,int age,String ailment,String email,String password) {
+
+	public String getHealthStatus() {
+		return healthStatus;
+	}
+
+	public void setHealthStatus(String healthStatus) {
+		this.healthStatus = healthStatus;
+	}
+
+	public Patient(String name, String id, String gender, String phoneNumber, String address, int age, String ailment, String email, String password, String healthStatus) {
 		
 		this.name = name;
 		this.Id = id;
@@ -35,7 +45,9 @@ public class Patient {
 		this.ailment = ailment;
 		this.email = email;
 		this.password = password;
+		this.healthStatus = healthStatus;
 	}
+
 	public int getAge() {
 		return age;
 	}
