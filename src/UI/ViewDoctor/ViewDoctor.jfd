@@ -14,44 +14,34 @@ new FormModel {
 				"y": 10
 				"width": 152
 			} )
-			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
-				name: "scrollPane1"
-				add( new FormComponent( "javax.swing.JTable" ) {
-					name: "table1"
-				} )
-			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 15
-				"y": 35
-				"height": 165
-			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "textField1"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 250
-				"y": 215
+				"x": 245
+				"y": 90
 				"width": 160
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label2"
 				"text": "DOCTOR ID"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 90
-				"y": 220
+				"x": 80
+				"y": 95
 				"width": 115
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "button1"
 				"text": "VIEW PROFILE"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 260
-				"y": 265
+				"x": 250
+				"y": 170
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "button2"
 				"text": "BACK"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 75
-				"y": 265
+				"x": 70
+				"y": 170
 				"width": 125
 			} )
 		}, new FormLayoutConstraints( null ) {

@@ -4,15 +4,49 @@
 
 package UI.AdminHome;
 
+import javax.swing.table.TableModel;
+import javax.swing.table.DefaultTableModel;
+
+import DTO.Doctor;
+import DTO.Patient;
+import Service.AdminService;
+import UI.AdminLogin.AdminLogin;
+import UI.DepartmentRegistration.DepartmentRegistration;
+import UI.DoctorLogin.DoctorLogin;
+import UI.Homepage.Homepage;
+import UI.PatientLogin.PatientLogin;
+import UI.PatientRegistration.PatientRegistration;
+import UI.DoctorRegistration.*;
+import UI.ViewDoctor.*;
+import UI.ViewPatient.ViewPatient;
+
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import javax.swing.*;
+
 
 /**
  * @author Alvin Dey
  */
-public class AdminHome extends JFrame {
+public class AdminHome extends JFrame implements ActionListener{
     public AdminHome() {
         initComponents();
+        button1.addActionListener(this);
+        button2.addActionListener(this);
+        button3.addActionListener(this);
+        button4.addActionListener(this);
+        button5.addActionListener(this);
+        button6.addActionListener(this);
+        addWindowListener(new WindowAdapter(){
+            public void windowClosing(WindowEvent we)
+            {
+                System.exit(0);
+            }
+        });
     }
 
     private void initComponents() {
@@ -82,7 +116,104 @@ public class AdminHome extends JFrame {
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
+    public void actionPerformed(ActionEvent ae)
+    { 	String s=ae.getActionCommand();
+        if(s.equals("Add Doctor"))
+        {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new DoctorRegistration().setVisible(true);
+                }
+            });
+            this.setVisible(false);
+        }
+        else if(s.equals("Reassignment Requests"))
+        {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new PatientRegistration().setVisible(true);
+                }
+            });
+            this.setVisible(false);
+        }
+        else if(s.equals("View Patients"))
+        {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    Object columnNames[] = { "Patient Name", "Patient Id", "Gender", " Phone Number", "Address" };
+                    Object[][] data = {};
+                    DefaultTableModel dm = new DefaultTableModel(data, columnNames);
+                    JTable table = new JTable(dm);
+                    JFrame frame = new JFrame();
+                    frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                    JScrollPane scrollPane = new JScrollPane(table);
+                    frame.add(scrollPane, BorderLayout.CENTER);
+                    frame.setSize(300, 150);
+                    frame.setVisible(true);
+                    DefaultTableModel model = (DefaultTableModel) table.getModel();
+                    ArrayList<Patient> result = AdminService.showAllPatient();
+                    for (Patient p : result) {
+                        String d1, d2, d3,d4 , d5;
+                        d1 = p.getName();
+                        d2 = p.getId();
+                        d3 = p.getGender();
+                        d4 = p.getPhoneNumber();
+                        d5 = p.getAddress();
+                        model.addRow(new Object[]{d1,d2,d3,d4,d5});
+                    }
+                    new ViewPatient().setVisible(true);
+                }
+            });
+            this.setVisible(false);
+        }
+        else if(s.equals("View Doctors"))
+        {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    Object columnNames[] = { "Doctor Name", "Doctor Id", "Department" };
+                    Object[][] data = {};
+                    DefaultTableModel dm = new DefaultTableModel(data, columnNames);
+                    JTable table = new JTable(dm);
+                    JFrame frame = new JFrame();
+                    frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                    JScrollPane scrollPane = new JScrollPane(table);
+                    frame.add(scrollPane, BorderLayout.CENTER);
+                    frame.setSize(300, 150);
+                    frame.setVisible(true);
+                    DefaultTableModel model = (DefaultTableModel) table.getModel();
+                    ArrayList<Doctor> result = AdminService.showAllDoctor();
+                    for (Doctor doc : result) {
+                        String d1, d2, d3;
+                        d1 = doc.getName();
+                        d2 = doc.getId();
+                        d3 = doc.getDepartment();
+                        model.addRow(new Object[]{d1,d2,d3});
+                    }
+                    new ViewDoctor().setVisible(true);
+                }
+            });
+            this.setVisible(false);
+        }
+        else if(s.equals("Add Department"))
+        {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new DepartmentRegistration().setVisible(true);
+                }
+            });
+            this.setVisible(false);
+        }
+        else if(s.equals("LOGOUT"))
+        {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new Homepage().setVisible(true);
+                }
+            });
+            this.setVisible(false);
+        }
 
+    }
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - Alvin Dey
     private JButton button1;

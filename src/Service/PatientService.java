@@ -27,9 +27,9 @@ public class PatientService {
 		else
 			System.out.println("Login Success");
 	}
-	public static void main(String args[])throws IOException {
+	/*public static void main(String args[])throws IOException {
 		PatientService p1 = new PatientService();
 		Patient p = new Patient("Swagatam","1234","M","9748409298","Kolkata",20,"","swag@iitd.ac.in","swag");
 		p1.updatePatientInfo(p);
-	}
+	}*/
 }

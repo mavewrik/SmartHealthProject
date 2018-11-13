@@ -19,8 +19,6 @@ public class ViewDoctor extends JFrame {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Alvin Dey
         label1 = new JLabel();
-        scrollPane1 = new JScrollPane();
-        table1 = new JTable();
         textField1 = new JTextField();
         label2 = new JLabel();
         button1 = new JButton();
@@ -35,30 +33,23 @@ public class ViewDoctor extends JFrame {
         label1.setHorizontalAlignment(SwingConstants.CENTER);
         contentPane.add(label1);
         label1.setBounds(160, 10, 152, label1.getPreferredSize().height);
-
-        //======== scrollPane1 ========
-        {
-            scrollPane1.setViewportView(table1);
-        }
-        contentPane.add(scrollPane1);
-        scrollPane1.setBounds(15, 35, scrollPane1.getPreferredSize().width, 165);
         contentPane.add(textField1);
-        textField1.setBounds(250, 215, 160, textField1.getPreferredSize().height);
+        textField1.setBounds(245, 90, 160, textField1.getPreferredSize().height);
 
         //---- label2 ----
         label2.setText("DOCTOR ID");
         contentPane.add(label2);
-        label2.setBounds(90, 220, 115, label2.getPreferredSize().height);
+        label2.setBounds(80, 95, 115, label2.getPreferredSize().height);
 
         //---- button1 ----
         button1.setText("VIEW PROFILE");
         contentPane.add(button1);
-        button1.setBounds(new Rectangle(new Point(260, 265), button1.getPreferredSize()));
+        button1.setBounds(new Rectangle(new Point(250, 170), button1.getPreferredSize()));
 
         //---- button2 ----
         button2.setText("BACK");
         contentPane.add(button2);
-        button2.setBounds(75, 265, 125, button2.getPreferredSize().height);
+        button2.setBounds(70, 170, 125, button2.getPreferredSize().height);
 
         { // compute preferred size
             Dimension preferredSize = new Dimension();
@@ -81,8 +72,6 @@ public class ViewDoctor extends JFrame {
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - Alvin Dey
     private JLabel label1;
-    private JScrollPane scrollPane1;
-    private JTable table1;
     private JTextField textField1;
     private JLabel label2;
     private JButton button1;

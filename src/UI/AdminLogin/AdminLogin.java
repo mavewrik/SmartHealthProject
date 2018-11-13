@@ -1,6 +1,8 @@
 package UI.AdminLogin;
 
 import java.awt.event.*;
+
+import UI.AdminHome.AdminHome;
 import UI.Homepage.*;
 import java.awt.*;
 import javax.swing.*;
@@ -52,18 +54,9 @@ public class AdminLogin extends javax.swing.JFrame implements ActionListener{
         jLabel2.setText("PASSWORD");
 
         jButton1.setText("LOGIN");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+
 
         jButton2.setText("BACK");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -105,24 +98,8 @@ public class AdminLogin extends javax.swing.JFrame implements ActionListener{
         );
 
         pack();
-    }// </editor-fold>                        
+    }// </editor-fold>
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
-        String adminPassword = String.valueOf(jPasswordField1.getPassword());
-
-        if(AdminService.adminLogin("root", adminPassword)==1)
-        	System.out.println("Login Success");
-        else
-        	System.out.println("Login failure!! ");
-    }
-
-
-                                            
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
-    }                                        
     
     private static void customFunction(String password) {
         
@@ -142,7 +119,7 @@ public class AdminLogin extends javax.swing.JFrame implements ActionListener{
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    //new PatientRegistration().setVisible(true);
+                    new AdminHome().setVisible(true);
                 }
             });
             this.setVisible(false);

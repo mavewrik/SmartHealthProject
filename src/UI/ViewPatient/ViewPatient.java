@@ -22,8 +22,8 @@ public class ViewPatient extends JFrame {
         textField1 = new JTextField();
         label1 = new JLabel();
         button2 = new JButton();
-        scrollPane1 = new JScrollPane();
-        table1 = new JTable();
+        label2 = new JLabel();
+        label3 = new JLabel();
 
         //======== this ========
         Container contentPane = getContentPane();
@@ -32,9 +32,9 @@ public class ViewPatient extends JFrame {
         //---- button1 ----
         button1.setText("Enter/Modify Logs");
         contentPane.add(button1);
-        button1.setBounds(310, 235, 165, button1.getPreferredSize().height);
+        button1.setBounds(190, 175, 165, button1.getPreferredSize().height);
         contentPane.add(textField1);
-        textField1.setBounds(60, 235, 160, textField1.getPreferredSize().height);
+        textField1.setBounds(315, 65, 160, textField1.getPreferredSize().height);
 
         //---- label1 ----
         label1.setText("PATIENT LIST");
@@ -45,14 +45,19 @@ public class ViewPatient extends JFrame {
         //---- button2 ----
         button2.setText("BACK");
         contentPane.add(button2);
-        button2.setBounds(new Rectangle(new Point(230, 275), button2.getPreferredSize()));
+        button2.setBounds(new Rectangle(new Point(230, 250), button2.getPreferredSize()));
 
-        //======== scrollPane1 ========
-        {
-            scrollPane1.setViewportView(table1);
-        }
-        contentPane.add(scrollPane1);
-        scrollPane1.setBounds(45, 35, scrollPane1.getPreferredSize().width, 155);
+        //---- label2 ----
+        label2.setText("text");
+        contentPane.add(label2);
+        label2.setBounds(120, 70, 0, label2.getPreferredSize().height);
+
+        //---- label3 ----
+        label3.setText("Patient ID");
+        label3.setAutoscrolls(true);
+        label3.setHorizontalAlignment(SwingConstants.CENTER);
+        contentPane.add(label3);
+        label3.setBounds(95, 70, 105, label3.getPreferredSize().height);
 
         { // compute preferred size
             Dimension preferredSize = new Dimension();
@@ -78,7 +83,7 @@ public class ViewPatient extends JFrame {
     private JTextField textField1;
     private JLabel label1;
     private JButton button2;
-    private JScrollPane scrollPane1;
-    private JTable table1;
+    private JLabel label2;
+    private JLabel label3;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

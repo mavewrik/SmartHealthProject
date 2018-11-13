@@ -9,7 +9,7 @@ import javax.swing.*;
 
 import Service.PatientService;
 
-public class PatientRegistration extends javax.swing.JFrame implements ActionListener{
+public class PatientRegistration extends javax.swing.JFrame implements  ActionListener{
 
     /**
      * Creates new form PatientRegistration
@@ -67,11 +67,11 @@ public class PatientRegistration extends javax.swing.JFrame implements ActionLis
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("NAME");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        /*jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
             }
-        });
+        });*/
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("AGE");
@@ -96,18 +96,18 @@ public class PatientRegistration extends javax.swing.JFrame implements ActionLis
         jLabel8.setText("PASSWORD");
 
         jButton1.setText("REGISTER");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        /*jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
-        });
+        });*/
 
         jButton2.setText("BACK");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        /*jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
-        });
+        });*/
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("TYPE");
@@ -213,32 +213,20 @@ public class PatientRegistration extends javax.swing.JFrame implements ActionLis
         pack();
     }// </editor-fold>                        
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {                                            
+    /*private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }                                           
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
-        String patientName = jTextField1.getText();
-        int patientAge = Integer.parseInt(jTextField2.getText());
-        String patientAddress = jTextArea1.getText();
-        String patientPhone = jTextField3.getText();
-        String patientEmail = jTextField4.getText();
-        String patientAilment = jTextField5.getText();
-        String patientPassword = String.valueOf(jPasswordField1.getPassword());
-        String patientGender = "M";
-       
-        PatientService.regsiter(patientName, patientAge, patientAddress, patientPhone, patientEmail, patientAilment, patientPassword, patientGender);
-        
-    }                                       
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        
+    }  */
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }                                        
-    
-    private static void customFunction(String name, String age, String address, String phone, String email, String ailment, String password) {
-        
-    }
+
     public void actionPerformed(ActionEvent ae)
     { 	String s=ae.getActionCommand();
         if(s.equals("BACK"))
@@ -254,7 +242,17 @@ public class PatientRegistration extends javax.swing.JFrame implements ActionLis
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    new PatientRegistration().setVisible(true);
+                    String patientName = jTextField1.getText();
+                    int patientAge = Integer.parseInt(jTextField2.getText());
+                    String patientAddress = jTextArea1.getText();
+                    String patientPhone = jTextField3.getText();
+                    String patientEmail = jTextField4.getText();
+                    String patientAilment = jTextField5.getText();
+                    String patientPassword = String.valueOf(jPasswordField1.getPassword());
+                    String patientGender = "M";
+
+                    PatientService.regsiter(patientName, patientAge, patientAddress, patientPhone, patientEmail, patientAilment, patientPassword, patientGender);
+                    new Homepage().setVisible(true);
                 }
             });
             this.setVisible(false);
