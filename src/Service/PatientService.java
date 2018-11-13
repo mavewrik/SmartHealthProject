@@ -31,4 +31,16 @@ public class PatientService {
 			System.out.println("Login Success");
 	}
 
+	public static void saveAppointment(String patientId,String doctorId,String date){
+		Boolean val = patientDAO.saveAppointment(patientId,doctorId,date);
+		if (val == true)
+			System.out.println("Success");
+		else
+			System.out.println("Failure");
+	}
+
+	public static void main(String args[])throws IOException{
+		PatientService.saveAppointment("1234","ALV123","10/12/2018");
+	}
+
 }

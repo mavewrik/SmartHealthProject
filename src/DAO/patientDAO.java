@@ -62,6 +62,50 @@ public class patientDAO {
         return result;
 
     }
+
+    public static boolean saveAppointment(String patientId, String doctorId, String day) {
+
+        boolean result = false;
+//We need a connection to DB. For this we will use a Singleton Class
+        //Step 1. create database connection
+        DatabaseConnectionClass databseConnectionClass = DatabaseConnectionClass.getInstance();
+
+        Connection conn = databseConnectionClass.getMySqlConnection("jdbc:mysql://localhost:3306/", "hospitalManagement", "root", "", "com.mysql.jdbc.Driver");
+
+        //Step 2. Now Use PreparedStatement class to pass SQL to create employee
+        String insertSQL = "INSERT INTO Appointment (patientId, doctorId, date) VALUES (?, ?, ?);";
+
+        //PreparedStatement stmt = null; //will explain later
+        int row = 0;
+        //int noOfEmp = listOfEmployees.size();
+        if (conn == null) {
+            return false;
+        }
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(insertSQL);
+            stmt.setString(1, patientId);
+            stmt.setString(2, doctorId);
+            stmt.setString(3, day);
+            row = stmt.executeUpdate();
+
+            if (row > 0) {
+                result = true;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            result = false;
+        } finally {
+            try {
+                conn.close(); //very important
+            } catch (SQLException ex) {
+                result = false;
+            }
+        }
+
+        return result;
+
+    }
     
     public static boolean updatePatientInfo(Patient patient) {
 
