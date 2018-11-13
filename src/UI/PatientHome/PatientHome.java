@@ -1,18 +1,33 @@
-/*
- * Created by JFormDesigner on Fri Nov 02 00:07:09 IST 2018
- */
+
 
 package UI.PatientHome;
 
+import UI.AdminLogin.AdminLogin;
+import UI.DoctorLogin.DoctorLogin;
+import UI.DoctorSelection.DoctorSelection;
+import UI.Homepage.Homepage;
+import UI.PatientDetails.PatientDetails;
+import UI.PatientLogin.PatientLogin;
+import UI.PatientRegistration.PatientRegistration;
+import UI.SearchDoctor.SearchDoctor;
+
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 /**
  * @author Alvin Dey
  */
-public class PatientHome extends JFrame {
-    public PatientHome() {
+public class PatientHome extends JFrame implements ActionListener {
+    String Pid;
+    public PatientHome(String Pid) {
+        this.Pid = Pid;
         initComponents();
+        button1.addActionListener(this);
+        button2.addActionListener(this);
+        button3.addActionListener(this);
+        button4.addActionListener(this);
     }
 
     private void initComponents() {
@@ -70,6 +85,46 @@ public class PatientHome extends JFrame {
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
+    }
+    public void actionPerformed(ActionEvent ae)
+    { 	String s=ae.getActionCommand();
+        if(s.equals("EDIT PROFILE"))
+        {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new PatientDetails(Pid).setVisible(true);
+                }
+            });
+            this.setVisible(false);
+        }
+        else if(s.equals("SEARCH DOCTOR"))
+        {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new SearchDoctor(Pid).setVisible(true);
+                }
+            });
+            this.setVisible(false);
+        }
+        else if(s.equals("SHS DOCTOR SELECTION"))
+        {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new DoctorSelection(Pid).setVisible(true);
+                }
+            });
+            this.setVisible(false);
+        }
+        else if(s.equals("LOGOUT"))
+        {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new Homepage().setVisible(true);
+                }
+            });
+            this.setVisible(false);
+        }
+
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables

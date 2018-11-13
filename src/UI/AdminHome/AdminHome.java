@@ -1,7 +1,3 @@
-/*
- * Created by JFormDesigner on Thu Nov 01 20:03:34 IST 2018
- */
-
 package UI.AdminHome;
 
 import javax.swing.table.TableModel;
@@ -29,9 +25,6 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 
-/**
- * @author Alvin Dey
- */
 public class AdminHome extends JFrame implements ActionListener{
     public AdminHome() {
         initComponents();

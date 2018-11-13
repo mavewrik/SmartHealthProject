@@ -7,11 +7,10 @@ package UI.DoctorSelection;
 import java.awt.*;
 import javax.swing.*;
 
-/**
- * @author Alvin Dey
- */
 public class DoctorSelection extends JFrame {
-    public DoctorSelection() {
+    String Pid ;
+    public DoctorSelection(String Pid) {
+        this.Pid = Pid;
         initComponents();
     }
 

@@ -225,7 +225,7 @@ public class DoctorRegistration extends javax.swing.JFrame implements ActionList
                     String address = jTextField5.getText();
                     String phonenumber = jTextField4.getText();
 
-                    AdminService.addDoctor(doctorName,"dfdggdg",Department,true,doctorSpecialization,doctorAge,address,phonenumber,gender,"root",designation,surgeon);
+                    //AdminService.addDoctor(doctorName,"dfdggdg",Department,true,doctorSpecialization,doctorAge,address,phonenumber,gender,"root",designation,surgeon);
                     new AdminHome().setVisible(true);
                 }
             });

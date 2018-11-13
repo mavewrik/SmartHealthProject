@@ -4,15 +4,26 @@
 
 package UI.SearchDoctor;
 
+import UI.BookAppointment.BookAppointment;
+import UI.DoctorSelection.DoctorSelection;
+import UI.Homepage.Homepage;
+import UI.PatientDetails.PatientDetails;
+import UI.PatientHome.PatientHome;
+import java.util.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
+import java.text.*;
 
-/**
- * @author Alvin Dey
- */
-public class SearchDoctor extends JFrame {
-    public SearchDoctor() {
+
+public class SearchDoctor extends JFrame implements ActionListener {
+    String Pid;
+    public SearchDoctor(String Pid) {
+        this.Pid = Pid;
         initComponents();
+        button1.addActionListener(this);
+        button2.addActionListener(this);
     }
 
     private void initComponents() {
@@ -59,7 +70,7 @@ public class SearchDoctor extends JFrame {
         button2.setText("BACK");
         contentPane.add(button2);
         button2.setBounds(115, 200, 83, button2.getPreferredSize().height);
-
+        comboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "OPHTHALMOLOGY", "NEUROLOGY", "ONCOLOGY", "PEDIATRICS", "CARDIOLOGY", "ENT", "GASTROENTEROLOGY", "GYNAECOLOGY", "ORTHOPAEDICS", "UROLOGY", "ANAESTHETICS", "IMMUNOLOGY", "DERMATOLOGY", "NEPHROLOGY", "PATHOLOGY", "PSYCHIATRY", "RADIOLOGY", "RHEUMATOLOGY" }));
         { // compute preferred size
             Dimension preferredSize = new Dimension();
             for(int i = 0; i < contentPane.getComponentCount(); i++) {
@@ -77,7 +88,40 @@ public class SearchDoctor extends JFrame {
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
+    public void actionPerformed(ActionEvent ae)
+    { 	String s=ae.getActionCommand();
+        if(s.equals("SEARCH"))
+        {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    String department = comboBox1.getSelectedItem().toString();
+                    String date = textField1.getText();
+                    Date d = new Date();
+                    DateFormat format = new SimpleDateFormat("dd/M/yyyy");
+                    try {
+                        d = format.parse(date);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    SimpleDateFormat df = new SimpleDateFormat("EEEE");
+                    String day = df.format(d);
+                    System.out.println(day);
+                    new BookAppointment(Pid).setVisible(true);
 
+                }
+            });
+            this.setVisible(false);
+        }
+        else if(s.equals("BACK"))
+        {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new PatientHome(Pid).setVisible(true);
+                }
+            });
+            this.setVisible(false);
+        }
+    }
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - Alvin Dey
     private JComboBox comboBox1;

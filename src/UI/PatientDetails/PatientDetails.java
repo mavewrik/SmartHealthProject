@@ -1,18 +1,19 @@
 package UI.PatientDetails;
 
 import java.awt.event.*;
+
+import DTO.Patient;
 import UI.*;
 import UI.Homepage.Homepage;
+import UI.PatientHome.PatientHome;
 
 import java.awt.*;
 import javax.swing.*;
 
 public class PatientDetails extends javax.swing.JFrame implements ActionListener{
-
-    /**
-     * Creates new form PatientRegistration
-     */
-    public PatientDetails() {
+    String Pid;
+    public PatientDetails(String Pid) {
+        this.Pid = Pid;
         initComponents();
         jButton1.addActionListener(this);
         jButton2.addActionListener(this);
@@ -65,11 +66,7 @@ public class PatientDetails extends javax.swing.JFrame implements ActionListener
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("NAME");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
+
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("AGE");
@@ -94,18 +91,9 @@ public class PatientDetails extends javax.swing.JFrame implements ActionListener
         jLabel8.setText("PASSWORD");
 
         jButton1.setText("UPDATE");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         jButton2.setText("BACK");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
+
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("TYPE");
@@ -211,36 +199,17 @@ public class PatientDetails extends javax.swing.JFrame implements ActionListener
         pack();
     }// </editor-fold>
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-        String patientName = jTextField1.getText();
-        String patientAge = jTextField2.getText();
-        String patientAddress = jTextArea1.getText();
-        String patientPhone = jTextField3.getText();
-        String patientEmail = jTextField4.getText();
-        String patientAilment = jTextField5.getText();
-        String patientPassword = String.valueOf(jPasswordField1.getPassword());
-        customFunction(patientName, patientAge, patientAddress, patientPhone, patientEmail, patientAilment, patientPassword);
-    }
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
 
-    private static void customFunction(String name, String age, String address, String phone, String email, String ailment, String password) {
-
-    }
     public void actionPerformed(ActionEvent ae)
     { 	String s=ae.getActionCommand();
         if(s.equals("BACK"))
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    new Homepage().setVisible(true);
+
+                    new PatientHome(Pid).setVisible(true);
                 }
             });
             this.setVisible(false);
@@ -249,7 +218,8 @@ public class PatientDetails extends javax.swing.JFrame implements ActionListener
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    new UI.PatientRegistration.PatientRegistration().setVisible(true);
+                    //String name =
+                    //Patient p = new Patient();
                 }
             });
             this.setVisible(false);

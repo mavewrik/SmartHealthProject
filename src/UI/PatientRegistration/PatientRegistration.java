@@ -96,18 +96,10 @@ public class PatientRegistration extends javax.swing.JFrame implements  ActionLi
         jLabel8.setText("PASSWORD");
 
         jButton1.setText("REGISTER");
-        /*jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });*/
+
 
         jButton2.setText("BACK");
-        /*jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });*/
+
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("TYPE");
@@ -213,19 +205,7 @@ public class PatientRegistration extends javax.swing.JFrame implements  ActionLi
         pack();
     }// </editor-fold>                        
 
-    /*private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }                                           
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
-
-        
-    }  */
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }                                        
 
     public void actionPerformed(ActionEvent ae)
     { 	String s=ae.getActionCommand();
@@ -251,7 +231,7 @@ public class PatientRegistration extends javax.swing.JFrame implements  ActionLi
                     String patientPassword = String.valueOf(jPasswordField1.getPassword());
                     String patientGender = "M";
 
-                    PatientService.regsiter(patientName, patientAge, patientAddress, patientPhone, patientEmail, patientAilment, patientPassword, patientGender);
+                    //PatientService.regsiter(patientName, patientAge, patientAddress, patientPhone, patientEmail, patientAilment, patientPassword, patientGender);
                     new Homepage().setVisible(true);
                 }
             });
