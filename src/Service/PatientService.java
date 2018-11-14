@@ -38,6 +38,10 @@ public class PatientService {
 		else
 			System.out.println("Failure");
 	}
+	public static Patient getPatientInfo(String patientId){
+		Patient patient = patientDAO.getPatientInfoById(patientId);
+		return patient;
+	}
 
 	public static void main(String args[])throws IOException{
 		PatientService.saveAppointment("1234","ALV123","10/12/2018");

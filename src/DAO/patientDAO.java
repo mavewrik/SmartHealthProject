@@ -322,6 +322,54 @@ public class patientDAO {
         return patient;
 
     }
+
+    public static Patient getPatientInfoById(String patientId) {
+
+        Patient patient = new Patient();
+
+        DatabaseConnectionClass databseConnectionClass = DatabaseConnectionClass.getInstance();
+
+        Connection conn = databseConnectionClass.getMySqlConnection("jdbc:mysql://localhost:3306/", "hospitalManagement", "root", "", "com.mysql.jdbc.Driver");
+
+        //Step 2. Now Use PreparedStatement class to pass SQL to create employee
+        String selectSQL = "SELECT * FROM patient where Id=? ";
+
+        PreparedStatement stmt = null; //will explain later
+
+        try {
+            stmt = conn.prepareStatement(selectSQL);
+            stmt.setString(1, patientId);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                patient.setId(rs.getString("Id"));
+                patient.setName(rs.getString("Name"));
+                patient.setGender(rs.getString("Gender"));
+                patient.setPhoneNumber(rs.getString("PhoneNumber"));
+                patient.setAddress(rs.getString("Address"));
+                patient.setPassword(rs.getString("Password"));
+                patient.setEmail(rs.getString("Email"));
+                patient.setAge(rs.getInt("Age"));
+                patient.setAilment(rs.getString("Ailment"));
+                patient.setHealthStatus(rs.getString("HealthStatus"));
+
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        } finally {
+            try {
+                conn.close(); //very important
+            } catch (SQLException ex1) {
+                return null;
+            }
+        }
+
+        return patient;
+
+    }
     
    /* public static void main(String args[])throws IOException{
     

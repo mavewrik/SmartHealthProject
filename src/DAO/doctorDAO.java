@@ -593,6 +593,171 @@ public class doctorDAO {
 
     }
 
+    public static ArrayList getDoctorInfoBySpecializationAndDay(String specialization,String day) {
+
+        Doctor doctor = new Doctor();
+
+        ArrayList listOfDoctor = new ArrayList();
+
+        DatabaseConnectionClass databseConnectionClass = DatabaseConnectionClass.getInstance();
+
+        Connection conn = databseConnectionClass.getMySqlConnection("jdbc:mysql://localhost:3306/", "hospitalManagement", "root", "", "com.mysql.jdbc.Driver");
+
+        //Step 2. Now Use PreparedStatement class to pass SQL to create employee
+        //SELECT id FROM doctor WHERE department = "opd" AND id IN (SELECT DoctorId FROM SCHEDULE WHERE DayOfAvailability = "Monday")
+        String selectSQL = "SELECT * FROM doctor where Specialization  = ? AND Id IN (SELECT DoctorId FROM schedule WHERE DayoFAvailability = ?)";
+
+        PreparedStatement stmt = null; //will explain later
+
+        try {
+            stmt = conn.prepareStatement(selectSQL);
+            stmt.setString(1, specialization);
+            stmt.setString(2, day);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                doctor.setId(rs.getString("Id"));
+                doctor.setName(rs.getString("Name"));
+                doctor.setGender(rs.getString("Gender"));
+                doctor.setPhoneNumber(rs.getString("PhoneNumber"));
+                doctor.setAddress(rs.getString("Address"));
+                doctor.setAge(rs.getInt("Age"));
+                doctor.setDepartment(rs.getString("Department"));
+                doctor.setSpecialization(rs.getString("Specialization"));
+                doctor.setHod(rs.getBoolean("Hod"));
+                doctor.setPassword(rs.getString("Password"));
+                doctor.setDesignation(rs.getString("Designation"));
+                doctor.setSurgeon(rs.getString("Surgeon"));
+
+                listOfDoctor.add(doctor);
+
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        } finally {
+            try {
+                conn.close(); //very important
+            } catch (SQLException ex1) {
+                return null;
+            }
+        }
+
+        return listOfDoctor;
+
+    }
+
+    public static ArrayList getDoctorInfoByNameAndDay(String name,String day) {
+
+        Doctor doctor = new Doctor();
+
+        ArrayList listOfDoctor = new ArrayList();
+
+        DatabaseConnectionClass databseConnectionClass = DatabaseConnectionClass.getInstance();
+
+        Connection conn = databseConnectionClass.getMySqlConnection("jdbc:mysql://localhost:3306/", "hospitalManagement", "root", "", "com.mysql.jdbc.Driver");
+
+        //Step 2. Now Use PreparedStatement class to pass SQL to create employee
+        //SELECT id FROM doctor WHERE department = "opd" AND id IN (SELECT DoctorId FROM SCHEDULE WHERE DayOfAvailability = "Monday")
+        String selectSQL = "SELECT * FROM doctor where Name  = ? AND Id IN (SELECT DoctorId FROM schedule WHERE DayoFAvailability = ?)";
+
+        PreparedStatement stmt = null; //will explain later
+
+        try {
+            stmt = conn.prepareStatement(selectSQL);
+            stmt.setString(1, name);
+            stmt.setString(2, day);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                doctor.setId(rs.getString("Id"));
+                doctor.setName(rs.getString("Name"));
+                doctor.setGender(rs.getString("Gender"));
+                doctor.setPhoneNumber(rs.getString("PhoneNumber"));
+                doctor.setAddress(rs.getString("Address"));
+                doctor.setAge(rs.getInt("Age"));
+                doctor.setDepartment(rs.getString("Department"));
+                doctor.setSpecialization(rs.getString("Specialization"));
+                doctor.setHod(rs.getBoolean("Hod"));
+                doctor.setPassword(rs.getString("Password"));
+                doctor.setDesignation(rs.getString("Designation"));
+                doctor.setSurgeon(rs.getString("Surgeon"));
+
+                listOfDoctor.add(doctor);
+
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        } finally {
+            try {
+                conn.close(); //very important
+            } catch (SQLException ex1) {
+                return null;
+            }
+        }
+
+        return listOfDoctor;
+
+    }
+
+    public static ArrayList getDoctorInfoByIdAndDay(String id,String day) {
+
+        Doctor doctor = new Doctor();
+
+        ArrayList listOfDoctor = new ArrayList();
+
+        DatabaseConnectionClass databseConnectionClass = DatabaseConnectionClass.getInstance();
+
+        Connection conn = databseConnectionClass.getMySqlConnection("jdbc:mysql://localhost:3306/", "hospitalManagement", "root", "", "com.mysql.jdbc.Driver");
+
+        //Step 2. Now Use PreparedStatement class to pass SQL to create employee
+        //SELECT id FROM doctor WHERE department = "opd" AND id IN (SELECT DoctorId FROM SCHEDULE WHERE DayOfAvailability = "Monday")
+        String selectSQL = "SELECT * FROM doctor where Id  = ? AND Id IN (SELECT DoctorId FROM schedule WHERE DayoFAvailability = ?)";
+
+        PreparedStatement stmt = null; //will explain later
+
+        try {
+            stmt = conn.prepareStatement(selectSQL);
+            stmt.setString(1, id);
+            stmt.setString(2, day);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                doctor.setId(rs.getString("Id"));
+                doctor.setName(rs.getString("Name"));
+                doctor.setGender(rs.getString("Gender"));
+                doctor.setPhoneNumber(rs.getString("PhoneNumber"));
+                doctor.setAddress(rs.getString("Address"));
+                doctor.setAge(rs.getInt("Age"));
+                doctor.setDepartment(rs.getString("Department"));
+                doctor.setSpecialization(rs.getString("Specialization"));
+                doctor.setHod(rs.getBoolean("Hod"));
+                doctor.setPassword(rs.getString("Password"));
+                doctor.setDesignation(rs.getString("Designation"));
+                doctor.setSurgeon(rs.getString("Surgeon"));
+
+                listOfDoctor.add(doctor);
+
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        } finally {
+            try {
+                conn.close(); //very important
+            } catch (SQLException ex1) {
+                return null;
+            }
+        }
+
+        return listOfDoctor;
+
+    }
+
     public static ArrayList getDoctorSchedule(String doctorId) {
 
         Doctor doctor = new Doctor();
@@ -635,6 +800,59 @@ public class doctorDAO {
         }
 
         return listOfDoctor;
+
+    }
+
+    public static ArrayList getAllPatients(String id) {
+
+        Doctor doctor = new Doctor();
+        ArrayList listOfPatient = new ArrayList();
+
+        DatabaseConnectionClass databseConnectionClass = DatabaseConnectionClass.getInstance();
+
+        Connection conn = databseConnectionClass.getMySqlConnection("jdbc:mysql://localhost:3306/", "hospitalManagement", "root", "", "com.mysql.jdbc.Driver");
+
+        //Step 2. Now Use PreparedStatement class to pass SQL to create employee
+        //SELECT id FROM doctor WHERE department = "opd" AND id IN (SELECT DoctorId FROM SCHEDULE WHERE DayOfAvailability = "Monday")
+        String selectSQL = "SELECT * FROM patient where Id IN (SELECT patientId FROM appointment WHERE doctorId = ?)";
+
+        PreparedStatement stmt = null; //will explain later
+
+        try {
+            stmt = conn.prepareStatement(selectSQL);
+            stmt.setString(1, id);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                Patient patient = new Patient();
+                patient.setId(rs.getString("Id"));
+                patient.setName(rs.getString("Name"));
+                patient.setGender(rs.getString("Gender"));
+                patient.setPhoneNumber(rs.getString("PhoneNumber"));
+                patient.setAddress(rs.getString("Address"));
+                patient.setPassword(rs.getString("Password"));
+                patient.setEmail(rs.getString("Email"));
+                patient.setAge(rs.getInt("Age"));
+                patient.setAilment(rs.getString("Ailment"));
+                patient.setHealthStatus(rs.getString("HealthStatus"));
+
+                listOfPatient.add(patient);
+
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        } finally {
+            try {
+                conn.close(); //very important
+            } catch (SQLException ex1) {
+                return null;
+            }
+        }
+
+        return listOfPatient;
 
     }
 
