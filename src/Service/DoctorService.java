@@ -3,7 +3,11 @@ package Service;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+
+import DAO.departmentDAO;
 import DAO.doctorDAO;
+import DAO.reassignmentDAO;
+import DTO.Department;
 import DTO.Doctor;
 import DTO.Patient;
 
@@ -38,11 +42,67 @@ public class DoctorService {
 			System.out.println(p.getName());
 		}
 	}
+
+	public static void reassignment(String patientId, String referringDoctorId, String referredDoctorId){
+		String id = "1234";
+		String status = "Pending";
+		Boolean val = reassignmentDAO.saveReassignmentInfo(id,patientId,referringDoctorId, referredDoctorId,status);
+		if(val)
+			System.out.println("success");
+		else
+			System.out.println("failure");
+	}
+
+	public static void isHod(String id){
+		Doctor doctor = doctorDAO.getDoctorInfoById(id);
+		Boolean result = false;
+		if(doctor.isHod())
+			result = true;
+	}
+
+	public static void isJuniorDoctor(String doctorId){
+		Doctor doctor = doctorDAO.getDoctorInfoById(doctorId);
+		Boolean result = false;
+		if (doctor.getDesignation().equals("Junior Doctor"))
+			result = true;
+		System.out.println(result);
+	}
+	public static void getAllDepartment(){
+		ArrayList<Department> departmentList = departmentDAO.getAllDepartment();
+	}
+
+	public static void getDepartmentByName(String name){
+		Department department = departmentDAO.getDepartmentByName(name);
+	}
+
+	public static void getDoctorInfo(String id){
+		Doctor doctor = doctorDAO.getDoctorInfoById(id);
+	}
+
+
+	public static void getDoctorsByDepartment(String departmentId){
+		//Doctor doctor = doctorDAO.getDoctorInfoById(doctorId);
+		ArrayList<Doctor> doctorList = new ArrayList<>();
+		ArrayList<Doctor> docList = doctorDAO.getDoctorInfoByDepartment(departmentId);
+		for(Doctor doc:docList){
+			if(doc.getDesignation().equals("Junior Doctor"))
+				continue;
+			else
+				doctorList.add(doc);
+		}
+		for(Doctor doc:doctorList){
+			System.out.println(doc.getName());
+		}
+	}
+
 	
 	public static void main(String args[])throws IOException{
 		DoctorService d = new DoctorService();
 		//d.getDoctorByDepartmentAndDay("opd","Monday");
-		DoctorService.getPatients("ALV123");
+		//DoctorService.getPatients("ALV123");
+		//DoctorService.isJuniorDoctor("WRK123");
+		//DoctorService.getDoctorsByDepartment("WRK123");
+		DoctorService.reassignment("1234","ALV123","WRK123");
 		//d.Login("ALV1263", "root");
 		//Doctor d1 = new Doctor("Alvin","ALV123","opd",false,"ENT",30,"Delhi","9748409298","M","root","Senior","JR Sureon");
 		//d.updateDoctorInfo(d1);

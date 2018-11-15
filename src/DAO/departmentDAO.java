@@ -3,7 +3,7 @@ package DAO;
 import Connection.DatabaseConnectionClass;
 import DTO.Department;
 import DTO.Patient;
-
+import java.util.ArrayList;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -56,6 +56,51 @@ public class departmentDAO {
 
     }
 
+    public static ArrayList getAllDepartment() {
+
+        //Department department = new Doctor();
+
+        ArrayList listOfDepartment = new ArrayList();
+
+        DatabaseConnectionClass databseConnectionClass = DatabaseConnectionClass.getInstance();
+
+        Connection conn = databseConnectionClass.getMySqlConnection("jdbc:mysql://localhost:3306/", "hospitalManagement", "root", "", "com.mysql.jdbc.Driver");
+
+        //Step 2. Now Use PreparedStatement class to pass SQL to create employee
+        String selectSQL = "SELECT * FROM department";
+
+        PreparedStatement stmt = null; //will explain later
+
+        try {
+            stmt = conn.prepareStatement(selectSQL);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Department department = new Department();
+                department.setId(rs.getString("Id"));
+                department.setName(rs.getString("Name"));
+                department.setHod(rs.getString("Hod"));
+
+
+                listOfDepartment.add(department);
+
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        } finally {
+            try {
+                conn.close(); //very important
+            } catch (SQLException ex1) {
+                return null;
+            }
+        }
+
+        return listOfDepartment;
+
+    }
+
     public static Department getDepartmentInfo(String Id) {
 
         Department department = new Department();
@@ -97,6 +142,49 @@ public class departmentDAO {
         return department;
 
     }
+    public static Department getDepartmentByName(String name) {
+
+        Department department = new Department();
+
+        DatabaseConnectionClass databseConnectionClass = DatabaseConnectionClass.getInstance();
+
+        Connection conn = databseConnectionClass.getMySqlConnection("jdbc:mysql://localhost:3306/", "hospitalManagement", "root", "", "com.mysql.jdbc.Driver");
+
+        //Step 2. Now Use PreparedStatement class to pass SQL to create employee
+        String selectSQL = "SELECT * FROM department where Name=? ";
+
+        PreparedStatement stmt = null; //will explain later
+
+        try {
+            stmt = conn.prepareStatement(selectSQL);
+            stmt.setString(1, name);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                department.setId(rs.getString("Id"));
+                department.setName(rs.getString("Name"));
+                department.setHod(rs.getString("Hod"));
+
+
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        } finally {
+            try {
+                conn.close(); //very important
+            } catch (SQLException ex1) {
+                return null;
+            }
+        }
+
+        return department;
+
+    }
+
+
 
     public static Department getDepartmentInfoByHod(String hod) {
 

@@ -43,6 +43,57 @@ public class PatientService {
 		return patient;
 	}
 
+	public static void getDoctorsByDepartment(String departmentId){
+		//Doctor doctor = doctorDAO.getDoctorInfoById(doctorId);
+		ArrayList<Doctor> doctorList = new ArrayList<>();
+		ArrayList<Doctor> docList = doctorDAO.getDoctorInfoByDepartment(departmentId);
+		for(Doctor doc:docList){
+			if(doc.getDesignation().equals("Junior Doctor"))
+				continue;
+			else
+				doctorList.add(doc);
+		}
+		for(Doctor doc:doctorList){
+			System.out.println(doc.getName());
+		}
+	}
+
+	public static void getDoctorById(String id){
+		Doctor doctor = doctorDAO.getDoctorInfoById(id);
+	}
+
+	public static void getDoctorsByName(String name){
+		ArrayList<Doctor> doctorList = doctorDAO.getDoctorInfoByName(name);
+	}
+
+	public static void getDoctorsByAddress(String address){
+		ArrayList<Doctor> doctorList = doctorDAO.getDoctorInfoByAddress(address);
+	}
+
+	public static void getDoctorsBySpecialization(String specialization){
+		ArrayList<Doctor> doctorList = doctorDAO.getDoctorInfoBySpecialization(specialization);
+	}
+
+	public static void getDoctorsByDepartmentAndDay(String department, String day){
+		ArrayList<Doctor> doctorList = doctorDAO.getDoctorInfoByDepartmentAndDay(department, day);
+	}
+
+	public static void getDoctorsByNameAndDay(String name, String day){
+		ArrayList<Doctor> doctorList = doctorDAO.getDoctorInfoByNameAndDay(name,day);
+	}
+
+	public static void getDoctorsBySpecializationAndDay(String specialization, String day){
+		ArrayList<Doctor> doctorList = doctorDAO.getDoctorInfoBySpecializationAndDay(specialization,day);
+	}
+
+	public static void getDoctorsByIdAndDay(String id, String day){
+		ArrayList<Doctor> doctorList = doctorDAO.getDoctorInfoByIdAndDay(id,day);
+	}
+
+	public static void getDoctorsByAddressAndDay(String address, String day){
+		ArrayList<Doctor> doctorList = doctorDAO.getDoctorInfoByAddressAndDay(address,day);
+	}
+
 	public static void main(String args[])throws IOException{
 		PatientService.saveAppointment("1234","ALV123","10/12/2018");
 	}

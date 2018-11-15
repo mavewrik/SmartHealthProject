@@ -1,13 +1,10 @@
 package Service;
+import DAO.*;
 import DTO.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import DAO.adminDAO;
-import DAO.doctorDAO;
-import DAO.patientDAO;
-import DAO.departmentDAO;
 public class AdminService {
 
     public static int adminLogin(String username, String password) {
@@ -59,13 +56,30 @@ public class AdminService {
         System.out.println(department.getName());
     }
 
+    public static void showAllReassignment(){
+        ArrayList<Reassignment> reassignmentList = reassignmentDAO.showAllReassignmentInfo();
+        for (Reassignment re: reassignmentList){
+            System.out.println(re.getId());
+        }
+    }
+
+    public static void updateReassignmentStatus(String id){
+        Boolean val = reassignmentDAO.updateReassignmentInfo(id);
+        if (val)
+            System.out.println("success");
+        else
+            System.out.println("failure");
+    }
+
 	
 	public static void main(String args[])throws IOException{
 		AdminService a = new AdminService();
+		//AdminService.showAllReassignment();
+        AdminService.updateReassignmentStatus("1234");
 		//a.showAllDoctor();
         //a.showAllPatient();
         //a.addDepartment("1234","ENT","ALV123");
-        a.getDepartmentByHod("ALV123");
+        //a.getDepartmentByHod("ALV123");
         //a.getDepartmentById("1234");
 		//a.adminLogin("root", "roo1t");
 		//a.addDoctor("Alvin","ALV123","opd",false,"ENT",25,"Delhi","9748409298","M","root");
