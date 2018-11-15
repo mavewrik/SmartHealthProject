@@ -4,6 +4,7 @@
 
 package UI.DoctorLogin;
 
+import UI.DoctorHome.DoctorHome;
 import UI.Homepage.Homepage;
 
 import java.awt.*;
@@ -107,7 +108,7 @@ public class DoctorLogin extends JFrame implements ActionListener {
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    //new PatientRegistration().setVisible(true);
+                    new DoctorHome(textField1.getText()).setVisible(true);
                 }
             });
             this.setVisible(false);

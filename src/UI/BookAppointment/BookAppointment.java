@@ -4,6 +4,7 @@
 
 package UI.BookAppointment;
 
+import Service.PatientService;
 import UI.AdminLogin.AdminLogin;
 import UI.DoctorLogin.DoctorLogin;
 import UI.PatientHome.PatientHome;
@@ -45,6 +46,8 @@ public class BookAppointment extends JFrame implements ActionListener {
         button2 = new JButton();
         textField1 = new JTextField();
         textField2 = new JTextField();
+        label4 = new JLabel();
+        textField3 = new JTextField();
 
         //======== this ========
         Container contentPane = getContentPane();
@@ -60,13 +63,13 @@ public class BookAppointment extends JFrame implements ActionListener {
         label2.setText("DOCTOR ID");
         label2.setHorizontalAlignment(SwingConstants.CENTER);
         contentPane.add(label2);
-        label2.setBounds(85, 80, 135, label2.getPreferredSize().height);
+        label2.setBounds(85, 70, 135, label2.getPreferredSize().height);
 
         //---- label3 ----
         label3.setText("APPOINTMENT SLOT");
         label3.setHorizontalAlignment(SwingConstants.CENTER);
         contentPane.add(label3);
-        label3.setBounds(70, 135, 165, label3.getPreferredSize().height);
+        label3.setBounds(70, 125, 165, label3.getPreferredSize().height);
 
         //---- button1 ----
         button1.setText("SUBMIT");
@@ -78,9 +81,17 @@ public class BookAppointment extends JFrame implements ActionListener {
         contentPane.add(button2);
         button2.setBounds(new Rectangle(new Point(115, 260), button2.getPreferredSize()));
         contentPane.add(textField1);
-        textField1.setBounds(260, 75, 135, textField1.getPreferredSize().height);
+        textField1.setBounds(260, 60, 135, textField1.getPreferredSize().height);
         contentPane.add(textField2);
-        textField2.setBounds(260, 130, 135, textField2.getPreferredSize().height);
+        textField2.setBounds(260, 115, 135, textField2.getPreferredSize().height);
+
+        //---- label4 ----
+        label4.setText("DATE");
+        label4.setHorizontalAlignment(SwingConstants.CENTER);
+        contentPane.add(label4);
+        label4.setBounds(120, 180, 63, label4.getPreferredSize().height);
+        contentPane.add(textField3);
+        textField3.setBounds(260, 170, 135, textField3.getPreferredSize().height);
 
         { // compute preferred size
             Dimension preferredSize = new Dimension();
@@ -105,7 +116,20 @@ public class BookAppointment extends JFrame implements ActionListener {
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-
+                    String Did = textField1.getText();
+                    String slot = textField2.getText();
+                    String date = textField3.getText();
+                    /*Date d = new Date();
+                    DateFormat format = new SimpleDateFormat("dd/M/yyyy");
+                    try {
+                        d = format.parse(date);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    SimpleDateFormat df = new SimpleDateFormat("EEEE");
+                    String day = df.format(d);*/
+                    new PatientService().saveAppointment(Pid,Did,date);
+                    new PatientHome(Pid).setVisible(true);
                 }
             });
             this.setVisible(false);
@@ -129,5 +153,7 @@ public class BookAppointment extends JFrame implements ActionListener {
     private JButton button2;
     private JTextField textField1;
     private JTextField textField2;
+    private JLabel label4;
+    private JTextField textField3;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

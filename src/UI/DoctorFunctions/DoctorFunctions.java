@@ -6,11 +6,14 @@
 package UI.DoctorFunctions;
 
 public class DoctorFunctions extends javax.swing.JFrame {
-
-    public DoctorFunctions() {
+    String Did;
+    public DoctorFunctions(String Did) {
+        this.Did = Did;
         initComponents();
     }
 
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
@@ -102,6 +105,7 @@ public class DoctorFunctions extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
