@@ -19,8 +19,6 @@ public class ReassignmentHome extends JFrame {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Alvin Dey
         label1 = new JLabel();
-        scrollPane1 = new JScrollPane();
-        table1 = new JTable();
         label2 = new JLabel();
         textField1 = new JTextField();
         button1 = new JButton();
@@ -36,29 +34,22 @@ public class ReassignmentHome extends JFrame {
         contentPane.add(label1);
         label1.setBounds(130, 10, 215, label1.getPreferredSize().height);
 
-        //======== scrollPane1 ========
-        {
-            scrollPane1.setViewportView(table1);
-        }
-        contentPane.add(scrollPane1);
-        scrollPane1.setBounds(15, 35, 440, 145);
-
         //---- label2 ----
         label2.setText("REASSIGNMENT ID");
         contentPane.add(label2);
-        label2.setBounds(55, 205, 135, 25);
+        label2.setBounds(65, 115, 135, 25);
         contentPane.add(textField1);
-        textField1.setBounds(245, 200, 150, textField1.getPreferredSize().height);
+        textField1.setBounds(250, 115, 150, textField1.getPreferredSize().height);
 
         //---- button1 ----
         button1.setText("BACK");
         contentPane.add(button1);
-        button1.setBounds(new Rectangle(new Point(100, 250), button1.getPreferredSize()));
+        button1.setBounds(new Rectangle(new Point(85, 245), button1.getPreferredSize()));
 
         //---- button2 ----
         button2.setText("AUTHORIZE");
         contentPane.add(button2);
-        button2.setBounds(new Rectangle(new Point(280, 250), button2.getPreferredSize()));
+        button2.setBounds(new Rectangle(new Point(270, 245), button2.getPreferredSize()));
 
         { // compute preferred size
             Dimension preferredSize = new Dimension();
@@ -81,8 +72,6 @@ public class ReassignmentHome extends JFrame {
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - Alvin Dey
     private JLabel label1;
-    private JScrollPane scrollPane1;
-    private JTable table1;
     private JLabel label2;
     private JTextField textField1;
     private JButton button1;

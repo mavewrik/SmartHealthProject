@@ -7,46 +7,46 @@ new FormModel {
 			name: "this"
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label1"
-				"text": "REASSIGNMENT HOME"
+				"text": "HOD HOMEPAGE"
 				"horizontalAlignment": 0
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 130
-				"y": 10
-				"width": 215
-			} )
-			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label2"
-				"text": "REASSIGNMENT ID"
-			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 65
-				"y": 115
+				"x": 160
+				"y": 5
 				"width": 135
-				"height": 25
-			} )
-			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "textField1"
-			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 250
-				"y": 115
-				"width": 150
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "button1"
-				"text": "BACK"
+				"text": "VIEW ASSIGNED LIST"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 85
-				"y": 245
+				"x": 35
+				"y": 80
+				"width": 170
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "button2"
-				"text": "AUTHORIZE"
+				"text": "EDIT PROFILE"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 270
-				"y": 245
+				"x": 260
+				"y": 80
+				"width": 160
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button3"
+				"text": "ADMINISTRATIVE REQUESTS"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 120
+				"y": 145
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button4"
+				"text": "LOGOUT"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 180
+				"y": 205
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 470, 340 )
+			"size": new java.awt.Dimension( 475, 340 )
 		} )
 	}
 }

@@ -31,9 +31,7 @@ public class SearchDoctor extends JFrame implements ActionListener {
         // Generated using JFormDesigner Evaluation license - Alvin Dey
         comboBox1 = new JComboBox();
         label1 = new JLabel();
-        label2 = new JLabel();
         label3 = new JLabel();
-        textField1 = new JTextField();
         button1 = new JButton();
         button2 = new JButton();
 
@@ -41,36 +39,30 @@ public class SearchDoctor extends JFrame implements ActionListener {
         Container contentPane = getContentPane();
         contentPane.setLayout(null);
         contentPane.add(comboBox1);
-        comboBox1.setBounds(250, 60, 195, comboBox1.getPreferredSize().height);
+        comboBox1.setBounds(235, 85, 195, comboBox1.getPreferredSize().height);
 
         //---- label1 ----
-        label1.setText("Department");
+        label1.setText("Search Criteria");
+        label1.setHorizontalAlignment(SwingConstants.CENTER);
         contentPane.add(label1);
-        label1.setBounds(55, 65, 160, label1.getPreferredSize().height);
-
-        //---- label2 ----
-        label2.setText("Date of Appointment");
-        contentPane.add(label2);
-        label2.setBounds(40, 110, 170, label2.getPreferredSize().height);
+        label1.setBounds(50, 90, 160, label1.getPreferredSize().height);
 
         //---- label3 ----
         label3.setText("DOCTOR SEARCH");
         label3.setHorizontalAlignment(SwingConstants.CENTER);
         contentPane.add(label3);
         label3.setBounds(170, 5, 150, label3.getPreferredSize().height);
-        contentPane.add(textField1);
-        textField1.setBounds(250, 105, 195, textField1.getPreferredSize().height);
 
         //---- button1 ----
         button1.setText("SEARCH");
         contentPane.add(button1);
-        button1.setBounds(new Rectangle(new Point(300, 200), button1.getPreferredSize()));
+        button1.setBounds(new Rectangle(new Point(280, 195), button1.getPreferredSize()));
 
         //---- button2 ----
         button2.setText("BACK");
         contentPane.add(button2);
-        button2.setBounds(115, 200, 83, button2.getPreferredSize().height);
-        comboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "OPHTHALMOLOGY", "NEUROLOGY", "ONCOLOGY", "PEDIATRICS", "CARDIOLOGY", "ENT", "GASTROENTEROLOGY", "GYNAECOLOGY", "ORTHOPAEDICS", "UROLOGY", "ANAESTHETICS", "IMMUNOLOGY", "DERMATOLOGY", "NEPHROLOGY", "PATHOLOGY", "PSYCHIATRY", "RADIOLOGY", "RHEUMATOLOGY" }));
+        button2.setBounds(105, 195, 83, button2.getPreferredSize().height);
+
         { // compute preferred size
             Dimension preferredSize = new Dimension();
             for(int i = 0; i < contentPane.getComponentCount(); i++) {
@@ -94,18 +86,7 @@ public class SearchDoctor extends JFrame implements ActionListener {
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    String department = comboBox1.getSelectedItem().toString();
-                    String date = textField1.getText();
-                    Date d = new Date();
-                    DateFormat format = new SimpleDateFormat("dd/M/yyyy");
-                    try {
-                        d = format.parse(date);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    SimpleDateFormat df = new SimpleDateFormat("EEEE");
-                    String day = df.format(d);
-                    System.out.println(day);
+                    String criteria = comboBox1.getSelectedItem().toString();
                     new BookAppointment(Pid).setVisible(true);
 
                 }
@@ -126,9 +107,7 @@ public class SearchDoctor extends JFrame implements ActionListener {
     // Generated using JFormDesigner Evaluation license - Alvin Dey
     private JComboBox comboBox1;
     private JLabel label1;
-    private JLabel label2;
     private JLabel label3;
-    private JTextField textField1;
     private JButton button1;
     private JButton button2;
     // JFormDesigner - End of variables declaration  //GEN-END:variables

@@ -3,21 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package UI.DoctorRegistration;
 
-import UI.AdminHome.AdminHome;
-import UI.DoctorLogin.DoctorLogin;
-import UI.PatientLogin.PatientLogin;
-import UI.PatientRegistration.PatientRegistration;
+import UI.AdminHome.*;
 import Service.AdminService;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 
+public class DoctorRegistration extends javax.swing.JFrame implements ActionListener {
 
-public class DoctorRegistration extends javax.swing.JFrame implements ActionListener{
     public DoctorRegistration() {
         initComponents();
         jButton1.addActionListener(this);
@@ -29,6 +23,8 @@ public class DoctorRegistration extends javax.swing.JFrame implements ActionList
             }
         });
     }
+
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -53,6 +49,8 @@ public class DoctorRegistration extends javax.swing.JFrame implements ActionList
         jTextField4 = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jComboBox5 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("DOCTOR REGISTRATION");
@@ -63,6 +61,8 @@ public class DoctorRegistration extends javax.swing.JFrame implements ActionList
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("NAME");
+
+
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel3.setText("AGE");
@@ -92,11 +92,16 @@ public class DoctorRegistration extends javax.swing.JFrame implements ActionList
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel8.setText("GENDER");
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "MALE", "FEMALE" }));
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MALE", "FEMALE" }));
+
 
         jLabel9.setText("PHONE NUMBER");
 
         jLabel10.setText("ADDRESS");
+
+        jLabel11.setText("HOD");
+
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "YES", "NO" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -130,11 +135,15 @@ public class DoctorRegistration extends javax.swing.JFrame implements ActionList
                                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                                         .addComponent(jTextField1)
                                                                         .addGroup(layout.createSequentialGroup()
-                                                                                .addComponent(jTextField2)
-                                                                                .addGap(47, 47, 47)
+                                                                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                .addGap(50, 50, 50)
                                                                                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                .addGap(28, 28, 28)
-                                                                                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                                                .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                                         .addGroup(layout.createSequentialGroup()
                                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                                         .addGroup(layout.createSequentialGroup()
@@ -179,7 +188,9 @@ public class DoctorRegistration extends javax.swing.JFrame implements ActionList
                                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -190,7 +201,7 @@ public class DoctorRegistration extends javax.swing.JFrame implements ActionList
                                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -209,6 +220,7 @@ public class DoctorRegistration extends javax.swing.JFrame implements ActionList
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
     public void actionPerformed(ActionEvent ae)
     { 	String s=ae.getActionCommand();
         if(s.equals("REGISTER"))
@@ -224,8 +236,13 @@ public class DoctorRegistration extends javax.swing.JFrame implements ActionList
                     String gender = jComboBox4.getSelectedItem().toString();
                     String address = jTextField5.getText();
                     String phonenumber = jTextField4.getText();
-
-                    //AdminService.addDoctor(doctorName,"dfdggdg",Department,true,doctorSpecialization,doctorAge,address,phonenumber,gender,"root",designation,surgeon);
+                    String hod = jComboBox5.getSelectedItem().toString();
+                    Boolean h ;
+                    if (hod == "TRUE")
+                        h = true;
+                    else
+                        h = false;
+                    AdminService.addDoctor(doctorName,"dfdggdg",Department,h,doctorSpecialization,doctorAge,address,phonenumber,gender,"root",designation,surgeon);
                     new AdminHome().setVisible(true);
                 }
             });
@@ -242,17 +259,16 @@ public class DoctorRegistration extends javax.swing.JFrame implements ActionList
         }
 
     }
-
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox4;
+    private javax.swing.JComboBox<String> jComboBox5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

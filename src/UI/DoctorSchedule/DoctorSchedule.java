@@ -1,13 +1,9 @@
-/*
- * Created by JFormDesigner on Fri Nov 02 13:44:26 IST 2018
- */
 
-package UI.DepartmentRegistration;
+package UI.DoctorSchedule;
 
-import Service.AdminService;
-import UI.AdminHome.AdminHome;
-import UI.DoctorDetails.DoctorDetails;
+import Service.PatientService;
 import UI.DoctorHome.DoctorHome;
+import UI.PatientHome.PatientHome;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,8 +12,10 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.*;
 
-public class DepartmentRegistration extends JFrame implements ActionListener {
-    public DepartmentRegistration() {
+public class DoctorSchedule extends JFrame implements ActionListener {
+    String Did;
+    public DoctorSchedule(String Did) {
+        this.Did = Did;
         initComponents();
         button1.addActionListener(this);
         button2.addActionListener(this);
@@ -27,53 +25,68 @@ public class DepartmentRegistration extends JFrame implements ActionListener {
                 System.exit(0);
             }
         });
-
     }
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Alvin Dey
         label1 = new JLabel();
-        label2 = new JLabel();
-        label3 = new JLabel();
-        textField1 = new JTextField();
-        textField2 = new JTextField();
         button1 = new JButton();
         button2 = new JButton();
+        label2 = new JLabel();
+        label3 = new JLabel();
+        label4 = new JLabel();
+        textField1 = new JTextField();
+        textField2 = new JTextField();
+        textField3 = new JTextField();
+        comboBox1 = new JComboBox();
+        comboBox2 = new JComboBox();
 
         //======== this ========
         Container contentPane = getContentPane();
         contentPane.setLayout(null);
 
         //---- label1 ----
-        label1.setText("DEPARTMENT REGISTRATION");
+        label1.setText("DOCTOR SCHEDULE");
         label1.setHorizontalAlignment(SwingConstants.CENTER);
         contentPane.add(label1);
-        label1.setBounds(135, 10, 215, label1.getPreferredSize().height);
-
-        //---- label2 ----
-        label2.setText("Department Name");
-        contentPane.add(label2);
-        label2.setBounds(75, 65, 140, label2.getPreferredSize().height);
-
-        //---- label3 ----
-        label3.setText("Designated HOD");
-        contentPane.add(label3);
-        label3.setBounds(75, 115, 130, label3.getPreferredSize().height);
-        contentPane.add(textField1);
-        textField1.setBounds(250, 65, 170, 25);
-        contentPane.add(textField2);
-        textField2.setBounds(250, 110, 170, 25);
+        label1.setBounds(170, 5, 160, label1.getPreferredSize().height);
 
         //---- button1 ----
         button1.setText("BACK");
         contentPane.add(button1);
-        button1.setBounds(new Rectangle(new Point(110, 200), button1.getPreferredSize()));
+        button1.setBounds(new Rectangle(new Point(130, 220), button1.getPreferredSize()));
 
         //---- button2 ----
         button2.setText("SUBMIT");
         contentPane.add(button2);
-        button2.setBounds(new Rectangle(new Point(270, 200), button2.getPreferredSize()));
+        button2.setBounds(new Rectangle(new Point(300, 220), button2.getPreferredSize()));
+
+        //---- label2 ----
+        label2.setText("DAY OF AVAILABILITY");
+        label2.setHorizontalAlignment(SwingConstants.CENTER);
+        contentPane.add(label2);
+        label2.setBounds(85, 55, 180, 20);
+
+        //---- label3 ----
+        label3.setText("IN TIME");
+        contentPane.add(label3);
+        label3.setBounds(145, 90, label3.getPreferredSize().width, 20);
+
+        //---- label4 ----
+        label4.setText("OUT TIME");
+        contentPane.add(label4);
+        label4.setBounds(140, 130, 75, label4.getPreferredSize().height);
+        contentPane.add(textField1);
+        textField1.setBounds(285, 50, 140, textField1.getPreferredSize().height);
+        contentPane.add(textField2);
+        textField2.setBounds(new Rectangle(new Point(290, 90), textField2.getPreferredSize()));
+        contentPane.add(textField3);
+        textField3.setBounds(new Rectangle(new Point(290, 125), textField3.getPreferredSize()));
+        contentPane.add(comboBox1);
+        comboBox1.setBounds(370, 90, 60, comboBox1.getPreferredSize().height);
+        contentPane.add(comboBox2);
+        comboBox2.setBounds(370, 130, 60, comboBox2.getPreferredSize().height);
 
         { // compute preferred size
             Dimension preferredSize = new Dimension();
@@ -98,7 +111,11 @@ public class DepartmentRegistration extends JFrame implements ActionListener {
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    new AdminService().addDepartment("sdd",textField1.getText(),textField2.getText());
+                    String Day = textField1.getText();
+                    String intime = textField2.getText()+comboBox1.getSelectedItem().toString();
+                    String date = textField3.getText()+comboBox2.getSelectedItem().toString();
+                    //new PatientService().saveAppointment(Pid,Did,date);
+                    new DoctorHome(Did).setVisible(true);
                 }
             });
             this.setVisible(false);
@@ -107,7 +124,7 @@ public class DepartmentRegistration extends JFrame implements ActionListener {
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    new AdminHome().setVisible(true);
+                    new DoctorHome(Did).setVisible(true);
                 }
             });
             this.setVisible(false);
@@ -116,11 +133,15 @@ public class DepartmentRegistration extends JFrame implements ActionListener {
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - Alvin Dey
     private JLabel label1;
-    private JLabel label2;
-    private JLabel label3;
-    private JTextField textField1;
-    private JTextField textField2;
     private JButton button1;
     private JButton button2;
+    private JLabel label2;
+    private JLabel label3;
+    private JLabel label4;
+    private JTextField textField1;
+    private JTextField textField2;
+    private JTextField textField3;
+    private JComboBox comboBox1;
+    private JComboBox comboBox2;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
