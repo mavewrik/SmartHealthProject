@@ -4,13 +4,10 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-import DAO.departmentDAO;
-import DAO.doctorDAO;
-import DAO.patientDAO;
-import DAO.reassignmentDAO;
-import DTO.Department;
-import DTO.Doctor;
-import DTO.Patient;
+import DAO.*;
+import DTO.*;
+
+import javax.print.Doc;
 
 public class DoctorService {
 	
@@ -30,18 +27,20 @@ public class DoctorService {
 		else
 			System.out.println("Update Failed");
 	}
-	public static void getDoctorByDepartmentAndDay(String department,String day){
+	public static ArrayList getDoctorByDepartmentAndDay(String department,String day){
 		ArrayList<Doctor> doctorList = doctorDAO.getDoctorInfoByDepartmentAndDay(department,day);
 		for(Doctor doc:doctorList){
 			System.out.println(doc.getName());
 		}
+		return doctorList;
 	}
 
-	public static void getPatients(String doctorId){
+	public static ArrayList getPatients(String doctorId){
 		ArrayList<Patient> patientList = doctorDAO.getAllPatients(doctorId);
 		for (Patient p: patientList){
 			System.out.println(p.getName());
 		}
+		return patientList;
 	}
 
 	public static void reassignment(String patientId, String referringDoctorId, String referredDoctorId){
@@ -58,34 +57,39 @@ public class DoctorService {
 			System.out.println("failure");
 	}
 
-	public static void isHod(String id){
+	public static Boolean isHod(String id){
 		Doctor doctor = doctorDAO.getDoctorInfoById(id);
 		Boolean result = false;
 		if(doctor.isHod())
 			result = true;
+		return result;
 	}
 
-	public static void isJuniorDoctor(String doctorId){
+	public static Boolean isJuniorDoctor(String doctorId){
 		Doctor doctor = doctorDAO.getDoctorInfoById(doctorId);
 		Boolean result = false;
 		if (doctor.getDesignation().equals("Junior Doctor"))
 			result = true;
 		System.out.println(result);
+		return result;
 	}
-	public static void getAllDepartment(){
+	public static ArrayList getAllDepartment(){
 		ArrayList<Department> departmentList = departmentDAO.getAllDepartment();
+		return departmentList;
 	}
 
-	public static void getDepartmentByName(String name){
+	public static Department getDepartmentByName(String name){
 		Department department = departmentDAO.getDepartmentByName(name);
+		return department;
 	}
 
-	public static void getDoctorInfo(String id){
+	public static Doctor getDoctorInfo(String id){
 		Doctor doctor = doctorDAO.getDoctorInfoById(id);
+		return doctor;
 	}
 
 
-	public static void getDoctorsByDepartment(String departmentId){
+	public static ArrayList getDoctorsByDepartment(String departmentId){
 		//Doctor doctor = doctorDAO.getDoctorInfoById(doctorId);
 		ArrayList<Doctor> doctorList = new ArrayList<>();
 		ArrayList<Doctor> docList = doctorDAO.getDoctorInfoByDepartment(departmentId);
@@ -98,6 +102,7 @@ public class DoctorService {
 		for(Doctor doc:doctorList){
 			System.out.println(doc.getName());
 		}
+		return doctorList;
 	}
 
 	public static void updateRequestToHod(String doctorId, String designation,String specialization,String surgeon){
@@ -106,6 +111,26 @@ public class DoctorService {
 		String id = "12";
 		String status = "pending";
 		Boolean val = doctorDAO.addRequestToHod(id,doctorId,department.getId(),designation,specialization,surgeon,status);
+	}
+
+	public static PatientLogs getPatientLogsByPatientId(String patientId){
+        PatientLogs patientLogs = doctorDAO.showAllPatientLogsByPatientId(patientId);
+        return patientLogs;
+    }
+
+    public static ArrayList getMedicineByPatientId(String patientId, String appointmentId){
+	    ArrayList<String> medicine = adminDAO.showAllMedicineByPatientId(patientId, appointmentId);
+	    return medicine;
+    }
+
+    public static ArrayList getTestByPatientId(String patientId, String appointmentId){
+	    ArrayList<String> test = adminDAO.showAllMedicineByPatientId(patientId, appointmentId);
+	    return test;
+    }
+
+    public static ArrayList getAppointmentByCompletedPatientId(String patientId){
+		ArrayList<Appointment> appointmentArrayList = doctorDAO.getAppointmentByCompletedPatientId(patientId, "completed");
+		return appointmentArrayList;
 	}
 
 	

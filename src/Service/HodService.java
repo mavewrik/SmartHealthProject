@@ -11,8 +11,8 @@ import java.util.ArrayList;
 
 public class HodService {
 
-    public static void updateDoctorRequest(String id){
-        Boolean val = hodDAO.updateDoctorRequest(id);
+    public static void updateDoctorRequestApproval(String id){
+        Boolean val = hodDAO.updateDoctorRequest(id,"Apprved");
         if(val) {
             UpdateDoctorRequest request = hodDAO.getDoctorRequestById(id);
             Doctor doctor = doctorDAO.getDoctorInfoById(request.getDoctorId());
@@ -28,16 +28,21 @@ public class HodService {
             Boolean value = doctorDAO.updateDoctorInfo(doctor);
         }
     }
-    public static void getAllRequest(String doctorId){
+
+    public static void updateDoctorRequestDenial(String id){
+        Boolean val = hodDAO.updateDoctorRequest(id, "Rejected");
+    }
+    public static ArrayList getAllRequest(String doctorId){
         Department department = departmentDAO.getDepartmentInfoByHod(doctorId);
         ArrayList<UpdateDoctorRequest> request = hodDAO.getDoctorRequestByDepartment(department.getId());
-        for(UpdateDoctorRequest d: request){
+        /*for(UpdateDoctorRequest d: request){
             System.out.println(d.getId());
-        }
+        }*/
+        return  request;
     }
 
     public static void main(String args[])throws IOException{
         //HodService.getAllRequest("ALV123");
-        HodService.updateDoctorRequest("12");
+        HodService.updateDoctorRequestApproval("12");
     }
 }

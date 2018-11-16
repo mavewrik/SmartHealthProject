@@ -13,6 +13,7 @@ public class Patient {
 	private String email;
 	private String healthStatus;
 	private String status;
+	private String type;
 	
 	public Patient() {
 		this.name = " ";
@@ -26,6 +27,7 @@ public class Patient {
 		this.ailment = " ";
 		this.healthStatus = " ";
 		this.status = " ";
+		this.type = " ";
 	}
 
 	public String getHealthStatus() {
@@ -44,7 +46,15 @@ public class Patient {
 		this.status = status;
 	}
 
-	public Patient(String name, String id, String gender, String phoneNumber, String address, int age, String ailment, String email, String password, String healthStatus, String status) {
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public Patient(String name, String id, String gender, String phoneNumber, String address, int age, String ailment, String email, String password, String healthStatus, String status, String type) {
 		
 		this.name = name;
 		this.Id = id;
@@ -57,6 +67,7 @@ public class Patient {
 		this.password = password;
 		this.healthStatus = healthStatus;
 		this.status = status;
+		this.type = type;
 	}
 
 	public int getAge() {

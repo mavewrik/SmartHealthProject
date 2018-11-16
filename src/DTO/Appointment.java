@@ -7,6 +7,7 @@ public class Appointment {
     private String date;
     private String status;
     private String slot;
+    private String rating;
 
     public Appointment(){
         this.id = " ";
@@ -15,6 +16,7 @@ public class Appointment {
         this.date = " ";
         this.status = " ";
         this.slot = " ";
+        this.rating = " ";
     }
 
     public String getId() {
@@ -33,13 +35,22 @@ public class Appointment {
         this.status = status;
     }
 
-    public Appointment(String id, String patientId, String doctorId, String date, String status, String slot){
+    public Appointment(String id, String patientId, String doctorId, String date, String status, String slot, String rating){
         this.id = id;
         this.patientId = patientId;
         this.doctorId = doctorId;
         this.date = date;
         this.status = status;
         this.slot = slot;
+        this.rating = rating;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
     }
 
     public String getSlot() {

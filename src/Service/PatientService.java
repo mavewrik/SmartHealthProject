@@ -13,8 +13,8 @@ import java.util.ArrayList;
 
 public class PatientService {
 	
-	public static void regsiter(String patientName,int patientAge, String patientAddress,String patientPhone,String patientEmail,String patientAilment,String patientPassword,String patientGender,String healthStatus) {
-		Patient patient = new Patient(patientName,patientName.substring(3),patientGender, patientPhone, patientAddress,patientAge,patientAilment,patientEmail,patientPassword,healthStatus, "Unassigned");
+	public static void regsiter(String patientName,int patientAge, String patientAddress,String patientPhone,String patientEmail,String patientAilment,String patientPassword,String patientGender,String healthStatus,String type) {
+		Patient patient = new Patient(patientName,patientName.substring(3),patientGender, patientPhone, patientAddress,patientAge,patientAilment,patientEmail,patientPassword,healthStatus, "Unassigned", type);
 		patientDAO.savePatientInfo(patient);
 	}
 	
@@ -36,7 +36,7 @@ public class PatientService {
 
 	public static void saveAppointment(String patientId,String doctorId,String date,String slot){
 		String id  = "12";
-		String status = "Upcoming";
+		String status = "upcoming";
 		Boolean val = patientDAO.saveAppointment(id,patientId,doctorId,date,slot,status);
 		if (val == true){
 			Patient patient = patientDAO.getPatientInfoById(patientId);
@@ -47,12 +47,14 @@ public class PatientService {
 			System.out.println("Failure");
 	}
 
-	public static void getAppointmentByPatientId(String patientId){
+	public static ArrayList getAppointmentByPatientId(String patientId){
 		ArrayList<Appointment> appointmentList = patientDAO.getAppointmentByPatientId(patientId);
+		return  appointmentList;
 	}
 
-	public static void getAppointmentById(String id){
+	public static Appointment getAppointmentById(String id){
 		Appointment appointment = patientDAO.getAppointmentById(id);
+		return appointment;
 	}
 
 	public static void cancelAppointment(String id){
@@ -64,7 +66,7 @@ public class PatientService {
 		return patient;
 	}
 
-	public static void getDoctorsByDepartmentForReassignment(String departmentId){
+	public static ArrayList getDoctorsByDepartmentForReassignment(String departmentId){
 		//Doctor doctor = doctorDAO.getDoctorInfoById(doctorId);
 		ArrayList<Doctor> doctorList = new ArrayList<>();
 		ArrayList<Doctor> docList = doctorDAO.getDoctorInfoByDepartment(departmentId);
@@ -77,66 +79,87 @@ public class PatientService {
 		for(Doctor doc:doctorList){
 			System.out.println(doc.getName());
 		}
+		return docList;
 	}
 
-	public static void getDoctorsByDepartment(String departmentId){
+	public static ArrayList getDoctorsByDepartment(String departmentId){
 		//Doctor doctor = doctorDAO.getDoctorInfoById(doctorId);
-		ArrayList<Doctor> doctorList = new ArrayList<>();
+		//ArrayList<Doctor> doctorList = new ArrayList<>();
 		ArrayList<Doctor> docList = doctorDAO.getDoctorInfoByDepartment(departmentId);
+		return docList;
 	}
 
-	public static void getDoctorById(String id){
+	public static Doctor getDoctorById(String id){
 		Doctor doctor = doctorDAO.getDoctorInfoById(id);
+		return doctor;
 	}
 
-	public static void getDoctorsByName(String name){
+	public static ArrayList getDoctorsByName(String name){
 		ArrayList<Doctor> doctorList = doctorDAO.getDoctorInfoByName(name);
+		return doctorList;
 	}
 
-	public static void getDoctorsByAddress(String address){
+	public static ArrayList getDoctorsByAddress(String address){
 		ArrayList<Doctor> doctorList = doctorDAO.getDoctorInfoByAddress(address);
+		return doctorList;
 	}
 
-	public static void getDoctorsBySpecialization(String specialization){
+	public static ArrayList getDoctorsBySpecialization(String specialization){
 		ArrayList<Doctor> doctorList = doctorDAO.getDoctorInfoBySpecialization(specialization);
+		return doctorList;
 	}
 
-	public static void getDoctorsByDepartmentAndDay(String department, String day){
+	public static ArrayList getDoctorsByDepartmentAndDay(String department, String day){
 		ArrayList<Doctor> doctorList = doctorDAO.getDoctorInfoByDepartmentAndDay(department, day);
+		return doctorList;
 	}
 
-	public static void getDoctorsByNameAndDay(String name, String day){
+	public static ArrayList getDoctorsByNameAndDay(String name, String day){
 		ArrayList<Doctor> doctorList = doctorDAO.getDoctorInfoByNameAndDay(name,day);
+		return doctorList;
 	}
 
-	public static void getDoctorsBySpecializationAndDay(String specialization, String day){
+	public static ArrayList getDoctorsBySpecializationAndDay(String specialization, String day){
 		ArrayList<Doctor> doctorList = doctorDAO.getDoctorInfoBySpecializationAndDay(specialization,day);
+		return doctorList;
 	}
 
-	public static void getDoctorsByIdAndDay(String id, String day){
+	public static ArrayList getDoctorsByIdAndDay(String id, String day){
 		ArrayList<Doctor> doctorList = doctorDAO.getDoctorInfoByIdAndDay(id,day);
+		return doctorList;
 	}
 
-	public static void getDoctorsByAddressAndDay(String address, String day){
+	public static ArrayList getDoctorsByAddressAndDay(String address, String day){
 		ArrayList<Doctor> doctorList = doctorDAO.getDoctorInfoByAddressAndDay(address,day);
+		return doctorList;
 	}
 
-	public static void getDoctorSchedule(String doctorId){
+	public static ArrayList getDoctorSchedule(String doctorId){
 		ArrayList<Schedule> scheduleList = doctorDAO.getDoctorSchedule(doctorId);
+		return scheduleList;
 	}
 
-	public static void getDoctorSlotByDate(String doctorId,String date){
+	public static ArrayList getDoctorSlotByDate(String doctorId,String date){
 		ArrayList<String> slots = patientDAO.getScheduleByDay(doctorId,date);
 		for(String s:slots){
 			System.out.println(s);
 		}
+		return  slots;
 	}
 
 	public  static void rateDoctor(String appointmentId, String rating){
 		Appointment appointment = patientDAO.getAppointmentById(appointmentId);
 		if(appointment.getStatus().equals("completed")) {
+			Boolean val = patientDAO.updateAppointmentRating(appointmentId, rating);
+			ArrayList<Appointment> appointmentList = doctorDAO.getAppointmentByDoctorId(appointment.getDoctorId(),"completed");
+			int count = appointmentList.size();
+			double totalRating =0.0;
+			for(Appointment app: appointmentList){
+				totalRating+=Double.parseDouble(app.getRating());
+			}
+			double netRating = totalRating/count;
 			Doctor doctor = doctorDAO.getDoctorInfoById(appointment.getDoctorId());
-			doctor.setRating(rating);
+			doctor.setRating(Double.toString(netRating));
 			doctorDAO.updateDoctorInfo(doctor);
 		}
 		else{

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class hodDAO {
 
-    public static boolean updateDoctorRequest(String id) {
+    public static boolean updateDoctorRequest(String id, String status) {
 
         DatabaseConnectionClass databseConnectionClass = DatabaseConnectionClass.getInstance();
 
@@ -32,7 +32,7 @@ public class hodDAO {
 
         try {
             stmt = conn.prepareStatement(insertSQL);
-            stmt.setString(1, "Approved");
+            stmt.setString(1,status);
             stmt.setString(2, id);
 
 
