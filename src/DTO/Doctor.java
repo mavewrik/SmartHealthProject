@@ -14,6 +14,7 @@ public class Doctor {
 	private String password;
 	private String designation;
 	private String surgeon;
+	private String rating;
 	//private Designation position;
 	//private Surgeon surgeon;
 	//private Schedule Schedule;
@@ -30,6 +31,7 @@ public class Doctor {
 		this.password = " ";
 		this.designation = " ";
 		this.surgeon = " ";
+		this.rating = " ";
 	}
 
 	public String getDesignation() {
@@ -48,7 +50,15 @@ public class Doctor {
 		this.surgeon = surgeon;
 	}
 
-	public Doctor(String name, String id, String department, boolean hod, String specialization, int age, String address, String phoneNumber, String gender, String password, String designation, String surgeon) {
+	public String getRating() {
+		return rating;
+	}
+
+	public void setRating(String rating) {
+		this.rating = rating;
+	}
+
+	public Doctor(String name, String id, String department, boolean hod, String specialization, int age, String address, String phoneNumber, String gender, String password, String designation, String surgeon, String rating) {
 				this.name = name;
 				this.id = id;
 				this.department = department;
@@ -61,6 +71,7 @@ public class Doctor {
 				this.password = password;
 				this.designation = designation;
 				this.surgeon = surgeon;
+				this.rating = rating;
 	}
 	
 	public String getPassword() {

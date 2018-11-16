@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import DAO.departmentDAO;
 import DAO.doctorDAO;
+import DAO.patientDAO;
 import DAO.reassignmentDAO;
 import DTO.Department;
 import DTO.Doctor;
@@ -47,8 +48,12 @@ public class DoctorService {
 		String id = "1234";
 		String status = "Pending";
 		Boolean val = reassignmentDAO.saveReassignmentInfo(id,patientId,referringDoctorId, referredDoctorId,status);
-		if(val)
+		if(val) {
+			Patient patient = patientDAO.getPatientInfoById(patientId);
+			patient.setStatus("Reassignment pending");
+			PatientService.updatePatientInfo(patient);
 			System.out.println("success");
+		}
 		else
 			System.out.println("failure");
 	}
@@ -95,14 +100,23 @@ public class DoctorService {
 		}
 	}
 
+	public static void updateRequestToHod(String doctorId, String designation,String specialization,String surgeon){
+		Doctor doc = doctorDAO.getDoctorInfoById(doctorId);
+		Department department = departmentDAO.getDepartmentByName(doc.getDepartment());
+		String id = "12";
+		String status = "pending";
+		Boolean val = doctorDAO.addRequestToHod(id,doctorId,department.getId(),designation,specialization,surgeon,status);
+	}
+
 	
 	public static void main(String args[])throws IOException{
 		DoctorService d = new DoctorService();
+		DoctorService.updateRequestToHod("WRK123","N.A","Dentist","N.A");
 		//d.getDoctorByDepartmentAndDay("opd","Monday");
 		//DoctorService.getPatients("ALV123");
 		//DoctorService.isJuniorDoctor("WRK123");
 		//DoctorService.getDoctorsByDepartment("WRK123");
-		DoctorService.reassignment("1234","ALV123","WRK123");
+		//DoctorService.reassignment("1234","ALV123","WRK123");
 		//d.Login("ALV1263", "root");
 		//Doctor d1 = new Doctor("Alvin","ALV123","opd",false,"ENT",30,"Delhi","9748409298","M","root","Senior","JR Sureon");
 		//d.updateDoctorInfo(d1);

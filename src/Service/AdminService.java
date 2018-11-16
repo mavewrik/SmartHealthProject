@@ -2,6 +2,7 @@ package Service;
 import DAO.*;
 import DTO.*;
 
+import java.awt.geom.PathIterator;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -17,7 +18,7 @@ public class AdminService {
     }
 
     public static void addDoctor(String name, String id, String department, boolean hod, String specialization, int age, String address, String phoneNumber, String gender, String password,String designation,String surgeon) {
-        Doctor doctor = new Doctor(name, id, department, hod, specialization, age, address, phoneNumber, gender, password,designation,surgeon);
+        Doctor doctor = new Doctor(name, id, department, hod, specialization, age, address, phoneNumber, gender, password,designation,surgeon,"0");
         doctorDAO.saveDoctorInfo(doctor);
     }
 
@@ -65,8 +66,12 @@ public class AdminService {
 
     public static void updateReassignmentStatus(String id){
         Boolean val = reassignmentDAO.updateReassignmentInfo(id);
-        if (val)
-            System.out.println("success");
+        if (val){
+            Reassignment reassignment = reassignmentDAO.getReassignmentById(id);
+            Patient patient = patientDAO.getPatientInfoById(reassignment.getPatientId());
+            patient.setStatus("Reassignment approved");
+            patientDAO.updatePatientInfo(patient);
+            System.out.println("success");}
         else
             System.out.println("failure");
     }
@@ -75,7 +80,7 @@ public class AdminService {
 	public static void main(String args[])throws IOException{
 		AdminService a = new AdminService();
 		//AdminService.showAllReassignment();
-        AdminService.updateReassignmentStatus("1234");
+        //AdminService.updateReassignmentStatus("1234");
 		//a.showAllDoctor();
         //a.showAllPatient();
         //a.addDepartment("1234","ENT","ALV123");

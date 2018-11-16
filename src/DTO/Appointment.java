@@ -1,20 +1,53 @@
 package DTO;
 
 public class Appointment {
+    private String id;
     private String patientId;
     private String doctorId;
     private String date;
+    private String status;
+    private String slot;
 
     public Appointment(){
+        this.id = " ";
         this.patientId = " ";
         this.doctorId = " ";
         this.date = " ";
+        this.status = " ";
+        this.slot = " ";
     }
 
-    public Appointment(String patientId,String doctorId,String date){
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Appointment(String id, String patientId, String doctorId, String date, String status, String slot){
+        this.id = id;
         this.patientId = patientId;
         this.doctorId = doctorId;
         this.date = date;
+        this.status = status;
+        this.slot = slot;
+    }
+
+    public String getSlot() {
+        return slot;
+    }
+
+    public void setSlot(String slot) {
+        this.slot = slot;
     }
 
     public String getPatientId() {

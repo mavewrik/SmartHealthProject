@@ -147,6 +147,47 @@ public class reassignmentDAO {
         return result;
 
     }
+    public static Reassignment getReassignmentById(String id) {
+
+        Reassignment reassignment = new Reassignment();
+
+        DatabaseConnectionClass databseConnectionClass = DatabaseConnectionClass.getInstance();
+
+        Connection conn = databseConnectionClass.getMySqlConnection("jdbc:mysql://localhost:3306/", "hospitalManagement", "root", "", "com.mysql.jdbc.Driver");
+
+        //Step 2. Now Use PreparedStatement class to pass SQL to create employee
+        String selectSQL = "SELECT * FROM reassignment where Id=?";
+
+        PreparedStatement stmt = null; //will explain later
+
+        try {
+            stmt = conn.prepareStatement(selectSQL);
+            stmt.setString(1, id);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                reassignment.setId(rs.getString("Id"));
+                reassignment.setPatientId(rs.getString("PatientId"));
+                reassignment.setReferringDoctorId(rs.getString("ReferringDoctor"));
+                reassignment.setReferredDoctorId(rs.getString("ReferredDoctor"));
+                reassignment.setStatus(rs.getString("Status"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        } finally {
+            try {
+                conn.close(); //very important
+            } catch (SQLException ex1) {
+                return null;
+            }
+        }
+
+        return reassignment;
+
+    }
 
 
 }

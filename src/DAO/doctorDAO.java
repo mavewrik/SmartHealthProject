@@ -179,7 +179,8 @@ public class doctorDAO {
                 + "Hod = ? ,"
                 + "password = ? ,"
                 + "Designation = ? ,"
-                + "Surgeon = ?"
+                + "Surgeon = ?, "
+                + "Rating = ?"
                 + "WHERE Id = ? ";
 
         PreparedStatement stmt = null; //will explain later
@@ -202,7 +203,8 @@ public class doctorDAO {
             stmt.setString(9, doctor.getPassword());
             stmt.setString(10, doctor.getDesignation());
             stmt.setString(11, doctor.getSurgeon());
-            stmt.setString(12, doctor.getId());
+            stmt.setString(12, doctor.getRating());
+            stmt.setString(13, doctor.getId());
 
             row = stmt.executeUpdate();
 
@@ -908,6 +910,54 @@ public class doctorDAO {
         }
 
         return listOfPatient;
+
+    }
+
+    public static boolean addRequestToHod(String id, String doctorId, String departmentId, String designation, String specialization, String surgeon, String status) {
+
+        boolean result = false;
+//We need a connection to DB. For this we will use a Singleton Class
+        //Step 1. create database connection
+        DatabaseConnectionClass databseConnectionClass = DatabaseConnectionClass.getInstance();
+
+        Connection conn = databseConnectionClass.getMySqlConnection("jdbc:mysql://localhost:3306/", "hospitalManagement", "root", "", "com.mysql.jdbc.Driver");
+
+        //Step 2. Now Use PreparedStatement class to pass SQL to create employee
+        String insertSQL = "INSERT INTO hodservices (Id, DoctorId, DepartmentId, Designation, Specialization, Surgeon, Status) VALUES (?, ?, ?, ?, ?, ?, ?);";
+
+        //PreparedStatement stmt = null; //will explain later
+        int row = 0;
+        //int noOfEmp = listOfEmployees.size();
+        if (conn == null) {
+            return false;
+        }
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(insertSQL);
+            stmt.setString(1, id);
+            stmt.setString(2, doctorId);
+            stmt.setString(3, departmentId);
+            stmt.setString(4, designation);
+            stmt.setString(5, specialization);
+            stmt.setString(6, surgeon);
+            stmt.setString(7, status);
+            row = stmt.executeUpdate();
+
+            if (row > 0) {
+                result = true;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            result = false;
+        } finally {
+            try {
+                conn.close(); //very important
+            } catch (SQLException ex) {
+                result = false;
+            }
+        }
+
+        return result;
 
     }
 

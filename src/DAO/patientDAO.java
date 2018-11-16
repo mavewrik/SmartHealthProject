@@ -1,5 +1,6 @@
 package DAO;
 
+import DTO.Appointment;
 import DTO.Patient;
 import Connection.DatabaseConnectionClass;
 
@@ -22,7 +23,7 @@ public class patientDAO {
         Connection conn = databseConnectionClass.getMySqlConnection("jdbc:mysql://localhost:3306/", "hospitalManagement", "root", "", "com.mysql.jdbc.Driver");
 
         //Step 2. Now Use PreparedStatement class to pass SQL to create employee
-        String insertSQL = "INSERT INTO patient (Name, Id, Gender, PhoneNumber, Address, Password, Ailment, Email, Age) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        String insertSQL = "INSERT INTO patient (Name, Id, Gender, PhoneNumber, Address, Password, Ailment, Email, Age, HealthStatus, Status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         //PreparedStatement stmt = null; //will explain later
         int row = 0;
@@ -43,6 +44,7 @@ public class patientDAO {
             stmt.setString(8, patient.getEmail());
             stmt.setInt(9, patient.getAge());
             stmt.setString(10, patient.getHealthStatus());
+            stmt.setString(11, "Unassigned");
             row = stmt.executeUpdate();
             
             if (row > 0) {
@@ -63,7 +65,7 @@ public class patientDAO {
 
     }
 
-    public static boolean saveAppointment(String patientId, String doctorId, String day) {
+    public static boolean saveAppointment(String id,String patientId, String doctorId, String day, String slot, String status) {
 
         boolean result = false;
 //We need a connection to DB. For this we will use a Singleton Class
@@ -73,7 +75,7 @@ public class patientDAO {
         Connection conn = databseConnectionClass.getMySqlConnection("jdbc:mysql://localhost:3306/", "hospitalManagement", "root", "", "com.mysql.jdbc.Driver");
 
         //Step 2. Now Use PreparedStatement class to pass SQL to create employee
-        String insertSQL = "INSERT INTO Appointment (patientId, doctorId, date) VALUES (?, ?, ?);";
+        String insertSQL = "INSERT INTO Appointment (id,patientId, doctorId, date, slot, status) VALUES (?, ?, ?, ?, ?, ?);";
 
         //PreparedStatement stmt = null; //will explain later
         int row = 0;
@@ -84,9 +86,12 @@ public class patientDAO {
 
         try {
             PreparedStatement stmt = conn.prepareStatement(insertSQL);
-            stmt.setString(1, patientId);
-            stmt.setString(2, doctorId);
-            stmt.setString(3, day);
+            stmt.setString(1, id);
+            stmt.setString(2, patientId);
+            stmt.setString(3, doctorId);
+            stmt.setString(4, day);
+            stmt.setString(5, slot);
+            stmt.setString(6, status);
             row = stmt.executeUpdate();
 
             if (row > 0) {
@@ -106,6 +111,180 @@ public class patientDAO {
         return result;
 
     }
+
+
+    public static ArrayList getAppointmentByPatientId(String patientid) {
+
+        ArrayList appointments = new ArrayList();
+
+        DatabaseConnectionClass databseConnectionClass = DatabaseConnectionClass.getInstance();
+
+        Connection conn = databseConnectionClass.getMySqlConnection("jdbc:mysql://localhost:3306/", "hospitalManagement", "root", "", "com.mysql.jdbc.Driver");
+
+        //Step 2. Now Use PreparedStatement class to pass SQL to create employee
+        String selectSQL = "SELECT * FROM appointment where patientId =? ";
+
+        PreparedStatement stmt = null; //will explain later
+
+        try {
+            stmt = conn.prepareStatement(selectSQL);
+            stmt.setString(1, patientid);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Appointment appointment = new Appointment();
+                appointment.setId(rs.getString("id"));
+                appointment.setPatientId(rs.getString("patientId"));
+                appointment.setDoctorId(rs.getString("doctorId"));
+                appointment.setDate(rs.getString("date"));
+                appointment.setSlot(rs.getString("slot"));
+                appointment.setStatus(rs.getString("status"));
+
+                appointments.add(appointment);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        } finally {
+            try {
+                conn.close(); //very important
+            } catch (SQLException ex1) {
+                return null;
+            }
+        }
+
+        return appointments;
+
+    }
+
+    public static Appointment getAppointmentById(String id) {
+
+        Appointment appointment = new Appointment();
+
+        DatabaseConnectionClass databseConnectionClass = DatabaseConnectionClass.getInstance();
+
+        Connection conn = databseConnectionClass.getMySqlConnection("jdbc:mysql://localhost:3306/", "hospitalManagement", "root", "", "com.mysql.jdbc.Driver");
+
+        //Step 2. Now Use PreparedStatement class to pass SQL to create employee
+        String selectSQL = "SELECT * FROM appointment where id =? ";
+
+        PreparedStatement stmt = null; //will explain later
+
+        try {
+            stmt = conn.prepareStatement(selectSQL);
+            stmt.setString(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                appointment.setId(rs.getString("id"));
+                appointment.setPatientId(rs.getString("patientId"));
+                appointment.setDoctorId(rs.getString("doctorId"));
+                appointment.setDate(rs.getString("date"));
+                appointment.setSlot(rs.getString("slot"));
+                appointment.setStatus(rs.getString("status"));
+
+
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        } finally {
+            try {
+                conn.close(); //very important
+            } catch (SQLException ex1) {
+                return null;
+            }
+        }
+
+        return appointment;
+
+    }
+
+
+    public static ArrayList getScheduleByDay(String doctorId, String day) {
+
+        ArrayList slots = new ArrayList();
+
+        DatabaseConnectionClass databseConnectionClass = DatabaseConnectionClass.getInstance();
+
+        Connection conn = databseConnectionClass.getMySqlConnection("jdbc:mysql://localhost:3306/", "hospitalManagement", "root", "", "com.mysql.jdbc.Driver");
+
+        //Step 2. Now Use PreparedStatement class to pass SQL to create employee
+        String selectSQL = "SELECT slot FROM appointment where doctorId = ? and date = ?";
+
+        PreparedStatement stmt = null; //will explain later
+
+        try {
+            stmt = conn.prepareStatement(selectSQL);
+            stmt.setString(1, doctorId);
+            stmt.setString(2, day);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String slot = " ";
+                slot = rs.getString("slot");
+                slots.add(slot);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        } finally {
+            try {
+                conn.close(); //very important
+            } catch (SQLException ex1) {
+                return null;
+            }
+        }
+
+        return slots;
+
+    }
+
+    public static boolean cancelAppointment(String id) {
+
+        DatabaseConnectionClass databseConnectionClass = DatabaseConnectionClass.getInstance();
+
+        boolean result = true;
+
+        Connection conn = databseConnectionClass.getMySqlConnection("jdbc:mysql://localhost:3306/", "hospitalManagement", "root", "", "com.mysql.jdbc.Driver");
+
+        //Step 2. Now Use PreparedStatement class to pass SQL to create employee
+        String insertSQL = "UPDATE appointment SET status = ?  "
+                + "WHERE Id = ? ";
+
+        PreparedStatement stmt = null; //will explain later
+        int row = 0;
+
+        if (conn == null) {
+            return false;
+        }
+
+        try {
+            stmt = conn.prepareStatement(insertSQL);
+            stmt.setString(1, "cancelled");
+            stmt.setString(2, id);
+            row = stmt.executeUpdate();
+
+            if (row > 0) {
+                result = true;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            result = false;
+        } finally {
+            try {
+                conn.close(); //very important
+            } catch (SQLException ex) {
+                result = false;
+            }
+        }
+
+        return result;
+
+    }
+
+
     
     public static boolean updatePatientInfo(Patient patient) {
 
@@ -123,6 +302,7 @@ public class patientDAO {
         		+ "Age = ? ,"
                 + "Password = ? ,"
                 + "Ailment = ? ,"
+                + "HealthStatus = ? ,"
                 + "Email = ? "
                 + "WHERE Id = ? ";
 
@@ -256,7 +436,7 @@ public class patientDAO {
                 patient.setAge(rs.getInt("Age"));
                 patient.setAilment(rs.getString("Ailment"));
                 patient.setHealthStatus(rs.getString("HealthStatus"));
-
+                patient.setStatus(rs.getString("Status"));
                 listOfPatient.add(patient);
             }
         } catch (SQLException ex) {
@@ -306,7 +486,7 @@ public class patientDAO {
                 patient.setAge(rs.getInt("Age"));
                 patient.setAilment(rs.getString("Ailment"));
                 patient.setHealthStatus(rs.getString("HealthStatus"));
-
+                patient.setStatus(rs.getString("Status"));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -354,7 +534,7 @@ public class patientDAO {
                 patient.setAge(rs.getInt("Age"));
                 patient.setAilment(rs.getString("Ailment"));
                 patient.setHealthStatus(rs.getString("HealthStatus"));
-
+                patient.setStatus(rs.getString("Status"));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -370,6 +550,8 @@ public class patientDAO {
         return patient;
 
     }
+
+
     
    /* public static void main(String args[])throws IOException{
     

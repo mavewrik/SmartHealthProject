@@ -12,6 +12,7 @@ public class Patient {
 	private String ailment;
 	private String email;
 	private String healthStatus;
+	private String status;
 	
 	public Patient() {
 		this.name = " ";
@@ -24,6 +25,7 @@ public class Patient {
 		this.email = " ";
 		this.ailment = " ";
 		this.healthStatus = " ";
+		this.status = " ";
 	}
 
 	public String getHealthStatus() {
@@ -34,7 +36,15 @@ public class Patient {
 		this.healthStatus = healthStatus;
 	}
 
-	public Patient(String name, String id, String gender, String phoneNumber, String address, int age, String ailment, String email, String password, String healthStatus) {
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Patient(String name, String id, String gender, String phoneNumber, String address, int age, String ailment, String email, String password, String healthStatus, String status) {
 		
 		this.name = name;
 		this.Id = id;
@@ -46,6 +56,7 @@ public class Patient {
 		this.email = email;
 		this.password = password;
 		this.healthStatus = healthStatus;
+		this.status = status;
 	}
 
 	public int getAge() {
