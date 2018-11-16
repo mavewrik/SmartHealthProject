@@ -1003,7 +1003,7 @@ public class doctorDAO {
 
     }
 
-    public static PatientLogs showAllPatientLogsByPatientId(String patientId) {
+    public static PatientLogs showAllPatientLogsByPatientId(String patientId, String appointmentId) {
 
         PatientLogs patientlogs = new PatientLogs();
         DatabaseConnectionClass databseConnectionClass = DatabaseConnectionClass.getInstance();
@@ -1011,13 +1011,14 @@ public class doctorDAO {
         Connection conn = databseConnectionClass.getMySqlConnection("jdbc:mysql://localhost:3306/", "hospitalManagement", "root", "", "com.mysql.jdbc.Driver");
 
         //Step 2. Now Use PreparedStatement class to pass SQL to create employee
-        String selectSQL = "SELECT * FROM patientlogs where PatientId = ?";
+        String selectSQL = "SELECT * FROM patientlogs where PatientId = ? and AppointmentId = ?";
 
         PreparedStatement stmt = null; //will explain later
 
         try {
             stmt = conn.prepareStatement(selectSQL);
             stmt.setString(1, patientId);
+            stmt.setString(2, appointmentId);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {

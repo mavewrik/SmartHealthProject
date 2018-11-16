@@ -113,8 +113,8 @@ public class DoctorService {
 		Boolean val = doctorDAO.addRequestToHod(id,doctorId,department.getId(),designation,specialization,surgeon,status);
 	}
 
-	public static PatientLogs getPatientLogsByPatientId(String patientId){
-        PatientLogs patientLogs = doctorDAO.showAllPatientLogsByPatientId(patientId);
+	public static PatientLogs getPatientLogsByPatientId(String patientId, String appointmentId){
+        PatientLogs patientLogs = doctorDAO.showAllPatientLogsByPatientId(patientId, appointmentId);
         return patientLogs;
     }
 
