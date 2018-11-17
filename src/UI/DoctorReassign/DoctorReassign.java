@@ -5,14 +5,37 @@
  */
 package UI.DoctorReassign;
 
-public class DoctorReassign extends javax.swing.JFrame {
+import DTO.Department;
+import DTO.Doctor;
+import DTO.Patient;
+import Service.DoctorService;
+import Service.PatientService;
+import UI.DoctorFunctions.DoctorFunctions;
+import UI.DoctorProfile.DoctorProfile;
+import UI.Homepage.Homepage;
 
-    public DoctorReassign() {
+import javax.print.Doc;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.ArrayList;
+
+public class DoctorReassign extends javax.swing.JFrame implements ActionListener {
+    String Did;
+    String Pid;
+    public DoctorReassign(String Did,String Pid) {
+        this.Did = Did;
+        this.Pid = Pid;
         initComponents();
+        jButton3.addActionListener(this);
+        jButton4.addActionListener(this);
     }
 
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
@@ -33,9 +56,29 @@ public class DoctorReassign extends javax.swing.JFrame {
         jButton3.setText("BACK");
 
         jButton4.setText("SUBMIT");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "OPHTHALMOLOGY", "NEUROLOGY", "ONCOLOGY", "PEDIATRICS", "CARDIOLOGY", "ENT", "GASTROENTEROLOGY", "GYNAECOLOGY", "ORTHOPAEDICS", "UROLOGY", "ANAESTHETICS", "IMMUNOLOGY", "DERMATOLOGY", "NEPHROLOGY", "PATHOLOGY", "PSYCHIATRY", "RADIOLOGY", "RHEUMATOLOGY" }));
-
+        if(new DoctorService().isJuniorDoctor(Did)==true) {
+            Doctor p = new DoctorService().getDoctorInfo(Did);
+            jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{p.getDepartment()}));
+        }
+        else
+        {
+            jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "OPHTHALMOLOGY", "NEUROLOGY", "ONCOLOGY", "PEDIATRICS", "CARDIOLOGY", "ENT", "GASTROENTEROLOGY", "GYNAECOLOGY", "ORTHOPAEDICS", "UROLOGY", "ANAESTHETICS", "IMMUNOLOGY", "DERMATOLOGY", "NEPHROLOGY", "PATHOLOGY", "PSYCHIATRY", "RADIOLOGY", "RHEUMATOLOGY" }));
+        }
+        jComboBox1.addItemListener(new ItemListener(){
+            public void itemStateChanged(ItemEvent e){
+                if(e.getStateChange()==ItemEvent.SELECTED){
+                    Department d = new DoctorService().getDepartmentByName(jComboBox1.getSelectedItem().toString());
+                    ArrayList<Doctor> a = new PatientService().getDoctorsByDepartment(d.getId());
+                    String[] id = new String[a.size()];
+                    int i = 0;
+                    for(Doctor doc : a)
+                    {
+                        id[i++] = doc.getId();
+                    }
+                    jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(id));
+                }
+            }
+        });
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("DEPARTMENT");
 
@@ -88,7 +131,28 @@ public class DoctorReassign extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
+    public void actionPerformed(ActionEvent ae)
+    { 	String s=ae.getActionCommand();
+        if(s.equals("SUBMIT"))
+        {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new DoctorService().reassignment(Pid,Did,jComboBox2.getSelectedItem().toString());
+                }
+            });
+            this.setVisible(false);
+        }
+        else if(s.equals("BACK"))
+        {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new DoctorFunctions(Did).setVisible(true);
+                }
+            });
+            this.setVisible(false);
+        }
+    }
 
 
 

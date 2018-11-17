@@ -4,15 +4,23 @@
 
 package UI.ReassignmentHome;
 
+import DTO.Doctor;
+import Service.AdminService;
+import UI.AdminHome.AdminHome;
+import UI.Homepage.Homepage;
+
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
-/**
- * @author Alvin Dey
- */
-public class ReassignmentHome extends JFrame {
+public class ReassignmentHome extends JFrame implements ActionListener {
+
     public ReassignmentHome() {
+
         initComponents();
+        button1.addActionListener(this);
+        button2.addActionListener(this);
     }
 
     private void initComponents() {
@@ -67,6 +75,26 @@ public class ReassignmentHome extends JFrame {
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
+    }
+    public void actionPerformed(ActionEvent ae)
+    { 	String s=ae.getActionCommand();
+        if(s.equals("BACK"))
+        {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new AdminHome().setVisible(true);
+                }
+            });
+            this.setVisible(false);
+        }
+        else if(s.equals("AUTHORIZE"))
+        {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new AdminService().updateReassignmentStatus(textField1.getText());
+                }
+            });
+        }
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables

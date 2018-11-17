@@ -5,9 +5,13 @@
 package UI.HODHome;
 
 import DTO.Patient;
+import DTO.UpdateDoctorRequest;
 import Service.DoctorService;
+import Service.HodService;
 import UI.DoctorFunctions.DoctorFunctions;
 import UI.DoctorProfile.DoctorProfile;
+import UI.HODProfile.HODProfile;
+import UI.HODRequests.HODRequests;
 import UI.Homepage.Homepage;
 
 import java.awt.*;
@@ -57,7 +61,7 @@ public class HODHome extends JFrame implements ActionListener {
         //---- button1 ----
         button1.setText("VIEW ASSIGNED LIST");
         contentPane.add(button1);
-        button1.setBounds(35, 80, 170, button1.getPreferredSize().height);
+        button1.setBounds(30, 80, 170, button1.getPreferredSize().height);
 
         //---- button2 ----
         button2.setText("EDIT PROFILE");
@@ -130,7 +134,7 @@ public class HODHome extends JFrame implements ActionListener {
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    new DoctorProfile(Did).setVisible(true);
+                    new HODProfile(Did).setVisible(true);
                 }
             });
             this.setVisible(false);
@@ -139,7 +143,30 @@ public class HODHome extends JFrame implements ActionListener {
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    new DoctorProfile(Did).setVisible(true);
+                    Object columnNames[] = { "Reassignment Id","Department ID","Doctor ID","Designation","Specialization","Surgeon","Status"};
+                    Object[][] data = {};
+                    DefaultTableModel dm = new DefaultTableModel(data, columnNames);
+                    JTable table = new JTable(dm);
+                    JFrame frame = new JFrame();
+                    frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                    JScrollPane scrollPane = new JScrollPane(table);
+                    frame.add(scrollPane, BorderLayout.CENTER);
+                    frame.setSize(300, 150);
+                    frame.setVisible(true);
+                    DefaultTableModel model = (DefaultTableModel) table.getModel();
+                    ArrayList<UpdateDoctorRequest> result = new HodService().getAllRequest(Did);
+                    for (UpdateDoctorRequest p : result) {
+                        String d1, d2, d3,d4 , d5,d6,d7;
+                        d1 = p.getId();
+                        d2 = p.getDepartmentId();
+                        d3 = p.getDoctorId();
+                        d4 = p.getDesignation();
+                        d5 = p.getSpecialization();
+                        d6 = p.getSurgeon();
+                        d7 = p.getStatus();
+                        model.addRow(new Object[]{d1,d2,d3,d4,d5,d6,d7});
+                    }
+                    new HODRequests(Did).setVisible(true);
                 }
             });
             this.setVisible(false);
@@ -154,6 +181,8 @@ public class HODHome extends JFrame implements ActionListener {
             this.setVisible(false);
         }
     }
+    // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
+    // Generated using JFormDesigner Evaluation license - Alvin Dey
     private JLabel label1;
     private JButton button1;
     private JButton button2;

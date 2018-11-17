@@ -100,10 +100,6 @@ public class AdminLogin extends javax.swing.JFrame implements ActionListener{
         pack();
     }// </editor-fold>
 
-    
-    private static void customFunction(String password) {
-        
-    }
     public void actionPerformed(ActionEvent ae)
     { 	String s=ae.getActionCommand();
         if(s.equals("BACK"))

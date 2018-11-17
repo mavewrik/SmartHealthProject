@@ -4,14 +4,31 @@
 
 package UI.DoctorSelection;
 
+import Service.AdminService;
+import UI.DoctorHome.DoctorHome;
+import UI.PatientHome.PatientHome;
+import java.util.*;
+import java.text.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.*;
 
-public class DoctorSelection extends JFrame {
+public class DoctorSelection extends JFrame implements ActionListener {
     String Pid ;
     public DoctorSelection(String Pid) {
         this.Pid = Pid;
         initComponents();
+        button1.addActionListener(this);
+        button2.addActionListener(this);
+        addWindowListener(new WindowAdapter(){
+            public void windowClosing(WindowEvent we)
+            {
+                System.exit(0);
+            }
+        });
     }
 
     private void initComponents() {
@@ -23,9 +40,9 @@ public class DoctorSelection extends JFrame {
         label4 = new JLabel();
         button1 = new JButton();
         textField1 = new JTextField();
-        comboBox1 = new JComboBox();
         comboBox2 = new JComboBox();
         button2 = new JButton();
+        textField2 = new JTextField();
 
         //======== this ========
         Container contentPane = getContentPane();
@@ -58,8 +75,6 @@ public class DoctorSelection extends JFrame {
         button1.setBounds(new Rectangle(new Point(275, 215), button1.getPreferredSize()));
         contentPane.add(textField1);
         textField1.setBounds(225, 100, 200, textField1.getPreferredSize().height);
-        contentPane.add(comboBox1);
-        comboBox1.setBounds(225, 140, 195, comboBox1.getPreferredSize().height);
         contentPane.add(comboBox2);
         comboBox2.setBounds(225, 60, 195, comboBox2.getPreferredSize().height);
 
@@ -67,6 +82,8 @@ public class DoctorSelection extends JFrame {
         button2.setText("BACK");
         contentPane.add(button2);
         button2.setBounds(new Rectangle(new Point(80, 215), button2.getPreferredSize()));
+        contentPane.add(textField2);
+        textField2.setBounds(225, 140, 200, textField2.getPreferredSize().height);
 
         { // compute preferred size
             Dimension preferredSize = new Dimension();
@@ -85,6 +102,39 @@ public class DoctorSelection extends JFrame {
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
+    public void actionPerformed(ActionEvent ae)
+    { 	String s=ae.getActionCommand();
+        if(s.equals("SUBMIT"))
+        {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    String department = comboBox2.getSelectedItem().toString();
+                    String date = textField1.getText();
+                    String slot = textField2.getText();
+                    Date d = new Date();
+                    DateFormat format = new SimpleDateFormat("dd/M/yyyy");
+                    try {
+                        d = format.parse(textField1.getText());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    SimpleDateFormat df = new SimpleDateFormat("EEEE");
+                    String day = df.format(d);
+                    new AdminService().allocateDoctor(Pid,department,date,day,slot);
+                }
+            });
+            this.setVisible(false);
+        }
+        else if(s.equals("BACK"))
+        {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new PatientHome(Pid).setVisible(true);
+                }
+            });
+            this.setVisible(false);
+        }
+    }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - Alvin Dey
@@ -94,8 +144,8 @@ public class DoctorSelection extends JFrame {
     private JLabel label4;
     private JButton button1;
     private JTextField textField1;
-    private JComboBox comboBox1;
     private JComboBox comboBox2;
     private JButton button2;
+    private JTextField textField2;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

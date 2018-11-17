@@ -234,7 +234,7 @@ public class PatientDetails extends javax.swing.JFrame implements ActionListener
                     String patientAilment = jTextField5.getText();
                     String patientPassword = String.valueOf(jPasswordField1.getPassword());
                     String patientGender = temp.getGender();
-                    Patient p = new Patient(patientName,Pid,patientGender,patientPhone,patientAddress,patientAge,patientAilment,patientEmail,patientPassword,temp.getHealthStatus());
+                    Patient p = new Patient(patientName,Pid,patientGender,patientPhone,patientAddress,patientAge,patientAilment,patientEmail,patientPassword,temp.getHealthStatus(),temp.getStatus(),temp.getType());
                     new PatientService().updatePatientInfo(p);
                 }
             });

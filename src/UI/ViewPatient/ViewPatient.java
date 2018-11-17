@@ -6,13 +6,27 @@ package UI.ViewPatient;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.*;
+import java.util.ArrayList;
 
-/**
- * @author Alvin Dey
- */
-public class ViewPatient extends JFrame {
+import DTO.Appointment;
+import DTO.Patient;
+import Service.AdminService;
+import Service.PatientService;
+import UI.AdminHome.AdminHome;
+import UI.Homepage.*;
+import UI.LocalLogs.LocalLogs;
+import UI.OPDLogs.OPDLogs;
+
+
+public class ViewPatient extends JFrame implements ActionListener{
+
     public ViewPatient() {
+
         initComponents();
+        button1.addActionListener(this);
+        button1.addActionListener(this);
     }
 
     private void initComponents() {
@@ -22,7 +36,6 @@ public class ViewPatient extends JFrame {
         textField1 = new JTextField();
         label1 = new JLabel();
         button2 = new JButton();
-        label2 = new JLabel();
         label3 = new JLabel();
 
         //======== this ========
@@ -30,9 +43,9 @@ public class ViewPatient extends JFrame {
         contentPane.setLayout(null);
 
         //---- button1 ----
-        button1.setText("Enter/Modify Logs");
+        button1.setText("ENTER LOGS");
         contentPane.add(button1);
-        button1.setBounds(190, 175, 165, button1.getPreferredSize().height);
+        button1.setBounds(185, 140, 165, button1.getPreferredSize().height);
         contentPane.add(textField1);
         textField1.setBounds(315, 65, 160, textField1.getPreferredSize().height);
 
@@ -45,12 +58,7 @@ public class ViewPatient extends JFrame {
         //---- button2 ----
         button2.setText("BACK");
         contentPane.add(button2);
-        button2.setBounds(new Rectangle(new Point(230, 250), button2.getPreferredSize()));
-
-        //---- label2 ----
-        label2.setText("text");
-        contentPane.add(label2);
-        label2.setBounds(120, 70, 0, label2.getPreferredSize().height);
+        button2.setBounds(new Rectangle(new Point(230, 200), button2.getPreferredSize()));
 
         //---- label3 ----
         label3.setText("Patient ID");
@@ -76,14 +84,62 @@ public class ViewPatient extends JFrame {
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
-
+    public void actionPerformed(ActionEvent ae)
+    { 	String s=ae.getActionCommand();
+        if(s.equals("BACK"))
+        {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new AdminHome().setVisible(true);
+                }
+            });
+            this.setVisible(false);
+        }
+        else if(s.equals("ENTER LOGS"))
+        {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    Patient m =new PatientService().getPatientInfo(textField1.getText());
+                    if (m.getType().equals("LOCAL"))
+                    {
+                        new LocalLogs(textField1.getText()).setVisible(true);
+                    }
+                    else
+                    {
+                        new OPDLogs(textField1.getText()).setVisible(true);
+                    }
+                    ArrayList<Appointment> a= new PatientService().getAppointmentByPatientId(textField1.getText());
+                    Object columnNames[] = { "Appointment ID","Patient ID","Doctor ID","Date","Status","Slot"};
+                    Object[][] data = {};
+                    DefaultTableModel dm = new DefaultTableModel(data, columnNames);
+                    JTable table = new JTable(dm);
+                    JFrame frame = new JFrame();
+                    frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                    JScrollPane scrollPane = new JScrollPane(table);
+                    frame.add(scrollPane, BorderLayout.CENTER);
+                    frame.setSize(300, 150);
+                    frame.setVisible(true);
+                    DefaultTableModel model = (DefaultTableModel) table.getModel();
+                    for (Appointment p : a) {
+                        String d1,d2,d3,d4,d5,d6;
+                        d1 = p.getId();
+                        d2 = p.getPatientId();
+                        d3 = p.getDoctorId();
+                        d4 = p.getDate();
+                        d5 = p.getStatus();
+                        d6 = p.getSlot();
+                        model.addRow(new Object[]{d1,d2,d3,d4,d5,d6});
+                    }
+                }
+            });
+        }
+    }
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - Alvin Dey
     private JButton button1;
     private JTextField textField1;
     private JLabel label1;
     private JButton button2;
-    private JLabel label2;
     private JLabel label3;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

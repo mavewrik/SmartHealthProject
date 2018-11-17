@@ -18,7 +18,7 @@ new FormModel {
 				name: "button1"
 				"text": "VIEW ASSIGNED LIST"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 35
+				"x": 30
 				"y": 80
 				"width": 170
 			} )

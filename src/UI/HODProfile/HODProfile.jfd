@@ -7,55 +7,40 @@ new FormModel {
 			name: "this"
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label1"
-				"text": "PATIENT HOMEPAGE"
+				"text": "HOD PROFILE"
 				"horizontalAlignment": 0
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 160
-				"y": 10
-				"width": 155
+				"x": 190
+				"y": 5
+				"width": 160
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "button1"
-				"text": "EDIT PROFILE"
+				"text": "ADD SCHEDULE"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 70
-				"y": 55
+				"x": 75
+				"y": 80
+				"width": 160
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "button2"
-				"text": "SEARCH DOCTOR"
+				"text": "MODIFY BASIC INFO"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 285
-				"y": 55
-				"width": 135
-				"height": 30
+				"x": 310
+				"y": 80
+				"width": 190
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "button3"
-				"text": "SHS DOCTOR SELECTION"
+				"text": "BACK"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 25
-				"y": 110
-				"width": 195
-			} )
-			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "button4"
-				"text": "LOGOUT"
-			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 195
-				"y": 175
-			} )
-			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "button5"
-				"text": "APPOINTMENT DETAILS"
-			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 270
-				"y": 110
-				"width": 180
+				"x": 215
+				"y": 165
+				"width": 108
 			} )
 		}, new FormLayoutConstraints( null ) {
-			"location": new java.awt.Point( 5, 0 )
-			"size": new java.awt.Dimension( 485, 260 )
+			"location": new java.awt.Point( 0, 5 )
+			"size": new java.awt.Dimension( 555, 340 )
 		} )
 	}
 }

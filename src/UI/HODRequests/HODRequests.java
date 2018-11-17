@@ -1,9 +1,14 @@
+/*
+ * Created by JFormDesigner on Sat Nov 17 01:32:32 IST 2018
+ */
 
-package UI.DoctorSchedule;
+package UI.HODRequests;
 
-import Service.PatientService;
+import Service.HodService;
+import UI.DoctorDetails.DoctorDetails;
 import UI.DoctorHome.DoctorHome;
-import UI.PatientHome.PatientHome;
+import UI.DoctorSchedule.DoctorSchedule;
+import UI.HODHome.HODHome;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,13 +17,17 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.*;
 
-public class DoctorSchedule extends JFrame implements ActionListener {
+/**
+ * @author Alvin Dey
+ */
+public class HODRequests extends JFrame implements ActionListener {
     String Did;
-    public DoctorSchedule(String Did) {
+    public HODRequests(String  Did) {
         this.Did = Did;
         initComponents();
         button1.addActionListener(this);
         button2.addActionListener(this);
+        button3.addActionListener(this);
         addWindowListener(new WindowAdapter(){
             public void windowClosing(WindowEvent we)
             {
@@ -31,56 +40,44 @@ public class DoctorSchedule extends JFrame implements ActionListener {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Alvin Dey
         label1 = new JLabel();
+        label2 = new JLabel();
+        textField1 = new JTextField();
         button1 = new JButton();
         button2 = new JButton();
-        label2 = new JLabel();
-        label3 = new JLabel();
-        label4 = new JLabel();
-        textField1 = new JTextField();
-        textField2 = new JTextField();
-        textField3 = new JTextField();
+        button3 = new JButton();
 
         //======== this ========
         Container contentPane = getContentPane();
         contentPane.setLayout(null);
 
         //---- label1 ----
-        label1.setText("DOCTOR SCHEDULE");
+        label1.setText("HOD REQUESTS");
         label1.setHorizontalAlignment(SwingConstants.CENTER);
         contentPane.add(label1);
-        label1.setBounds(170, 5, 160, label1.getPreferredSize().height);
-
-        //---- button1 ----
-        button1.setText("BACK");
-        contentPane.add(button1);
-        button1.setBounds(new Rectangle(new Point(130, 220), button1.getPreferredSize()));
-
-        //---- button2 ----
-        button2.setText("SUBMIT");
-        contentPane.add(button2);
-        button2.setBounds(new Rectangle(new Point(300, 220), button2.getPreferredSize()));
+        label1.setBounds(165, 10, 130, label1.getPreferredSize().height);
 
         //---- label2 ----
-        label2.setText("DAY OF AVAILABILITY");
+        label2.setText("REASSIGNMENT ID");
         label2.setHorizontalAlignment(SwingConstants.CENTER);
         contentPane.add(label2);
-        label2.setBounds(85, 55, 180, 20);
-
-        //---- label3 ----
-        label3.setText("IN TIME");
-        contentPane.add(label3);
-        label3.setBounds(145, 90, label3.getPreferredSize().width, 20);
-
-        //---- label4 ----
-        label4.setText("OUT TIME");
-        contentPane.add(label4);
-        label4.setBounds(140, 130, 75, label4.getPreferredSize().height);
+        label2.setBounds(40, 65, 165, label2.getPreferredSize().height);
         contentPane.add(textField1);
-        textField1.setBounds(285, 50, 140, textField1.getPreferredSize().height);
-        contentPane.add(textField2);
-        textField2.setBounds(285, 90, 140, textField2.getPreferredSize().height);
-        contentPane.add(textField3);
-        textField3.setBounds(285, 125, 140, textField3.getPreferredSize().height);
+        textField1.setBounds(240, 60, 165, textField1.getPreferredSize().height);
+
+        //---- button1 ----
+        button1.setText("AUTHORIZE");
+        contentPane.add(button1);
+        button1.setBounds(new Rectangle(new Point(80, 135), button1.getPreferredSize()));
+
+        //---- button2 ----
+        button2.setText("DENY");
+        contentPane.add(button2);
+        button2.setBounds(270, 135, 110, button2.getPreferredSize().height);
+
+        //---- button3 ----
+        button3.setText("BACK");
+        contentPane.add(button3);
+        button3.setBounds(185, 190, 110, button3.getPreferredSize().height);
 
         { // compute preferred size
             Dimension preferredSize = new Dimension();
@@ -101,24 +98,28 @@ public class DoctorSchedule extends JFrame implements ActionListener {
     }
     public void actionPerformed(ActionEvent ae)
     { 	String s=ae.getActionCommand();
-        if(s.equals("SUBMIT"))
+        if(s.equals("AUTHORIZE"))
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    String Day = textField1.getText();
-                    String intime = textField2.getText();
-                    String date = textField3.getText();
-                    //new PatientService().saveAppointment(Pid,Did,date);
-                    new DoctorHome(Did).setVisible(true);
+                    new HodService().updateDoctorRequestApproval(textField1.getText());
                 }
             });
-            this.setVisible(false);
+
+        }
+        else if(s.equals("DENY"))
+        {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new HodService().updateDoctorRequestDenial(textField1.getText());
+                }
+            });
         }
         else if(s.equals("BACK"))
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    new DoctorHome(Did).setVisible(true);
+                    new HODHome(Did).setVisible(true);
                 }
             });
             this.setVisible(false);
@@ -127,13 +128,10 @@ public class DoctorSchedule extends JFrame implements ActionListener {
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - Alvin Dey
     private JLabel label1;
+    private JLabel label2;
+    private JTextField textField1;
     private JButton button1;
     private JButton button2;
-    private JLabel label2;
-    private JLabel label3;
-    private JLabel label4;
-    private JTextField textField1;
-    private JTextField textField2;
-    private JTextField textField3;
+    private JButton button3;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

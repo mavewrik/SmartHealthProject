@@ -7,92 +7,121 @@ new FormModel {
 			name: "this"
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label1"
-				"text": "APPOINTMENT HOME"
-				"horizontalAlignment": 0
+				"text": "LOCAL PATIENT LOGS"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 205
+				"x": 230
 				"y": 5
-				"width": 215
+				"width": 170
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label2"
-				"text": "DOCTOR ID"
-				"horizontalAlignment": 0
+				"text": "APPOINTMENT ID"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 35
-				"y": 65
-				"width": 135
+				"x": 25
+				"y": 75
+				"width": 180
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label3"
-				"text": "APPOINTMENT SLOT"
+				"text": "DATE OF DISCHARGE"
 				"horizontalAlignment": 0
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 30
-				"y": 175
+				"x": 10
+				"y": 120
+				"width": 170
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label4"
+				"text": "TIME OF DISCHARGE"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 300
+				"y": 120
 				"width": 165
 			} )
-			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "button1"
-				"text": "SUBMIT"
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label5"
+				"text": "MEDICINES"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 475
-				"y": 170
+				"x": 25
+				"y": 165
+				"width": 150
 			} )
-			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "button2"
-				"text": "BACK"
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label6"
+				"text": "TESTS RECOMMENDED"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 280
-				"y": 240
+				"x": 20
+				"y": 210
+				"width": 170
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "textField1"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 260
-				"y": 60
-				"width": 135
+				"x": 190
+				"y": 70
+				"width": 350
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "textField2"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 260
+				"x": 190
 				"y": 115
-				"width": 135
-			} )
-			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label4"
-				"text": "DATE"
-				"horizontalAlignment": 0
-			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 70
-				"y": 120
-				"width": 63
+				"width": 85
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "textField3"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 260
-				"y": 170
-				"width": 135
+				"x": 470
+				"y": 115
+				"width": 70
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField4"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 190
+				"y": 160
+				"width": 205
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField5"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 190
+				"y": 205
+				"width": 205
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button1"
+				"text": "ADD MEDICINE"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 410
+				"y": 160
+				"width": 130
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button2"
+				"text": "ADD TEST"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 410
+				"y": 205
+				"width": 130
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "button3"
-				"text": "SCHEDULE"
+				"text": "BACK"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 465
-				"y": 60
+				"x": 170
+				"y": 270
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "button4"
-				"text": "AVAILIBILITY"
+				"text": "SUBMIT"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 460
-				"y": 120
+				"x": 360
+				"y": 270
 			} )
 		}, new FormLayoutConstraints( null ) {
-			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 625, 345 )
+			"location": new java.awt.Point( 5, 10 )
+			"size": new java.awt.Dimension( 620, 365 )
 		} )
 	}
 }

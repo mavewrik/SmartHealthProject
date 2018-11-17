@@ -5,6 +5,7 @@ import javax.swing.table.DefaultTableModel;
 
 import DTO.Doctor;
 import DTO.Patient;
+import DTO.Reassignment;
 import Service.AdminService;
 import UI.AdminLogin.AdminLogin;
 import UI.DepartmentRegistration.DepartmentRegistration;
@@ -13,6 +14,7 @@ import UI.Homepage.Homepage;
 import UI.PatientLogin.PatientLogin;
 import UI.PatientRegistration.PatientRegistration;
 import UI.DoctorRegistration.*;
+import UI.ReassignmentHome.ReassignmentHome;
 import UI.ViewDoctor.*;
 import UI.ViewPatient.ViewPatient;
 
@@ -124,7 +126,28 @@ public class AdminHome extends JFrame implements ActionListener{
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    new PatientRegistration().setVisible(true);
+                    Object columnNames[] = { "Reassignment ID", "Patient Id", "Referring Doctor Id", "Referred Doctor Id", "Status"};
+                    Object[][] data = {};
+                    DefaultTableModel dm = new DefaultTableModel(data, columnNames);
+                    JTable table = new JTable(dm);
+                    JFrame frame = new JFrame();
+                    frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                    JScrollPane scrollPane = new JScrollPane(table);
+                    frame.add(scrollPane, BorderLayout.CENTER);
+                    frame.setSize(300, 150);
+                    frame.setVisible(true);
+                    DefaultTableModel model = (DefaultTableModel) table.getModel();
+                    ArrayList<Reassignment> result = AdminService.showAllReassignment();
+                    for (Reassignment p : result) {
+                        String d1, d2, d3,d4 , d5;
+                        d1 = p.getId();
+                        d2 = p.getPatientId();
+                        d3 = p.getReferringDoctorId();
+                        d4 = p.getReferredDoctorId();
+                        d5 = p.getStatus();
+                        model.addRow(new Object[]{d1,d2,d3,d4,d5});
+                    }
+                    new ReassignmentHome().setVisible(true);
                 }
             });
             this.setVisible(false);
