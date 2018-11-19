@@ -173,6 +173,7 @@ public class LocalLogs extends JFrame implements ActionListener {
 
                     Appointment a = new PatientService().getAppointmentById(textField1.getText());
                     new AdminService().addPatientLogs(Pid,a.getDate(),a.getSlot(),textField2.getText(),textField3.getText(),textField1.getText());
+                    new ViewPatient().setVisible(true);
                 }
             });
             this.setVisible(false);

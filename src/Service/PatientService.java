@@ -19,6 +19,7 @@ public class PatientService {
 	}
 	
 	public static void updatePatientInfo(Patient patient) {
+		System.out.println(patient.getAge());
 		Boolean val = patientDAO.updatePatientInfo(patient);
 		if (val == true)
 			System.out.println("Updated Successfull");
@@ -26,12 +27,12 @@ public class PatientService {
 			System.out.println("Update failed");
 	}
 	
-	public static void login(String patientId,String password) {
+	public static int login(String patientId,String password) {
 		Patient patient = patientDAO.getPatientInfo(patientId,password);
 		if (patient.getName().equals(" "))
-			System.out.println("Login failure");
+			return 1;
 		else
-			System.out.println("Login Success");
+			return 0;
 	}
 
 	public static void saveAppointment(String patientId,String doctorId,String date,String slot){
@@ -155,7 +156,10 @@ public class PatientService {
 			int count = appointmentList.size();
 			double totalRating =0.0;
 			for(Appointment app: appointmentList){
-				totalRating+=Double.parseDouble(app.getRating());
+				if(app.getRating()==null)
+					continue;
+				else
+					totalRating+=Double.parseDouble(app.getRating());
 			}
 			double netRating = totalRating/count;
 			Doctor doctor = doctorDAO.getDoctorInfoById(appointment.getDoctorId());
@@ -167,12 +171,23 @@ public class PatientService {
 		}
 	}
 
+	public static String getLastPatientId(){
+		String id = patientDAO.getLastIdPatient();
+		return id;
+	}
+
+	public static String getLastAppointmentId(){
+		String id  = patientDAO.getLastIdAppointment();
+		return id;
+	}
+
 	public static void main(String args[])throws IOException{
+		Patient p = PatientService.getPatientInfo("in");
 		//PatientService.saveAppointment("1234","ALV123","10/12/2018");
 		//PatientService.getDoctorSchedule("ALV123");
 		//PatientService.getDoctorSlotByDate("ALV123","10/12/2018");
 		//PatientService.cancelAppointment("1");
-		PatientService.rateDoctor("2","4");
+		//PatientService.rateDoctor("2","4");
 	}
 
 }

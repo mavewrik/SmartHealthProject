@@ -5,7 +5,7 @@ import java.awt.event.*;
 import DTO.Patient;
 import Service.AdminService;
 import Service.PatientService;
-import UI.*;
+//import UI.*;
 import UI.Homepage.Homepage;
 import UI.PatientHome.PatientHome;
 
@@ -219,6 +219,7 @@ public class PatientDetails extends javax.swing.JFrame implements ActionListener
                 }
             });
             this.setVisible(false);
+            new PatientHome(Pid).setVisible(true);
         }
         else if(s.equals("UPDATE"))
         {
@@ -234,11 +235,13 @@ public class PatientDetails extends javax.swing.JFrame implements ActionListener
                     String patientAilment = jTextField5.getText();
                     String patientPassword = String.valueOf(jPasswordField1.getPassword());
                     String patientGender = temp.getGender();
+                    //Patient p = new Patient(patientName,)
                     Patient p = new Patient(patientName,Pid,patientGender,patientPhone,patientAddress,patientAge,patientAilment,patientEmail,patientPassword,temp.getHealthStatus(),temp.getStatus(),temp.getType());
                     new PatientService().updatePatientInfo(p);
                 }
             });
             this.setVisible(false);
+            new PatientHome(Pid).setVisible(true);
         }
     }
 

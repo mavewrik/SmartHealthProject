@@ -100,6 +100,7 @@ public class AppointmentHistory extends JFrame implements ActionListener {
                 }
             });
             this.setVisible(false);
+            new PatientHome(Pid).setVisible(true);
         }
         else if(s.equals("RATE YOUR APPOINTMENT"))
         {
@@ -109,6 +110,7 @@ public class AppointmentHistory extends JFrame implements ActionListener {
                 }
             });
             this.setVisible(false);
+            new PatientHome(Pid).setVisible(true);
         }
         else if(s.equals("BACK"))
         {
@@ -118,6 +120,7 @@ public class AppointmentHistory extends JFrame implements ActionListener {
                 }
             });
             this.setVisible(false);
+            new PatientHome(Pid).setVisible(true);
         }
     }
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables

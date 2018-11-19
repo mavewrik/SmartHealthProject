@@ -4,7 +4,9 @@
 
 package UI.DoctorLogin;
 
+import Service.DoctorService;
 import UI.DoctorHome.DoctorHome;
+import UI.HODHome.HODHome;
 import UI.Homepage.Homepage;
 
 import java.awt.*;
@@ -108,7 +110,20 @@ public class DoctorLogin extends JFrame implements ActionListener {
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    new DoctorHome(textField1.getText()).setVisible(true);
+                    if(new DoctorService().Login(textField1.getText(),passwordField1.getText())==0)
+                    {
+                        System.out.println("Login unsuccessful");
+                    }
+                    else
+                    {
+                        if(new DoctorService().isHod(textField1.getText())==true)
+                        {
+                            new HODHome(textField1.getText()).setVisible(true);
+                        }
+                        else
+                            new DoctorHome(textField1.getText()).setVisible(true);
+
+                    }
                 }
             });
             this.setVisible(false);

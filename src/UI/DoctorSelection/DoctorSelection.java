@@ -77,7 +77,7 @@ public class DoctorSelection extends JFrame implements ActionListener {
         textField1.setBounds(225, 100, 200, textField1.getPreferredSize().height);
         contentPane.add(comboBox2);
         comboBox2.setBounds(225, 60, 195, comboBox2.getPreferredSize().height);
-
+        comboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "OPHTHALMOLOGY", "NEUROLOGY", "ONCOLOGY", "PEDIATRICS", "CARDIOLOGY", "ENT", "GASTROENTEROLOGY", "GYNAECOLOGY", "ORTHOPAEDICS", "UROLOGY", "ANAESTHETICS", "IMMUNOLOGY", "DERMATOLOGY", "NEPHROLOGY", "PATHOLOGY", "PSYCHIATRY", "RADIOLOGY", "RHEUMATOLOGY" }));
         //---- button2 ----
         button2.setText("BACK");
         contentPane.add(button2);
@@ -124,6 +124,7 @@ public class DoctorSelection extends JFrame implements ActionListener {
                 }
             });
             this.setVisible(false);
+            new PatientHome(Pid).setVisible(true);
         }
         else if(s.equals("BACK"))
         {
@@ -133,6 +134,7 @@ public class DoctorSelection extends JFrame implements ActionListener {
                 }
             });
             this.setVisible(false);
+            new PatientHome(Pid).setVisible(true);
         }
     }
 

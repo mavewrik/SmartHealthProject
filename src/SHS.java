@@ -7,7 +7,7 @@ public class SHS {
     {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DoctorFunctions("dfsg").setVisible(true);
+                new Homepage().setVisible(true);
             }
         });
     }

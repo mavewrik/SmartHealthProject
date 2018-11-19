@@ -2,7 +2,10 @@ package UI.AdminLogin;
 
 import java.awt.event.*;
 
+import Service.DoctorService;
 import UI.AdminHome.AdminHome;
+import UI.DoctorHome.DoctorHome;
+import UI.HODHome.HODHome;
 import UI.Homepage.*;
 import java.awt.*;
 import javax.swing.*;
@@ -115,7 +118,14 @@ public class AdminLogin extends javax.swing.JFrame implements ActionListener{
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    new AdminHome().setVisible(true);
+                    if(new AdminService().adminLogin("root",jPasswordField1.getText())==0)
+                    {
+                        System.out.println("Login unsuccessful");
+                    }
+                    else
+                    {
+                        new AdminHome().setVisible(true);
+                    }
                 }
             });
             this.setVisible(false);

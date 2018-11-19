@@ -305,7 +305,8 @@ public class patientDAO {
                 + "Password = ? ,"
                 + "Ailment = ? ,"
                 + "HealthStatus = ? ,"
-                + "Email = ? "
+                + "Email = ? ,"
+                + "Status = ?"
                 + "WHERE Id = ? ";
 
         PreparedStatement stmt = null; //will explain later
@@ -325,8 +326,10 @@ public class patientDAO {
             stmt.setString(6, patient.getPassword());
             stmt.setString(7, patient.getAilment());
             stmt.setString(8, patient.getEmail());
-            stmt.setString(9, patient.getId());
-            stmt.setString(10, patient.getHealthStatus());
+            stmt.setString(9, patient.getHealthStatus());
+            stmt.setString(10, patient.getStatus());
+            stmt.setString(11, patient.getId());
+
 
             row = stmt.executeUpdate();
 
@@ -539,7 +542,7 @@ public class patientDAO {
                 patient.setAilment(rs.getString("Ailment"));
                 patient.setHealthStatus(rs.getString("HealthStatus"));
                 patient.setStatus(rs.getString("Status"));
-                patient.setStatus(rs.getString("Type"));
+                patient.setType(rs.getString("Type"));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -555,6 +558,86 @@ public class patientDAO {
         return patient;
 
     }
+    public static String getLastIdPatient() {
+
+        String val =" ";
+
+        DatabaseConnectionClass databseConnectionClass = DatabaseConnectionClass.getInstance();
+
+        Connection conn = databseConnectionClass.getMySqlConnection("jdbc:mysql://localhost:3306/", "hospitalManagement", "root", "", "com.mysql.jdbc.Driver");
+
+        //Step 2. Now Use PreparedStatement class to pass SQL to create employee
+        String selectSQL = "SELECT Id FROM patient ORDER BY Id DESC LIMIT 1";
+
+        PreparedStatement stmt = null; //will explain later
+
+        try {
+            stmt = conn.prepareStatement(selectSQL);
+            //stmt.setString(1, patientId);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+               val = rs.getString("Id");
+
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        } finally {
+            try {
+                conn.close(); //very important
+            } catch (SQLException ex1) {
+                return null;
+            }
+        }
+
+        return val;
+
+    }
+
+    public static String getLastIdAppointment() {
+
+        String val =" ";
+
+        DatabaseConnectionClass databseConnectionClass = DatabaseConnectionClass.getInstance();
+
+        Connection conn = databseConnectionClass.getMySqlConnection("jdbc:mysql://localhost:3306/", "hospitalManagement", "root", "", "com.mysql.jdbc.Driver");
+
+        //Step 2. Now Use PreparedStatement class to pass SQL to create employee
+        String selectSQL = "SELECT id FROM appointment ORDER BY Id DESC LIMIT 1";
+
+        PreparedStatement stmt = null; //will explain later
+
+        try {
+            stmt = conn.prepareStatement(selectSQL);
+            //stmt.setString(1, patientId);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                val = rs.getString("Id");
+
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        } finally {
+            try {
+                conn.close(); //very important
+            } catch (SQLException ex1) {
+                return null;
+            }
+        }
+
+        return val;
+
+    }
+
+
+
 
     public static boolean updateAppointmentRating(String id,  String rating) {
 
@@ -577,8 +660,9 @@ public class patientDAO {
 
         try {
             stmt = conn.prepareStatement(insertSQL);
-            stmt.setString(1, id);
-            stmt.setString(2, rating);
+            stmt.setString(1, rating);
+            stmt.setString(2, id);
+
 
             row = stmt.executeUpdate();
 

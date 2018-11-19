@@ -11,13 +11,13 @@ import javax.print.Doc;
 
 public class DoctorService {
 	
-	public void Login(String id, String password) {
+	public int Login(String id, String password) {
 		Doctor doctor = doctorDAO.getDoctorInfo(id, password);
 		//System.out.println(doctor);
 		if(doctor.getName().equals(" "))
-			System.out.println("Login failed");
+			return 0;
 		else
-			System.out.println("Login success");
+			return 1;
 		
 	}
 	public static void updateDoctorInfo(Doctor doc){
@@ -133,6 +133,14 @@ public class DoctorService {
 		return appointmentArrayList;
 	}
 
+	public static String getLastDoctorId(){
+		String id  = doctorDAO.getLastIdDoctor();
+		return id;
+	}
+	public static String getLastAssignmentId(){
+		String id = doctorDAO.getLastIdReassignment();
+		return id;
+	}
 	
 	public static void main(String args[])throws IOException{
 		DoctorService d = new DoctorService();

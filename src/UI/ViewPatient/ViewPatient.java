@@ -26,7 +26,7 @@ public class ViewPatient extends JFrame implements ActionListener{
 
         initComponents();
         button1.addActionListener(this);
-        button1.addActionListener(this);
+        button2.addActionListener(this);
     }
 
     private void initComponents() {
@@ -86,20 +86,25 @@ public class ViewPatient extends JFrame implements ActionListener{
     }
     public void actionPerformed(ActionEvent ae)
     { 	String s=ae.getActionCommand();
+        //System.out.print(s);
         if(s.equals("BACK"))
-        {
+        {   //System.out.print("bfr");
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
+                   // System.out.print("aftr");
                     new AdminHome().setVisible(true);
                 }
             });
             this.setVisible(false);
+
         }
         else if(s.equals("ENTER LOGS"))
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
                     Patient m =new PatientService().getPatientInfo(textField1.getText());
+                    System.out.println(m.getName());
+                    System.out.println(m.getType());
                     if (m.getType().equals("LOCAL"))
                     {
                         new LocalLogs(textField1.getText()).setVisible(true);
@@ -130,8 +135,10 @@ public class ViewPatient extends JFrame implements ActionListener{
                         d6 = p.getSlot();
                         model.addRow(new Object[]{d1,d2,d3,d4,d5,d6});
                     }
+
                 }
             });
+            this.setVisible(false);
         }
     }
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables

@@ -7,10 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import Connection.DatabaseConnectionClass;
-import DTO.Appointment;
-import DTO.Doctor;
-import DTO.Patient;
-import DTO.PatientLogs;
+import DTO.*;
 
 public class doctorDAO {
 	
@@ -542,6 +539,45 @@ public class doctorDAO {
 
     }
 
+    public static String getLastIdDoctor() {
+
+        String val =" ";
+
+        DatabaseConnectionClass databseConnectionClass = DatabaseConnectionClass.getInstance();
+
+        Connection conn = databseConnectionClass.getMySqlConnection("jdbc:mysql://localhost:3306/", "hospitalManagement", "root", "", "com.mysql.jdbc.Driver");
+
+        //Step 2. Now Use PreparedStatement class to pass SQL to create employee
+        String selectSQL = "SELECT Id FROM doctor ORDER BY Id DESC LIMIT 1";
+
+        PreparedStatement stmt = null; //will explain later
+
+        try {
+            stmt = conn.prepareStatement(selectSQL);
+            //stmt.setString(1, patientId);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                val = rs.getString("Id");
+
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        } finally {
+            try {
+                conn.close(); //very important
+            } catch (SQLException ex1) {
+                return null;
+            }
+        }
+
+        return val;
+
+    }
+
     public static ArrayList getDoctorInfoByDepartmentAndDay(String department,String day) {
 
 
@@ -578,7 +614,7 @@ public class doctorDAO {
                 doctor.setPassword(rs.getString("Password"));
                 doctor.setDesignation(rs.getString("Designation"));
                 doctor.setSurgeon(rs.getString("Surgeon"));
-
+                doctor.setRating(rs.getString("Rating"));
                 listOfDoctor.add(doctor);
 
             }
@@ -596,6 +632,8 @@ public class doctorDAO {
         return listOfDoctor;
 
     }
+
+
 
     public static ArrayList getDoctorInfoBySpecializationAndDay(String specialization,String day) {
 
@@ -821,7 +859,7 @@ public class doctorDAO {
 
 
 
-        ArrayList listOfDoctor = new ArrayList();
+        ArrayList listOfSchedule = new ArrayList();
 
         DatabaseConnectionClass databseConnectionClass = DatabaseConnectionClass.getInstance();
 
@@ -838,13 +876,13 @@ public class doctorDAO {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Doctor doctor = new Doctor();
-                doctor.setId(rs.getString("DoctorId"));
-                doctor.setName(rs.getString("DayOfAvailability"));
-                doctor.setGender(rs.getString("InTime"));
-                doctor.setPhoneNumber(rs.getString("OutTime"));
+                Schedule schedule = new Schedule();
+                schedule.setDoctorId(rs.getString("DoctorId"));
+                schedule.setDayOfAvailability(rs.getString("DayOfAvailability"));
+                schedule.setInTime(rs.getString("InTime"));
+                schedule.setOutTime(rs.getString("OutTime"));
 
-                listOfDoctor.add(doctor);
+                listOfSchedule.add(schedule);
 
             }
         } catch (SQLException ex) {
@@ -858,7 +896,7 @@ public class doctorDAO {
             }
         }
 
-        return listOfDoctor;
+        return listOfSchedule;
 
     }
 
@@ -1061,7 +1099,7 @@ public class doctorDAO {
         try {
             stmt = conn.prepareStatement(selectSQL);
             stmt.setString(1, doctorId);
-            stmt.setString(1, status);
+            stmt.setString(2, status);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -1135,6 +1173,44 @@ public class doctorDAO {
 
     }
 
+    public static String getLastIdReassignment() {
+
+        String val =" ";
+
+        DatabaseConnectionClass databseConnectionClass = DatabaseConnectionClass.getInstance();
+
+        Connection conn = databseConnectionClass.getMySqlConnection("jdbc:mysql://localhost:3306/", "hospitalManagement", "root", "", "com.mysql.jdbc.Driver");
+
+        //Step 2. Now Use PreparedStatement class to pass SQL to create employee
+        String selectSQL = "SELECT Id FROM reassignment ORDER BY Id DESC LIMIT 1";
+
+        PreparedStatement stmt = null; //will explain later
+
+        try {
+            stmt = conn.prepareStatement(selectSQL);
+            //stmt.setString(1, patientId);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                val = rs.getString("Id");
+
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        } finally {
+            try {
+                conn.close(); //very important
+            } catch (SQLException ex1) {
+                return null;
+            }
+        }
+
+        return val;
+
+    }
 
 
 

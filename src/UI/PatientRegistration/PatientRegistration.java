@@ -1,7 +1,7 @@
 package UI.PatientRegistration;
 
 import java.awt.event.*;
-import UI.*;
+//import UI.*;
 import UI.Homepage.Homepage;
 
 import java.awt.*;

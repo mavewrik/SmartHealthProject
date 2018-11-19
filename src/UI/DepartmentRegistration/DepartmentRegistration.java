@@ -102,6 +102,7 @@ public class DepartmentRegistration extends JFrame implements ActionListener {
                 }
             });
             this.setVisible(false);
+            new AdminHome().setVisible(true);
         }
         else if(s.equals("BACK"))
         {
@@ -111,6 +112,7 @@ public class DepartmentRegistration extends JFrame implements ActionListener {
                 }
             });
             this.setVisible(false);
+            new AdminHome().setVisible(true);
         }
     }
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables

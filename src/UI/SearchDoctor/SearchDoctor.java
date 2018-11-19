@@ -69,6 +69,7 @@ public class SearchDoctor extends JFrame implements ActionListener {
         label3.setHorizontalAlignment(SwingConstants.CENTER);
         contentPane.add(label3);
         label3.setBounds(170, 5, 150, label3.getPreferredSize().height);
+        comboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DEPARTMENT", "SPECIALIZATION", "ADDRESS", "NAME", "DOCTOR ID" }));
 
         //---- button1 ----
         button1.setText("SEARCH");
@@ -250,6 +251,7 @@ public class SearchDoctor extends JFrame implements ActionListener {
                 }
             });
             this.setVisible(false);
+
         }
         else if(s.equals("BACK"))
         {
@@ -259,6 +261,7 @@ public class SearchDoctor extends JFrame implements ActionListener {
                 }
             });
             this.setVisible(false);
+            new PatientHome(Pid).setVisible(true);
         }
     }
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables

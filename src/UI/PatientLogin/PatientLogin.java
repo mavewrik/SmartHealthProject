@@ -6,6 +6,10 @@
 package UI.PatientLogin;
 
 import java.awt.event.*;
+
+import Service.DoctorService;
+import UI.DoctorHome.DoctorHome;
+import UI.HODHome.HODHome;
 import UI.Homepage.*;
 import java.awt.*;
 import javax.swing.*;
@@ -125,8 +129,17 @@ public class PatientLogin extends javax.swing.JFrame implements ActionListener{
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    String pid = jTextField1.getText();
-                    new PatientHome(pid).setVisible(true);
+                    if(new PatientService().login(jTextField1.getText(),jPasswordField1.getText())==0)
+                    {
+                        System.out.println("Login unsuccessful");
+                    }
+                    else
+                    {
+                        String pid = jTextField1.getText();
+                        new PatientHome(pid).setVisible(true);
+
+                    }
+
                 }
             });
             this.setVisible(false);

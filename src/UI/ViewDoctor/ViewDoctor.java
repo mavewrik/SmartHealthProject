@@ -4,15 +4,29 @@
 
 package UI.ViewDoctor;
 
+import UI.AdminHome.AdminHome;
+import UI.AdminViewDoc.AdminViewDoc;
+import UI.DoctorFunctions.DoctorFunctions;
+import UI.ViewLogs.ViewLogs;
+
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.*;
 
-/**
- * @author Alvin Dey
- */
-public class ViewDoctor extends JFrame {
+public class ViewDoctor extends JFrame implements ActionListener {
     public ViewDoctor() {
         initComponents();
+        button1.addActionListener(this);
+        button2.addActionListener(this);
+        addWindowListener(new WindowAdapter(){
+            public void windowClosing(WindowEvent we)
+            {
+                System.exit(0);
+            }
+        });
     }
 
     private void initComponents() {
@@ -67,6 +81,27 @@ public class ViewDoctor extends JFrame {
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
+    }
+    public void actionPerformed(ActionEvent ae)
+    { 	String s=ae.getActionCommand();
+        if(s.equals("BACK"))
+        {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new AdminHome().setVisible(true);
+                }
+            });
+            this.setVisible(false);
+        }
+        if(s.equals("VIEW PROFILE"))
+        {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new AdminViewDoc(textField1.getText()).setVisible(true);
+                }
+            });
+            this.setVisible(false);
+        }
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables

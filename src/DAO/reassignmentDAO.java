@@ -103,6 +103,45 @@ public class reassignmentDAO {
 
     }
 
+    public static String getLastIdReassignmenr() {
+
+        String val =" ";
+
+        DatabaseConnectionClass databseConnectionClass = DatabaseConnectionClass.getInstance();
+
+        Connection conn = databseConnectionClass.getMySqlConnection("jdbc:mysql://localhost:3306/", "hospitalManagement", "root", "", "com.mysql.jdbc.Driver");
+
+        //Step 2. Now Use PreparedStatement class to pass SQL to create employee
+        String selectSQL = "SELECT Id FROM reassignment ORDER BY Id DESC LIMIT 1";
+
+        PreparedStatement stmt = null; //will explain later
+
+        try {
+            stmt = conn.prepareStatement(selectSQL);
+            //stmt.setString(1, patientId);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                val = rs.getString("Id");
+
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        } finally {
+            try {
+                conn.close(); //very important
+            } catch (SQLException ex1) {
+                return null;
+            }
+        }
+
+        return val;
+
+    }
+
     public static boolean updateReassignmentInfo(String id) {
 
         DatabaseConnectionClass databseConnectionClass = DatabaseConnectionClass.getInstance();

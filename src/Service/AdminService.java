@@ -11,13 +11,13 @@ import java.util.Comparator;
 
 public class AdminService {
 
-    public static void adminLogin(String username, String password) {
+    public static int adminLogin(String username, String password) {
         Admin admin = adminDAO.getAdminInfo(username, password);
 
-        /*if (admin.getName() == null)
+        if (admin.getName() == null)
             return 0;
         else
-            return 1;*/
+            return 1;
     }
 
     public static void addDoctor(String name, String id, String department, boolean hod, String specialization, int age, String address, String phoneNumber, String gender, String password,String designation,String surgeon) {
@@ -61,6 +61,11 @@ public class AdminService {
         Department department = departmentDAO.getDepartmentInfoByHod(hod);
         System.out.println(department.getName());
         return department;
+    }
+
+    public static ArrayList getAllDepartment(){
+        ArrayList<Department> departmentList = departmentDAO.getAllDepartment();
+        return departmentList;
     }
 
     public static ArrayList showAllReassignment(){
@@ -112,11 +117,15 @@ public class AdminService {
     }
 
     public static void allocateDoctor(String patientId, String department, String date, String day, String slot){
-        ArrayList<Doctor> doctorList = doctorDAO.getDoctorInfoByDepartmentAndDay(department, date);
+        ArrayList<Doctor> doctorList = doctorDAO.getDoctorInfoByDepartmentAndDay(department, day);
+        for(Doctor d: doctorList){
+            System.out.println(d.getName());
+            System.out.println(d.getRating());
+        }
         Collections.sort(doctorList, new Comparator<Doctor>() {
             @Override
             public int compare(Doctor o1, Doctor o2) {
-                return Integer.parseInt(o1.getRating())- Integer.parseInt(o2.getRating());
+                return (int)(Double.parseDouble(o2.getRating())- Double.parseDouble(o1.getRating()));
             }
         });
         Doctor doc = null;
@@ -140,7 +149,18 @@ public class AdminService {
                break;
         }
         String id = "9";
-        Boolean val = patientDAO.saveAppointment(id,patientId,doc.getId(),day,slot,"upcoming");
+        System.out.println(doc.getName());
+        Boolean val = patientDAO.saveAppointment(id,patientId,doc.getId(),date,slot,"upcoming");
+    }
+
+    public static String getLastPatientLogsId(){
+        String id = adminDAO.getLastIdPatientLogs();
+        return id;
+    }
+
+    public static String getLastDepartmentId(){
+        String id = departmentDAO.getLastIdDepartment();
+        return id;
     }
 
 	

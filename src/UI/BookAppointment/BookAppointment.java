@@ -161,10 +161,13 @@ public class BookAppointment extends JFrame implements ActionListener {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
                     ArrayList<String> av = new PatientService().getDoctorSlotByDate(textField1.getText(),textField2.getText());
+                    for(String s: av){
+                        System.out.println(s);
+                    }
                     ArrayList<Schedule> s = new PatientService().getDoctorSchedule(textField1.getText());
-                    int period = 9;//Integer.parseInt(s.get(0).getInTime().substring(0,2))-Integer.parseInt(s.get(0).getOutTime().substring(0,2));
+                    int period = Integer.parseInt(s.get(0).getOutTime().substring(0,2))- Integer.parseInt(s.get(0).getInTime().substring(0,2));
                     Object columnNames[] = new Object[period];
-                    int start = 8;//Integer.parseInt(s.get(0).getInTime().substring(0,2));
+                    int start = Integer.parseInt(s.get(0).getInTime().substring(0,2));
                     Object available[] = new Object[period];
                     for(int i=0;i<period;i++){
                         columnNames[i] = String.valueOf(start+i)+":00-"+String.valueOf(start+i)+":59";
@@ -197,8 +200,8 @@ public class BookAppointment extends JFrame implements ActionListener {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
                     String Did = textField1.getText();
-                    String slot = textField2.getText();
-                    String date = textField3.getText();
+                    String slot = textField3.getText();
+                    String date = textField2.getText();
                     new PatientService().saveAppointment(Pid,Did,date,slot);
                     new PatientHome(Pid).setVisible(true);
                 }

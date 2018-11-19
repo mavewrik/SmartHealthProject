@@ -41,6 +41,11 @@ public class HodService {
         return  request;
     }
 
+    public static String getLastHodRequestId(){
+        String id = hodDAO.getLastIdHodService();
+        return id;
+    }
+
     public static void main(String args[])throws IOException{
         //HodService.getAllRequest("ALV123");
         HodService.updateDoctorRequestApproval("12");
