@@ -18,7 +18,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -165,9 +169,26 @@ public class BookAppointment extends JFrame implements ActionListener {
                         System.out.println(s);
                     }
                     ArrayList<Schedule> s = new PatientService().getDoctorSchedule(textField1.getText());
-                    int period = Integer.parseInt(s.get(0).getOutTime().substring(0,2))- Integer.parseInt(s.get(0).getInTime().substring(0,2));
+                    Date d = new Date();
+                    DateFormat format = new SimpleDateFormat("dd/M/yyyy");
+                    try {
+                        d = format.parse(textField2.getText());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    SimpleDateFormat df = new SimpleDateFormat("EEEE");
+                    String day = df.format(d);
+                    int j = 0;
+                    for(Schedule temp : s)
+                    {
+                        if(temp.getDayOfAvailability().equals(day))
+                            break;
+                        j++;
+                    }
+
+                    int period = Integer.parseInt(s.get(j).getOutTime().substring(0,2))- Integer.parseInt(s.get(j).getInTime().substring(0,2));
                     Object columnNames[] = new Object[period];
-                    int start = Integer.parseInt(s.get(0).getInTime().substring(0,2));
+                    int start = Integer.parseInt(s.get(j).getInTime().substring(0,2));
                     Object available[] = new Object[period];
                     for(int i=0;i<period;i++){
                         columnNames[i] = String.valueOf(start+i)+":00-"+String.valueOf(start+i)+":59";

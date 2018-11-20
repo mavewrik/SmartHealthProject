@@ -74,7 +74,7 @@ public class doctorDAO {
         Connection conn = databseConnectionClass.getMySqlConnection("jdbc:mysql://localhost:3306/", "hospitalManagement", "root", "", "com.mysql.jdbc.Driver");
 
         //Step 2. Now Use PreparedStatement class to pass SQL to create employee
-        String insertSQL = "INSERT INTO schedule (DoctorId, DayOfAvailability, InTime) VALUES (?, ?, ?);";
+        String insertSQL = "INSERT INTO schedule (DoctorId, DayOfAvailability, InTime, OutTime) VALUES (?, ?, ?, ?);";
 
         //PreparedStatement stmt = null; //will explain later
         int row = 0;
@@ -163,7 +163,7 @@ public class doctorDAO {
 
         DatabaseConnectionClass databseConnectionClass = DatabaseConnectionClass.getInstance();
 
-        boolean result = true;
+        boolean result = false;
 
         Connection conn = databseConnectionClass.getMySqlConnection("jdbc:mysql://localhost:3306/", "hospitalManagement", "root", "", "com.mysql.jdbc.Driver");
 
@@ -505,7 +505,7 @@ public class doctorDAO {
             stmt = conn.prepareStatement(selectSQL);
             stmt.setString(1, department);
             ResultSet rs = stmt.executeQuery();
-
+            System.out.println(rs);
             while (rs.next()) {
                 Doctor doctor = new Doctor();
                 doctor.setId(rs.getString("Id"));
@@ -1144,7 +1144,7 @@ public class doctorDAO {
         try {
             stmt = conn.prepareStatement(selectSQL);
             stmt.setString(1, patientId);
-            stmt.setString(1, status);
+            stmt.setString(2, status);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {

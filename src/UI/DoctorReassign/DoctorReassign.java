@@ -8,6 +8,11 @@ package UI.DoctorReassign;
 import DTO.Department;
 import DTO.Doctor;
 import DTO.Patient;
+import Exceptions.DepartmentListNotFoundException;
+import Exceptions.DepartmentNotFoundException;
+import Exceptions.DoctorListEmptyException;
+import Exceptions.DoctorNotFoundException;
+import Service.AdminService;
 import Service.DoctorService;
 import Service.PatientService;
 import UI.DoctorFunctions.DoctorFunctions;
@@ -57,25 +62,51 @@ public class DoctorReassign extends javax.swing.JFrame implements ActionListener
 
         jButton4.setText("SUBMIT");
         if(new DoctorService().isJuniorDoctor(Did)==true) {
-            Doctor p = new DoctorService().getDoctorInfo(Did);
-            jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{p.getDepartment()}));
+            try {
+                Doctor p = new DoctorService().getDoctorInfo(Did);
+                jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{p.getDepartment()}));
+            }
+            catch(DoctorNotFoundException e){
+                e.printStackTrace();
+            }
         }
         else
         {
-            jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "OPHTHALMOLOGY", "NEUROLOGY", "ONCOLOGY", "PEDIATRICS", "CARDIOLOGY", "ENT", "GASTROENTEROLOGY", "GYNAECOLOGY", "ORTHOPAEDICS", "UROLOGY", "ANAESTHETICS", "IMMUNOLOGY", "DERMATOLOGY", "NEPHROLOGY", "PATHOLOGY", "PSYCHIATRY", "RADIOLOGY", "RHEUMATOLOGY" }));
+            try {
+                ArrayList<Department> d = new AdminService().getAllDepartment();
+                String[] id = new String[d.size()];
+                int i = 0;
+                for (Department dep : d) {
+                    id[i++] = dep.getName();
+                }
+                jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(id));
+            }
+            catch (DepartmentListNotFoundException e)
+            {
+                JOptionPane.showMessageDialog(null, e.toString(), "InfoBox: " + "Department List Not Found Exception", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
         jComboBox1.addItemListener(new ItemListener(){
             public void itemStateChanged(ItemEvent e){
                 if(e.getStateChange()==ItemEvent.SELECTED){
-                    Department d = new DoctorService().getDepartmentByName(jComboBox1.getSelectedItem().toString());
-                    ArrayList<Doctor> a = new PatientService().getDoctorsByDepartment(d.getId());
-                    String[] id = new String[a.size()];
-                    int i = 0;
-                    for(Doctor doc : a)
-                    {
-                        id[i++] = doc.getId();
+                    try {
+                        Department d = new DoctorService().getDepartmentByName(jComboBox1.getSelectedItem().toString());
+                        System.out.println("id is"+d.getId()+d.getName());
+                        ArrayList<Doctor> a = new PatientService().getDoctorsByDepartment(d.getName());
+                        String[] id = new String[a.size()];
+                        int i = 0;
+                        for (Doctor doc : a) {
+                            id[i++] = doc.getId();
+                        }
+                        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(id));
                     }
-                    jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(id));
+                    catch(DepartmentNotFoundException e1){
+                        e1.printStackTrace();
+                    }
+                    catch(DoctorListEmptyException e1){
+                        JOptionPane.showMessageDialog(null, e1.toString(), "InfoBox: " + "Doctor list empty", JOptionPane.INFORMATION_MESSAGE);
+                        new DoctorReassign(Did,Pid).setVisible(true);
+                    }
                 }
             }
         });
@@ -139,6 +170,7 @@ public class DoctorReassign extends javax.swing.JFrame implements ActionListener
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
                     new DoctorService().reassignment(Pid,Did,jComboBox2.getSelectedItem().toString());
+                    new DoctorFunctions(Did).setVisible(true);
                 }
             });
             this.setVisible(false);

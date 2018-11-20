@@ -7,9 +7,12 @@ package UI.SearchDoctor;
 import DTO.Doctor;
 import DTO.Patient;
 import DTO.Schedule;
+import Exceptions.DoctorListEmptyException;
+import Exceptions.DoctorNotFoundException;
 import Service.AdminService;
 import Service.PatientService;
 import UI.BookAppointment.BookAppointment;
+import UI.DoctorLogin.DoctorLogin;
 import UI.DoctorSelection.DoctorSelection;
 import UI.Homepage.Homepage;
 import UI.PatientDetails.PatientDetails;
@@ -115,35 +118,43 @@ public class SearchDoctor extends JFrame implements ActionListener {
                     String criteria = comboBox1.getSelectedItem().toString();
                     if(criteria.equals("DEPARTMENT"))
                     {
-                        ArrayList<Doctor> doclist = new PatientService().getDoctorsByDepartment(textField1.getText());
-                        Object columnNames[] = { "Doctor Name", "Doctor Id", "Gender", " Phone Number", "Address" ,"Specialization", "Designation"};
-                        Object[][] data = {};
-                        DefaultTableModel dm = new DefaultTableModel(data, columnNames);
-                        JTable table = new JTable(dm);
-                        JFrame frame = new JFrame();
-                        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-                        JScrollPane scrollPane = new JScrollPane(table);
-                        frame.add(scrollPane, BorderLayout.CENTER);
-                        frame.setSize(300, 150);
-                        frame.setVisible(true);
-                        DefaultTableModel model = (DefaultTableModel) table.getModel();
-                        for (Doctor p : doclist) {
-                            String d1,d2,d3,d4,d5,d6,d7,d8;
-                            d1 = p.getName();
-                            d2 = p.getId();
-                            d3 = p.getGender();
-                            d4 = p.getPhoneNumber();
-                            d5 = p.getAddress();
-                            d6 = p.getSpecialization();
-                            d7 = p.getDesignation();
-                            d8 = p.getDepartment();
-                            model.addRow(new Object[]{d1,d2,d3,d4,d5,d6,d7,d8});
+                        try {
+                            ArrayList<Doctor> doclist = new PatientService().getDoctorsByDepartment(textField1.getText());
+                            Object columnNames[] = {"Doctor Name", "Doctor Id", "Gender", " Phone Number", "Address", "Specialization", "Designation"};
+                            Object[][] data = {};
+                            DefaultTableModel dm = new DefaultTableModel(data, columnNames);
+                            JTable table = new JTable(dm);
+                            JFrame frame = new JFrame();
+                            frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                            JScrollPane scrollPane = new JScrollPane(table);
+                            frame.add(scrollPane, BorderLayout.CENTER);
+                            frame.setSize(300, 150);
+                            frame.setVisible(true);
+                            DefaultTableModel model = (DefaultTableModel) table.getModel();
+                            for (Doctor p : doclist) {
+                                String d1, d2, d3, d4, d5, d6, d7, d8;
+                                d1 = p.getName();
+                                d2 = p.getId();
+                                d3 = p.getGender();
+                                d4 = p.getPhoneNumber();
+                                d5 = p.getAddress();
+                                d6 = p.getSpecialization();
+                                d7 = p.getDesignation();
+                                d8 = p.getDepartment();
+                                model.addRow(new Object[]{d1, d2, d3, d4, d5, d6, d7, d8});
+                            }
+                            new BookAppointment(Pid).setVisible(true);
+                        }
+                        catch (DoctorListEmptyException e)
+                        {
+                            JOptionPane.showMessageDialog(null, e.toString(), "InfoBox: " + "Doctor List is empty", JOptionPane.INFORMATION_MESSAGE);
+                            new SearchDoctor(Pid).setVisible(true);
                         }
                     }
-                    else if(criteria.equals("SPECIALIZATION"))
-                    {
+                    else if(criteria.equals("SPECIALIZATION")) {
+                        try {
                         ArrayList<Doctor> doclist = new PatientService().getDoctorsBySpecialization(textField1.getText());
-                        Object columnNames[] = { "Doctor Name", "Doctor Id", "Gender", " Phone Number", "Address" ,"Specialization", "Designation"};
+                        Object columnNames[] = {"Doctor Name", "Doctor Id", "Gender", " Phone Number", "Address", "Specialization", "Designation"};
                         Object[][] data = {};
                         DefaultTableModel dm = new DefaultTableModel(data, columnNames);
                         JTable table = new JTable(dm);
@@ -155,7 +166,7 @@ public class SearchDoctor extends JFrame implements ActionListener {
                         frame.setVisible(true);
                         DefaultTableModel model = (DefaultTableModel) table.getModel();
                         for (Doctor p : doclist) {
-                            String d1,d2,d3,d4,d5,d6,d7,d8;
+                            String d1, d2, d3, d4, d5, d6, d7, d8;
                             d1 = p.getName();
                             d2 = p.getId();
                             d3 = p.getGender();
@@ -164,51 +175,68 @@ public class SearchDoctor extends JFrame implements ActionListener {
                             d6 = p.getSpecialization();
                             d7 = p.getDesignation();
                             d8 = p.getDepartment();
-                            model.addRow(new Object[]{d1,d2,d3,d4,d5,d6,d7,d8});
+                            model.addRow(new Object[]{d1, d2, d3, d4, d5, d6, d7, d8});
+                        }
+                        new BookAppointment(Pid).setVisible(true);
+                        }
+                        catch (DoctorListEmptyException e)
+                        {
+                            JOptionPane.showMessageDialog(null, e.toString(), "InfoBox: " + "Doctor List is empty", JOptionPane.INFORMATION_MESSAGE);
+                            new SearchDoctor(Pid).setVisible(true);
                         }
                     }
                     else if(criteria.equals("ADDRESS"))
                     {
-                        ArrayList<Doctor> doclist = new PatientService().getDoctorsByAddress(textField1.getText());
-                        Object columnNames[] = { "Doctor Name", "Doctor Id", "Gender", " Phone Number", "Address" ,"Specialization", "Designation"};
-                        Object[][] data = {};
-                        DefaultTableModel dm = new DefaultTableModel(data, columnNames);
-                        JTable table = new JTable(dm);
-                        JFrame frame = new JFrame();
-                        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-                        JScrollPane scrollPane = new JScrollPane(table);
-                        frame.add(scrollPane, BorderLayout.CENTER);
-                        frame.setSize(300, 150);
-                        frame.setVisible(true);
-                        DefaultTableModel model = (DefaultTableModel) table.getModel();
-                        for (Doctor p : doclist) {
-                            String d1,d2,d3,d4,d5,d6,d7,d8;
-                            d1 = p.getName();
-                            d2 = p.getId();
-                            d3 = p.getGender();
-                            d4 = p.getPhoneNumber();
-                            d5 = p.getAddress();
-                            d6 = p.getSpecialization();
-                            d7 = p.getDesignation();
-                            d8 = p.getDepartment();
-                            model.addRow(new Object[]{d1,d2,d3,d4,d5,d6,d7,d8});
+                        try {
+
+                            ArrayList<Doctor> doclist = new PatientService().getDoctorsByAddress(textField1.getText());
+                            Object columnNames[] = {"Doctor Name", "Doctor Id", "Gender", " Phone Number", "Address", "Specialization", "Designation"};
+                            Object[][] data = {};
+                            DefaultTableModel dm = new DefaultTableModel(data, columnNames);
+                            JTable table = new JTable(dm);
+                            JFrame frame = new JFrame();
+                            frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                            JScrollPane scrollPane = new JScrollPane(table);
+                            frame.add(scrollPane, BorderLayout.CENTER);
+                            frame.setSize(300, 150);
+                            frame.setVisible(true);
+                            DefaultTableModel model = (DefaultTableModel) table.getModel();
+                            for (Doctor p : doclist) {
+                                String d1, d2, d3, d4, d5, d6, d7, d8;
+                                d1 = p.getName();
+                                d2 = p.getId();
+                                d3 = p.getGender();
+                                d4 = p.getPhoneNumber();
+                                d5 = p.getAddress();
+                                d6 = p.getSpecialization();
+                                d7 = p.getDesignation();
+                                d8 = p.getDepartment();
+                                model.addRow(new Object[]{d1, d2, d3, d4, d5, d6, d7, d8});
+                            }
+                            new BookAppointment(Pid).setVisible(true);
+                        }
+                        catch (DoctorListEmptyException e)
+                        {
+                            JOptionPane.showMessageDialog(null, e.toString(), "InfoBox: " + "Doctor List is empty", JOptionPane.INFORMATION_MESSAGE);
+                            new SearchDoctor(Pid).setVisible(true);
                         }
                     }
                     else if(criteria.equals("DOCTOR ID"))
                     {
-                        Doctor p = new PatientService().getDoctorById(textField1.getText());
-                        Object columnNames[] = { "Doctor Name", "Doctor Id", "Gender", " Phone Number", "Address" ,"Specialization", "Designation"};
-                        Object[][] data = {};
-                        DefaultTableModel dm = new DefaultTableModel(data, columnNames);
-                        JTable table = new JTable(dm);
-                        JFrame frame = new JFrame();
-                        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-                        JScrollPane scrollPane = new JScrollPane(table);
-                        frame.add(scrollPane, BorderLayout.CENTER);
-                        frame.setSize(300, 150);
-                        frame.setVisible(true);
-                        DefaultTableModel model = (DefaultTableModel) table.getModel();
-                            String d1,d2,d3,d4,d5,d6,d7,d8;
+                        try {
+                            Doctor p = new PatientService().getDoctorById(textField1.getText());
+                            Object columnNames[] = {"Doctor Name", "Doctor Id", "Gender", " Phone Number", "Address", "Specialization", "Designation"};
+                            Object[][] data = {};
+                            DefaultTableModel dm = new DefaultTableModel(data, columnNames);
+                            JTable table = new JTable(dm);
+                            JFrame frame = new JFrame();
+                            frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                            JScrollPane scrollPane = new JScrollPane(table);
+                            frame.add(scrollPane, BorderLayout.CENTER);
+                            frame.setSize(300, 150);
+                            frame.setVisible(true);
+                            DefaultTableModel model = (DefaultTableModel) table.getModel();
+                            String d1, d2, d3, d4, d5, d6, d7, d8;
                             d1 = p.getName();
                             d2 = p.getId();
                             d3 = p.getGender();
@@ -217,36 +245,50 @@ public class SearchDoctor extends JFrame implements ActionListener {
                             d6 = p.getSpecialization();
                             d7 = p.getDesignation();
                             d8 = p.getDepartment();
-                            model.addRow(new Object[]{d1,d2,d3,d4,d5,d6,d7,d8});
+                            model.addRow(new Object[]{d1, d2, d3, d4, d5, d6, d7, d8});
+                            new BookAppointment(Pid).setVisible(true);
+                        }
+                        catch (DoctorNotFoundException e)
+                        {
+                            JOptionPane.showMessageDialog(null, e.toString(), "InfoBox: " + "Doctor List is empty", JOptionPane.INFORMATION_MESSAGE);
+                            new SearchDoctor(Pid).setVisible(true);
+                        }
                     }
                     else if(criteria.equals("NAME"))
                     {
-                        ArrayList<Doctor> doclist = new PatientService().getDoctorsByName(textField1.getText());
-                        Object columnNames[] = { "Doctor Name", "Doctor Id", "Gender", " Phone Number", "Address" ,"Specialization", "Designation"};
-                        Object[][] data = {};
-                        DefaultTableModel dm = new DefaultTableModel(data, columnNames);
-                        JTable table = new JTable(dm);
-                        JFrame frame = new JFrame();
-                        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-                        JScrollPane scrollPane = new JScrollPane(table);
-                        frame.add(scrollPane, BorderLayout.CENTER);
-                        frame.setSize(300, 150);
-                        frame.setVisible(true);
-                        DefaultTableModel model = (DefaultTableModel) table.getModel();
-                        for (Doctor p : doclist) {
-                            String d1,d2,d3,d4,d5,d6,d7,d8;
-                            d1 = p.getName();
-                            d2 = p.getId();
-                            d3 = p.getGender();
-                            d4 = p.getPhoneNumber();
-                            d5 = p.getAddress();
-                            d6 = p.getSpecialization();
-                            d7 = p.getDesignation();
-                            d8 = p.getDepartment();
-                            model.addRow(new Object[]{d1,d2,d3,d4,d5,d6,d7,d8});
+                        try {
+                            ArrayList<Doctor> doclist = new PatientService().getDoctorsByName(textField1.getText());
+                            Object columnNames[] = {"Doctor Name", "Doctor Id", "Gender", " Phone Number", "Address", "Specialization", "Designation"};
+                            Object[][] data = {};
+                            DefaultTableModel dm = new DefaultTableModel(data, columnNames);
+                            JTable table = new JTable(dm);
+                            JFrame frame = new JFrame();
+                            frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                            JScrollPane scrollPane = new JScrollPane(table);
+                            frame.add(scrollPane, BorderLayout.CENTER);
+                            frame.setSize(300, 150);
+                            frame.setVisible(true);
+                            DefaultTableModel model = (DefaultTableModel) table.getModel();
+                            for (Doctor p : doclist) {
+                                String d1, d2, d3, d4, d5, d6, d7, d8;
+                                d1 = p.getName();
+                                d2 = p.getId();
+                                d3 = p.getGender();
+                                d4 = p.getPhoneNumber();
+                                d5 = p.getAddress();
+                                d6 = p.getSpecialization();
+                                d7 = p.getDesignation();
+                                d8 = p.getDepartment();
+                                model.addRow(new Object[]{d1, d2, d3, d4, d5, d6, d7, d8});
+                            }
+                            new BookAppointment(Pid).setVisible(true);
+                        }
+                        catch (DoctorListEmptyException e)
+                        {
+                            JOptionPane.showMessageDialog(null, e.toString(), "InfoBox: " + "Doctor List is empty", JOptionPane.INFORMATION_MESSAGE);
+                            new SearchDoctor(Pid).setVisible(true);
                         }
                     }
-                    new BookAppointment(Pid).setVisible(true);
 
                 }
             });

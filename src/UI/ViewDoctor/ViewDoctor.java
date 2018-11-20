@@ -97,6 +97,7 @@ public class ViewDoctor extends JFrame implements ActionListener {
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
+
                     new AdminViewDoc(textField1.getText()).setVisible(true);
                 }
             });

@@ -8,6 +8,7 @@ import UI.DoctorDetails.DoctorDetails;
 import UI.DoctorHome.DoctorHome;
 import UI.DoctorSchedule.DoctorSchedule;
 import UI.DoctorUpdate.DoctorUpdate;
+import UI.HODHome.HODHome;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -109,7 +110,7 @@ public class HODProfile extends JFrame implements ActionListener {
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    new DoctorHome(Did).setVisible(true);
+                    new HODHome(Did).setVisible(true);
                 }
             });
             this.setVisible(false);

@@ -6,6 +6,7 @@ package UI.HODHome;
 
 import DTO.Patient;
 import DTO.UpdateDoctorRequest;
+import Exceptions.PatientListNotFoundException;
 import Service.DoctorService;
 import Service.HodService;
 import UI.DoctorFunctions.DoctorFunctions;
@@ -31,6 +32,7 @@ public class HODHome extends JFrame implements ActionListener {
         button1.addActionListener(this);
         button2.addActionListener(this);
         button3.addActionListener(this);
+        button4.addActionListener(this);
         addWindowListener(new WindowAdapter(){
             public void windowClosing(WindowEvent we)
             {
@@ -112,20 +114,26 @@ public class HODHome extends JFrame implements ActionListener {
                     frame.setSize(300, 150);
                     frame.setVisible(true);
                     DefaultTableModel model = (DefaultTableModel) table.getModel();
-                    ArrayList<Patient> result = DoctorService.getPatients(Did);
-                    for (Patient p : result) {
-                        String d1, d2, d3,d4 , d5,d6,d7,d8;
-                        d1 = p.getName();
-                        d2 = p.getId();
-                        d3 = p.getGender();
-                        d4 = p.getPhoneNumber();
-                        d5 = p.getAddress();
-                        d6 = String.valueOf(p.getAge());
-                        d7 = p.getAilment();
-                        d8 = p.getHealthStatus();
-                        model.addRow(new Object[]{d1,d2,d3,d4,d5,d6,d7,d8});
+                    try {
+                        ArrayList<Patient> result = DoctorService.getPatients(Did);
+                        for (Patient p : result) {
+                            String d1, d2, d3, d4, d5, d6, d7, d8;
+                            d1 = p.getName();
+                            d2 = p.getId();
+                            d3 = p.getGender();
+                            d4 = p.getPhoneNumber();
+                            d5 = p.getAddress();
+                            d6 = String.valueOf(p.getAge());
+                            d7 = p.getAilment();
+                            d8 = p.getHealthStatus();
+                            model.addRow(new Object[]{d1, d2, d3, d4, d5, d6, d7, d8});
+                        }
+                        new DoctorFunctions(Did).setVisible(true);
                     }
-                    new DoctorFunctions(Did).setVisible(true);
+                    catch(PatientListNotFoundException e){
+                        JOptionPane.showMessageDialog(null, e.toString(), "InfoBox: " + "Patient not found exception", JOptionPane.INFORMATION_MESSAGE);
+                        new HODHome(Did).setVisible(true);
+                    }
                 }
             });
             this.setVisible(false);

@@ -6,8 +6,12 @@ import javax.swing.table.DefaultTableModel;
 import DTO.Doctor;
 import DTO.Patient;
 import DTO.Reassignment;
+import Exceptions.DoctorListEmptyException;
+import Exceptions.PatientListNotFoundException;
+import Exceptions.ReassignmentListEmptyException;
 import Service.AdminService;
 import UI.AdminLogin.AdminLogin;
+import UI.AppointmentHistory.AppointmentHistory;
 import UI.DepartmentRegistration.DepartmentRegistration;
 import UI.DoctorLogin.DoctorLogin;
 import UI.Homepage.Homepage;
@@ -126,28 +130,36 @@ public class AdminHome extends JFrame implements ActionListener{
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    Object columnNames[] = { "Reassignment ID", "Patient Id", "Referring Doctor Id", "Referred Doctor Id", "Status"};
-                    Object[][] data = {};
-                    DefaultTableModel dm = new DefaultTableModel(data, columnNames);
-                    JTable table = new JTable(dm);
-                    JFrame frame = new JFrame();
-                    frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-                    JScrollPane scrollPane = new JScrollPane(table);
-                    frame.add(scrollPane, BorderLayout.CENTER);
-                    frame.setSize(300, 150);
-                    frame.setVisible(true);
-                    DefaultTableModel model = (DefaultTableModel) table.getModel();
-                    ArrayList<Reassignment> result = AdminService.showAllReassignment();
-                    for (Reassignment p : result) {
-                        String d1, d2, d3,d4 , d5;
-                        d1 = p.getId();
-                        d2 = p.getPatientId();
-                        d3 = p.getReferringDoctorId();
-                        d4 = p.getReferredDoctorId();
-                        d5 = p.getStatus();
-                        model.addRow(new Object[]{d1,d2,d3,d4,d5});
+                    try {
+
+                        Object columnNames[] = {"Reassignment ID", "Patient Id", "Referring Doctor Id", "Referred Doctor Id", "Status"};
+                        Object[][] data = {};
+                        DefaultTableModel dm = new DefaultTableModel(data, columnNames);
+                        JTable table = new JTable(dm);
+                        JFrame frame = new JFrame();
+                        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                        JScrollPane scrollPane = new JScrollPane(table);
+                        frame.add(scrollPane, BorderLayout.CENTER);
+                        frame.setSize(300, 150);
+                        frame.setVisible(true);
+                        DefaultTableModel model = (DefaultTableModel) table.getModel();
+                        ArrayList<Reassignment> result = AdminService.showAllReassignment();
+                        for (Reassignment p : result) {
+                            String d1, d2, d3, d4, d5;
+                            d1 = p.getId();
+                            d2 = p.getPatientId();
+                            d3 = p.getReferringDoctorId();
+                            d4 = p.getReferredDoctorId();
+                            d5 = p.getStatus();
+                            model.addRow(new Object[]{d1, d2, d3, d4, d5});
+                        }
+                        new ReassignmentHome().setVisible(true);
                     }
-                    new ReassignmentHome().setVisible(true);
+                    catch (ReassignmentListEmptyException e)
+                    {
+                        JOptionPane.showMessageDialog(null, e.toString(), "InfoBox: " + "Reassignment List Not Found Exception", JOptionPane.INFORMATION_MESSAGE);
+                        new AdminHome().setVisible(true);
+                    }
                 }
             });
             this.setVisible(false);
@@ -156,28 +168,34 @@ public class AdminHome extends JFrame implements ActionListener{
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    Object columnNames[] = { "Patient Name", "Patient Id", "Gender", " Phone Number", "Address" };
-                    Object[][] data = {};
-                    DefaultTableModel dm = new DefaultTableModel(data, columnNames);
-                    JTable table = new JTable(dm);
-                    JFrame frame = new JFrame();
-                    frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-                    JScrollPane scrollPane = new JScrollPane(table);
-                    frame.add(scrollPane, BorderLayout.CENTER);
-                    frame.setSize(300, 150);
-                    frame.setVisible(true);
-                    DefaultTableModel model = (DefaultTableModel) table.getModel();
-                    ArrayList<Patient> result = AdminService.showAllPatient();
-                    for (Patient p : result) {
-                        String d1, d2, d3,d4 , d5;
-                        d1 = p.getName();
-                        d2 = p.getId();
-                        d3 = p.getGender();
-                        d4 = p.getPhoneNumber();
-                        d5 = p.getAddress();
-                        model.addRow(new Object[]{d1,d2,d3,d4,d5});
+                    try {
+                        Object columnNames[] = {"Patient Name", "Patient Id", "Gender", " Phone Number", "Address"};
+                        Object[][] data = {};
+                        DefaultTableModel dm = new DefaultTableModel(data, columnNames);
+                        JTable table = new JTable(dm);
+                        JFrame frame = new JFrame();
+                        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                        JScrollPane scrollPane = new JScrollPane(table);
+                        frame.add(scrollPane, BorderLayout.CENTER);
+                        frame.setSize(300, 150);
+                        frame.setVisible(true);
+                        DefaultTableModel model = (DefaultTableModel) table.getModel();
+                        ArrayList<Patient> result = AdminService.showAllPatient();
+                        for (Patient p : result) {
+                            String d1, d2, d3, d4, d5;
+                            d1 = p.getName();
+                            d2 = p.getId();
+                            d3 = p.getGender();
+                            d4 = p.getPhoneNumber();
+                            d5 = p.getAddress();
+                            model.addRow(new Object[]{d1, d2, d3, d4, d5});
+                        }
+                        new ViewPatient().setVisible(true);
                     }
-                    new ViewPatient().setVisible(true);
+                    catch (PatientListNotFoundException e){
+                        JOptionPane.showMessageDialog(null, e.toString(), "InfoBox: " + "Patient List empty", JOptionPane.INFORMATION_MESSAGE);
+                        new AdminHome().setVisible(true);
+                    }
                 }
             });
             this.setVisible(false);
@@ -186,26 +204,32 @@ public class AdminHome extends JFrame implements ActionListener{
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    Object columnNames[] = { "Doctor Name", "Doctor Id", "Department" };
-                    Object[][] data = {};
-                    DefaultTableModel dm = new DefaultTableModel(data, columnNames);
-                    JTable table = new JTable(dm);
-                    JFrame frame = new JFrame();
-                    frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-                    JScrollPane scrollPane = new JScrollPane(table);
-                    frame.add(scrollPane, BorderLayout.CENTER);
-                    frame.setSize(300, 150);
-                    frame.setVisible(true);
-                    DefaultTableModel model = (DefaultTableModel) table.getModel();
-                    ArrayList<Doctor> result = AdminService.showAllDoctor();
-                    for (Doctor doc : result) {
-                        String d1, d2, d3;
-                        d1 = doc.getName();
-                        d2 = doc.getId();
-                        d3 = doc.getDepartment();
-                        model.addRow(new Object[]{d1,d2,d3});
+                    try {
+                        Object columnNames[] = {"Doctor Name", "Doctor Id", "Department"};
+                        Object[][] data = {};
+                        DefaultTableModel dm = new DefaultTableModel(data, columnNames);
+                        JTable table = new JTable(dm);
+                        JFrame frame = new JFrame();
+                        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                        JScrollPane scrollPane = new JScrollPane(table);
+                        frame.add(scrollPane, BorderLayout.CENTER);
+                        frame.setSize(300, 150);
+                        frame.setVisible(true);
+                        DefaultTableModel model = (DefaultTableModel) table.getModel();
+                        ArrayList<Doctor> result = AdminService.showAllDoctor();
+                        for (Doctor doc : result) {
+                            String d1, d2, d3;
+                            d1 = doc.getName();
+                            d2 = doc.getId();
+                            d3 = doc.getDepartment();
+                            model.addRow(new Object[]{d1, d2, d3});
+                        }
+                        new ViewDoctor().setVisible(true);
                     }
-                    new ViewDoctor().setVisible(true);
+                    catch (DoctorListEmptyException e){
+                        JOptionPane.showMessageDialog(null, e.toString(), "InfoBox: " + "Doctor List Not Found", JOptionPane.INFORMATION_MESSAGE);
+                        new AdminHome().setVisible(true);
+                    }
                 }
             });
             this.setVisible(false);

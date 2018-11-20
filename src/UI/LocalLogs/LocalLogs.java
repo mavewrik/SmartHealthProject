@@ -6,6 +6,7 @@ package UI.LocalLogs;
 
 import DTO.Appointment;
 import DTO.Patient;
+import Exceptions.AppointmentNotFoundException;
 import Service.AdminService;
 import Service.PatientService;
 import UI.AdminLogin.AdminLogin;
@@ -170,11 +171,15 @@ public class LocalLogs extends JFrame implements ActionListener {
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-
-                    Appointment a = new PatientService().getAppointmentById(textField1.getText());
-                    new AdminService().addPatientLogs(Pid,a.getDate(),a.getSlot(),textField2.getText(),textField3.getText(),textField1.getText());
-                    new ViewPatient().setVisible(true);
-                }
+                    try {
+                        Appointment a = new PatientService().getAppointmentById(textField1.getText());
+                        new AdminService().addPatientLogs(Pid, a.getDate(), a.getSlot(), textField2.getText(), textField3.getText(), textField1.getText());
+                    }
+                    catch(AppointmentNotFoundException e){
+                        JOptionPane.showMessageDialog(null, e.toString(), "InfoBox: " + "Appointment not found exception", JOptionPane.INFORMATION_MESSAGE);
+                        new LocalLogs(Pid).setVisible(true);
+                    }
+                    }
             });
             this.setVisible(false);
         }

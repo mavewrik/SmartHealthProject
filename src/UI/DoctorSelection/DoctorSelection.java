@@ -4,6 +4,8 @@
 
 package UI.DoctorSelection;
 
+import DTO.Department;
+import Exceptions.DepartmentListNotFoundException;
 import Service.AdminService;
 import UI.DoctorHome.DoctorHome;
 import UI.PatientHome.PatientHome;
@@ -77,7 +79,19 @@ public class DoctorSelection extends JFrame implements ActionListener {
         textField1.setBounds(225, 100, 200, textField1.getPreferredSize().height);
         contentPane.add(comboBox2);
         comboBox2.setBounds(225, 60, 195, comboBox2.getPreferredSize().height);
-        comboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "OPHTHALMOLOGY", "NEUROLOGY", "ONCOLOGY", "PEDIATRICS", "CARDIOLOGY", "ENT", "GASTROENTEROLOGY", "GYNAECOLOGY", "ORTHOPAEDICS", "UROLOGY", "ANAESTHETICS", "IMMUNOLOGY", "DERMATOLOGY", "NEPHROLOGY", "PATHOLOGY", "PSYCHIATRY", "RADIOLOGY", "RHEUMATOLOGY" }));
+        try {
+            ArrayList<Department> d = new AdminService().getAllDepartment();
+            String[] id = new String[d.size()];
+            int i = 0;
+            for (Department dep : d) {
+                id[i++] = dep.getName();
+            }
+            comboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(id));
+        }
+        catch (DepartmentListNotFoundException e)
+        {
+            JOptionPane.showMessageDialog(null, e.toString(), "InfoBox: " + "Department List Not Found Exception", JOptionPane.INFORMATION_MESSAGE);
+        }
         //---- button2 ----
         button2.setText("BACK");
         contentPane.add(button2);
@@ -121,10 +135,10 @@ public class DoctorSelection extends JFrame implements ActionListener {
                     SimpleDateFormat df = new SimpleDateFormat("EEEE");
                     String day = df.format(d);
                     new AdminService().allocateDoctor(Pid,department,date,day,slot);
+                    new PatientHome(Pid).setVisible(true);
                 }
             });
             this.setVisible(false);
-            new PatientHome(Pid).setVisible(true);
         }
         else if(s.equals("BACK"))
         {

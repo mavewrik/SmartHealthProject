@@ -11,7 +11,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import LoggerConfig.LoggerConfig;
+
 public class patientDAO {
+
+    private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
     public static boolean savePatientInfo(Patient patient) {
 
@@ -247,13 +253,13 @@ public class patientDAO {
 
         DatabaseConnectionClass databseConnectionClass = DatabaseConnectionClass.getInstance();
 
-        boolean result = true;
+        boolean result = false;
 
         Connection conn = databseConnectionClass.getMySqlConnection("jdbc:mysql://localhost:3306/", "hospitalManagement", "root", "", "com.mysql.jdbc.Driver");
 
         //Step 2. Now Use PreparedStatement class to pass SQL to create employee
         String insertSQL = "UPDATE appointment SET status = ?  "
-                + "WHERE Id = ? ";
+                + "WHERE id = ? ";
 
         PreparedStatement stmt = null; //will explain later
         int row = 0;
@@ -267,8 +273,9 @@ public class patientDAO {
             stmt.setString(1, "cancelled");
             stmt.setString(2, id);
             row = stmt.executeUpdate();
-
+            System.out.print(row);
             if (row > 0) {
+                System.out.print("here");
                 result = true;
             }
         } catch (SQLException ex) {
@@ -292,7 +299,7 @@ public class patientDAO {
 
         DatabaseConnectionClass databseConnectionClass = DatabaseConnectionClass.getInstance();
 
-        boolean result = true;
+        boolean result = false;
 
         Connection conn = databseConnectionClass.getMySqlConnection("jdbc:mysql://localhost:3306/", "hospitalManagement", "root", "", "com.mysql.jdbc.Driver");
 
@@ -355,7 +362,7 @@ public class patientDAO {
 
         DatabaseConnectionClass databseConnectionClass = DatabaseConnectionClass.getInstance();
 
-        boolean result = true;
+        boolean result = false;
 
         Connection conn = databseConnectionClass.getMySqlConnection("jdbc:mysql://localhost:3306/", "hospitalManagement", "root", "", "com.mysql.jdbc.Driver");
 
@@ -495,6 +502,7 @@ public class patientDAO {
                 patient.setStatus(rs.getString("Status"));
                 patient.setStatus(rs.getString("Type"));
             }
+
         } catch (SQLException ex) {
             ex.printStackTrace();
             return null;
@@ -505,7 +513,8 @@ public class patientDAO {
                 return null;
             }
         }
-
+        LOGGER.setLevel(Level.INFO);
+        LOGGER.info("Patient data fetched from database");
         return patient;
 
     }
@@ -643,7 +652,7 @@ public class patientDAO {
 
         DatabaseConnectionClass databseConnectionClass = DatabaseConnectionClass.getInstance();
 
-        boolean result = true;
+        boolean result = false;
 
         Connection conn = databseConnectionClass.getMySqlConnection("jdbc:mysql://localhost:3306/", "hospitalManagement", "root", "", "com.mysql.jdbc.Driver");
 

@@ -5,6 +5,7 @@
 package UI.OPDLogs;
 
 import DTO.Appointment;
+import Exceptions.AppointmentNotFoundException;
 import Service.AdminService;
 import Service.PatientService;
 import UI.ViewPatient.ViewPatient;
@@ -148,10 +149,15 @@ public class OPDLogs extends JFrame implements ActionListener {
         } else if (s.equals("SUBMIT")) {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-
-                    Appointment a = new PatientService().getAppointmentById(textField1.getText());
-                    new AdminService().addPatientLogs(Pid, a.getDate(), a.getSlot(),"N.A","N.A",textField1.getText());
-                }
+                    try {
+                        Appointment a = new PatientService().getAppointmentById(textField1.getText());
+                        new AdminService().addPatientLogs(Pid, a.getDate(), a.getSlot(), "N.A", "N.A", textField1.getText());
+                    }
+                    catch(AppointmentNotFoundException e){
+                        JOptionPane.showMessageDialog(null, e.toString(), "InfoBox: " + "Appointment not found exception", JOptionPane.INFORMATION_MESSAGE);
+                        new OPDLogs(Pid).setVisible(true);
+                    }
+                    }
             });
             this.setVisible(false);
         }

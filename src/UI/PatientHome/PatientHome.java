@@ -4,6 +4,7 @@ package UI.PatientHome;
 
 import DTO.Appointment;
 import DTO.Doctor;
+import Exceptions.AppointmentNotFoundException;
 import Service.PatientService;
 import UI.AdminLogin.AdminLogin;
 import UI.AppointmentHistory.AppointmentHistory;
@@ -132,29 +133,37 @@ public class PatientHome extends JFrame implements ActionListener {
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    ArrayList<Appointment> a= new PatientService().getAppointmentByPatientId(Pid);
-                    Object columnNames[] = { "Appointment ID","Patient ID","Doctor ID","Date","Status","Slot"};
-                    Object[][] data = {};
-                    DefaultTableModel dm = new DefaultTableModel(data, columnNames);
-                    JTable table = new JTable(dm);
-                    JFrame frame = new JFrame();
-                    frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-                    JScrollPane scrollPane = new JScrollPane(table);
-                    frame.add(scrollPane, BorderLayout.CENTER);
-                    frame.setSize(300, 150);
-                    frame.setVisible(true);
-                    DefaultTableModel model = (DefaultTableModel) table.getModel();
-                    for (Appointment p : a) {
-                        String d1,d2,d3,d4,d5,d6;
-                        d1 = p.getId();
-                        d2 = p.getPatientId();
-                        d3 = p.getDoctorId();
-                        d4 = p.getDate();
-                        d5 = p.getStatus();
-                        d6 = p.getSlot();
-                        model.addRow(new Object[]{d1,d2,d3,d4,d5,d6});
+                    try {
+
+                        ArrayList<Appointment> a = new PatientService().getAppointmentByPatientId(Pid);
+                        Object columnNames[] = {"Appointment ID", "Patient ID", "Doctor ID", "Date", "Status", "Slot"};
+                        Object[][] data = {};
+                        DefaultTableModel dm = new DefaultTableModel(data, columnNames);
+                        JTable table = new JTable(dm);
+                        JFrame frame = new JFrame();
+                        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                        JScrollPane scrollPane = new JScrollPane(table);
+                        frame.add(scrollPane, BorderLayout.CENTER);
+                        frame.setSize(300, 150);
+                        frame.setVisible(true);
+                        DefaultTableModel model = (DefaultTableModel) table.getModel();
+                        for (Appointment p : a) {
+                            String d1, d2, d3, d4, d5, d6;
+                            d1 = p.getId();
+                            d2 = p.getPatientId();
+                            d3 = p.getDoctorId();
+                            d4 = p.getDate();
+                            d5 = p.getStatus();
+                            d6 = p.getSlot();
+                            model.addRow(new Object[]{d1, d2, d3, d4, d5, d6});
+                        }
+                        new AppointmentHistory(Pid).setVisible(true);
                     }
-                    new AppointmentHistory(Pid).setVisible(true);
+                    catch (AppointmentNotFoundException e)
+                    {
+                            JOptionPane.showMessageDialog(null, e.toString(), "InfoBox: " + "Appointment Not Found", JOptionPane.INFORMATION_MESSAGE);
+                            new PatientHome(Pid).setVisible(true);
+                    }
                 }
             });
             this.setVisible(false);

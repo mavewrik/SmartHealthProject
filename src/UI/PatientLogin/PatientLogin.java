@@ -7,6 +7,7 @@ package UI.PatientLogin;
 
 import java.awt.event.*;
 
+import Exceptions.InvalidLoginException;
 import Service.DoctorService;
 import UI.DoctorHome.DoctorHome;
 import UI.HODHome.HODHome;
@@ -129,15 +130,19 @@ public class PatientLogin extends javax.swing.JFrame implements ActionListener{
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    if(new PatientService().login(jTextField1.getText(),jPasswordField1.getText())==0)
-                    {
-                        System.out.println("Login unsuccessful");
-                    }
-                    else
-                    {
-                        String pid = jTextField1.getText();
-                        new PatientHome(pid).setVisible(true);
+                    try {
+                        if (new PatientService().login(jTextField1.getText(), jPasswordField1.getText()) == 0) {
+                            System.out.println("Login unsuccessful");
+                        } else {
+                            String pid = jTextField1.getText();
+                            new PatientHome(pid).setVisible(true);
 
+                        }
+                    }
+                    catch (InvalidLoginException e)
+                    {
+                        JOptionPane.showMessageDialog(null, e.toString(), "InfoBox: " + "Invalid Login", JOptionPane.INFORMATION_MESSAGE);
+                        new PatientLogin().setVisible(true);
                     }
 
                 }

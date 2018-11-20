@@ -2,6 +2,7 @@ package UI.AdminLogin;
 
 import java.awt.event.*;
 
+import Exceptions.InvalidLoginException;
 import Service.DoctorService;
 import UI.AdminHome.AdminHome;
 import UI.DoctorHome.DoctorHome;
@@ -118,13 +119,15 @@ public class AdminLogin extends javax.swing.JFrame implements ActionListener{
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    if(new AdminService().adminLogin("root",jPasswordField1.getText())==0)
-                    {
-                        System.out.println("Login unsuccessful");
+                    try {
+                        if (new AdminService().adminLogin("root", jPasswordField1.getText()) == 0) {
+                            System.out.println("Login unsuccessful");
+                        } else {
+                            new AdminHome().setVisible(true);
+                        }
                     }
-                    else
-                    {
-                        new AdminHome().setVisible(true);
+                    catch(InvalidLoginException e){
+                        JOptionPane.showMessageDialog(null, e.toString(), "InfoBox: " + "Doctor Not Found", JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
             });

@@ -1,9 +1,12 @@
 
 package UI.AppointmentHistory;
 
+import DTO.Appointment;
+import Exceptions.AppointmentNotFoundException;
 import Service.AdminService;
 import Service.PatientService;
 import UI.AdminHome.AdminHome;
+import UI.DoctorLogin.DoctorLogin;
 import UI.PatientHome.PatientHome;
 
 import java.awt.*;
@@ -96,16 +99,25 @@ public class AppointmentHistory extends JFrame implements ActionListener {
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    new PatientService().cancelAppointment(textField1.getText());
+                    try {
+
+                        new PatientService().cancelAppointment(textField1.getText());
+                        new PatientHome(Pid).setVisible(true);
+                    }
+                    catch (AppointmentNotFoundException e)
+                    {
+                        JOptionPane.showMessageDialog(null, e.toString(), "InfoBox: " + "Appointment Not Found", JOptionPane.INFORMATION_MESSAGE);
+                        new AppointmentHistory(Pid).setVisible(true);
+                    }
                 }
             });
             this.setVisible(false);
-            new PatientHome(Pid).setVisible(true);
         }
         else if(s.equals("RATE YOUR APPOINTMENT"))
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
+
                     new PatientService().rateDoctor(textField1.getText(),textField2.getText());
                 }
             });

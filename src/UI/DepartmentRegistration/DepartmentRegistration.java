@@ -98,7 +98,7 @@ public class DepartmentRegistration extends JFrame implements ActionListener {
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    new AdminService().addDepartment("sdd",textField1.getText(),textField2.getText());
+                    new AdminService().addDepartment(textField1.getText(),textField2.getText());
                 }
             });
             this.setVisible(false);

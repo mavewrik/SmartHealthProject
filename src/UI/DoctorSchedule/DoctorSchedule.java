@@ -1,8 +1,12 @@
 
 package UI.DoctorSchedule;
 
+import Service.DoctorService;
 import Service.PatientService;
 import UI.DoctorHome.DoctorHome;
+import UI.DoctorProfile.DoctorProfile;
+import UI.HODHome.HODHome;
+import UI.HODProfile.HODProfile;
 import UI.PatientHome.PatientHome;
 
 import java.awt.*;
@@ -107,9 +111,12 @@ public class DoctorSchedule extends JFrame implements ActionListener {
                 public void run() {
                     String Day = textField1.getText();
                     String intime = textField2.getText();
-                    String date = textField3.getText();
-                    //new PatientService().saveAppointment(Pid,Did,date);
-                    new DoctorHome(Did).setVisible(true);
+                    String outtime = textField3.getText();
+                    new DoctorService().addSchedule(Did,Day,intime,outtime);
+                    if (new DoctorService().isHod(Did) == true) {
+                        new HODProfile(Did).setVisible(true);
+                    } else
+                        new DoctorProfile(Did).setVisible(true);
                 }
             });
             this.setVisible(false);
@@ -118,7 +125,10 @@ public class DoctorSchedule extends JFrame implements ActionListener {
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    new DoctorHome(Did).setVisible(true);
+                    if (new DoctorService().isHod(Did) == true) {
+                        new HODProfile(Did).setVisible(true);
+                    } else
+                        new DoctorProfile(Did).setVisible(true);
                 }
             });
             this.setVisible(false);

@@ -7,12 +7,18 @@ package UI.DoctorFunctions;
 
 import DTO.Appointment;
 import DTO.Patient;
+import Exceptions.AppointmentNotFoundException;
+import Exceptions.PatientListNotFoundException;
 import Service.DoctorService;
 import Service.PatientService;
 import UI.DoctorHome.DoctorHome;
+import UI.DoctorProfile.DoctorProfile;
 import UI.DoctorReassign.DoctorReassign;
+import UI.HODHome.HODHome;
+import UI.HODProfile.HODProfile;
 import UI.OPDLogs.OPDLogs;
 import UI.ViewAppointment.ViewAppointment;
+import UI.ViewDoctor.ViewDoctor;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -139,7 +145,7 @@ public class DoctorFunctions extends javax.swing.JFrame implements ActionListene
             {
                 java.awt.EventQueue.invokeLater(new Runnable() {
                     public void run() {
-                        Object columnNames[] = { "Patient Name", "Patient Id", "Gender", " Phone Number", "Address", "Age" , "Ailment", "Health Status"};
+                        Object columnNames[] = {"Patient Name", "Patient Id", "Gender", " Phone Number", "Address", "Age", "Ailment", "Health Status"};
                         Object[][] data = {};
                         DefaultTableModel dm = new DefaultTableModel(data, columnNames);
                         JTable table = new JTable(dm);
@@ -150,26 +156,33 @@ public class DoctorFunctions extends javax.swing.JFrame implements ActionListene
                         frame.setSize(300, 150);
                         frame.setVisible(true);
                         DefaultTableModel model = (DefaultTableModel) table.getModel();
-                        ArrayList<Patient> result = DoctorService.getPatients(Did);
-                        Collections.sort(result, new Comparator<Patient>() {
-                            public int compare(Patient p1, Patient p2) {
-                                return p1.getId().compareTo(p2.getId()); // Ascending
+                        try {
+
+                            ArrayList<Patient> result = DoctorService.getPatients(Did);
+                            Collections.sort(result, new Comparator<Patient>() {
+                                public int compare(Patient p1, Patient p2) {
+                                    return p1.getId().compareTo(p2.getId()); // Ascending
+                                }
+
+                            });
+                            for (Patient p : result) {
+                                String d1, d2, d3, d4, d5, d6, d7, d8;
+                                d1 = p.getName();
+                                d2 = p.getId();
+                                d3 = p.getGender();
+                                d4 = p.getPhoneNumber();
+                                d5 = p.getAddress();
+                                d6 = String.valueOf(p.getAge());
+                                d7 = p.getAilment();
+                                d8 = p.getHealthStatus();
+                                model.addRow(new Object[]{d1, d2, d3, d4, d5, d6, d7, d8});
                             }
 
-                        });
-                        for (Patient p : result) {
-                            String d1, d2, d3,d4 , d5,d6,d7,d8;
-                            d1 = p.getName();
-                            d2 = p.getId();
-                            d3 = p.getGender();
-                            d4 = p.getPhoneNumber();
-                            d5 = p.getAddress();
-                            d6 = String.valueOf(p.getAge());
-                            d7 = p.getAilment();
-                            d8 = p.getHealthStatus();
-                            model.addRow(new Object[]{d1,d2,d3,d4,d5,d6,d7,d8});
                         }
-
+                        catch(PatientListNotFoundException e)
+                        {
+                            JOptionPane.showMessageDialog(null, e.toString(), "InfoBox: " + "Patient List Not Found", JOptionPane.INFORMATION_MESSAGE);
+                        }
                     }
                 });
             }
@@ -188,26 +201,32 @@ public class DoctorFunctions extends javax.swing.JFrame implements ActionListene
                         frame.setSize(300, 150);
                         frame.setVisible(true);
                         DefaultTableModel model = (DefaultTableModel) table.getModel();
-                        ArrayList<Patient> result = DoctorService.getPatients(Did);
-                        Collections.sort(result, new Comparator<Patient>() {
-                            public int compare(Patient p1, Patient p2) {
-                                return p1.getName().compareTo(p2.getName()); // Ascending
+                        try {
+
+                            ArrayList<Patient> result = DoctorService.getPatients(Did);
+                            Collections.sort(result, new Comparator<Patient>() {
+                                public int compare(Patient p1, Patient p2) {
+                                    return p1.getName().compareTo(p2.getName()); // Ascending
+                                }
+
+                            });
+                            for (Patient p : result) {
+                                String d1, d2, d3, d4, d5, d6, d7, d8;
+                                d1 = p.getName();
+                                d2 = p.getId();
+                                d3 = p.getGender();
+                                d4 = p.getPhoneNumber();
+                                d5 = p.getAddress();
+                                d6 = String.valueOf(p.getAge());
+                                d7 = p.getAilment();
+                                d8 = p.getHealthStatus();
+                                model.addRow(new Object[]{d1, d2, d3, d4, d5, d6, d7, d8});
                             }
-
-                        });
-                        for (Patient p : result) {
-                            String d1, d2, d3,d4 , d5,d6,d7,d8;
-                            d1 = p.getName();
-                            d2 = p.getId();
-                            d3 = p.getGender();
-                            d4 = p.getPhoneNumber();
-                            d5 = p.getAddress();
-                            d6 = String.valueOf(p.getAge());
-                            d7 = p.getAilment();
-                            d8 = p.getHealthStatus();
-                            model.addRow(new Object[]{d1,d2,d3,d4,d5,d6,d7,d8});
                         }
-
+                        catch(PatientListNotFoundException e)
+                        {
+                            JOptionPane.showMessageDialog(null, e.toString(), "InfoBox: " + "Patient List Not Found", JOptionPane.INFORMATION_MESSAGE);
+                        }
                     }
                 });
             }
@@ -215,7 +234,7 @@ public class DoctorFunctions extends javax.swing.JFrame implements ActionListene
             {
                 java.awt.EventQueue.invokeLater(new Runnable() {
                     public void run() {
-                        Object columnNames[] = { "Patient Name", "Patient Id", "Gender", " Phone Number", "Address", "Age" , "Ailment", "Health Status"};
+                        Object columnNames[] = {"Patient Name", "Patient Id", "Gender", " Phone Number", "Address", "Age", "Ailment", "Health Status"};
                         Object[][] data = {};
                         DefaultTableModel dm = new DefaultTableModel(data, columnNames);
                         JTable table = new JTable(dm);
@@ -226,26 +245,32 @@ public class DoctorFunctions extends javax.swing.JFrame implements ActionListene
                         frame.setSize(300, 150);
                         frame.setVisible(true);
                         DefaultTableModel model = (DefaultTableModel) table.getModel();
-                        ArrayList<Patient> result = DoctorService.getPatients(Did);
-                        Collections.sort(result, new Comparator<Patient>() {
-                            public int compare(Patient p1, Patient p2) {
-                                return p1.getType().compareTo(p2.getType()); // Ascending
+                        try {
+                            ArrayList<Patient> result = DoctorService.getPatients(Did);
+                            Collections.sort(result, new Comparator<Patient>() {
+                                public int compare(Patient p1, Patient p2) {
+                                    return p1.getType().compareTo(p2.getType()); // Ascending
+                                }
+
+                            });
+                            for (Patient p : result) {
+                                String d1, d2, d3, d4, d5, d6, d7, d8;
+                                d1 = p.getName();
+                                d2 = p.getId();
+                                d3 = p.getGender();
+                                d4 = p.getPhoneNumber();
+                                d5 = p.getAddress();
+                                d6 = String.valueOf(p.getAge());
+                                d7 = p.getAilment();
+                                d8 = p.getHealthStatus();
+                                model.addRow(new Object[]{d1, d2, d3, d4, d5, d6, d7, d8});
                             }
 
-                        });
-                        for (Patient p : result) {
-                            String d1, d2, d3,d4 , d5,d6,d7,d8;
-                            d1 = p.getName();
-                            d2 = p.getId();
-                            d3 = p.getGender();
-                            d4 = p.getPhoneNumber();
-                            d5 = p.getAddress();
-                            d6 = String.valueOf(p.getAge());
-                            d7 = p.getAilment();
-                            d8 = p.getHealthStatus();
-                            model.addRow(new Object[]{d1,d2,d3,d4,d5,d6,d7,d8});
                         }
-
+                        catch(PatientListNotFoundException e)
+                        {
+                            JOptionPane.showMessageDialog(null, e.toString(), "InfoBox: " + "Patient List Not Found", JOptionPane.INFORMATION_MESSAGE);
+                        }
                     }
                 });
             }
@@ -263,29 +288,36 @@ public class DoctorFunctions extends javax.swing.JFrame implements ActionListene
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    ArrayList<Appointment> a= new DoctorService().getAppointmentByCompletedPatientId(jTextField1.getText());
-                    Object columnNames[] = { "Appointment ID","Doctor ID","Date","Status","Slot"};
-                    Object[][] data = {};
-                    DefaultTableModel dm = new DefaultTableModel(data, columnNames);
-                    JTable table = new JTable(dm);
-                    JFrame frame = new JFrame();
-                    frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-                    JScrollPane scrollPane = new JScrollPane(table);
-                    frame.add(scrollPane, BorderLayout.CENTER);
-                    frame.setSize(300, 150);
-                    frame.setVisible(true);
-                    DefaultTableModel model = (DefaultTableModel) table.getModel();
-                    for (Appointment p : a) {
-                        String d1,d3,d4,d5,d6;
-                        d1 = p.getId();
-                        d3 = p.getDoctorId();
-                        d4 = p.getDate();
-                        d5 = p.getStatus();
-                        d6 = p.getSlot();
-                        model.addRow(new Object[]{d1,d3,d4,d5,d6});
+                    try {
+                        ArrayList<Appointment> a = new DoctorService().getAppointmentByCompletedPatientId(jTextField1.getText());
+                        Object columnNames[] = {"Appointment ID", "Doctor ID", "Date", "Status", "Slot"};
+                        Object[][] data = {};
+                        DefaultTableModel dm = new DefaultTableModel(data, columnNames);
+                        JTable table = new JTable(dm);
+                        JFrame frame = new JFrame();
+                        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                        JScrollPane scrollPane = new JScrollPane(table);
+                        frame.add(scrollPane, BorderLayout.CENTER);
+                        frame.setSize(300, 150);
+                        frame.setVisible(true);
+                        DefaultTableModel model = (DefaultTableModel) table.getModel();
+                        for (Appointment p : a) {
+                            String d1, d3, d4, d5, d6;
+                            d1 = p.getId();
+                            d3 = p.getDoctorId();
+                            d4 = p.getDate();
+                            d5 = p.getStatus();
+                            d6 = p.getSlot();
+                            model.addRow(new Object[]{d1, d3, d4, d5, d6});
+                        }
+                        new ViewAppointment(jTextField1.getText(), Did).setVisible(true);
                     }
-                    new ViewAppointment(jTextField1.getText(),Did).setVisible(true);
+                    catch(AppointmentNotFoundException e){
+                        JOptionPane.showMessageDialog(null, e.toString(), "InfoBox: " + "Appointment not found", JOptionPane.INFORMATION_MESSAGE);
+                        new DoctorFunctions(Did).setVisible(true);
+                    }
                 }
+
             });
             this.setVisible(false);
         }
@@ -293,7 +325,10 @@ public class DoctorFunctions extends javax.swing.JFrame implements ActionListene
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    new DoctorHome(Did).setVisible(true);
+                    if (new DoctorService().isHod(Did) == true) {
+                        new HODHome(Did).setVisible(true);
+                    } else
+                        new DoctorHome(Did).setVisible(true);
                 }
             });
             this.setVisible(false);

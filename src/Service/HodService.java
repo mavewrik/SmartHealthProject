@@ -9,10 +9,17 @@ import DTO.Doctor;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import LoggerConfig.LoggerConfig;
+
 public class HodService {
 
-    public static void updateDoctorRequestApproval(String id){
+    private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+
+    public static Boolean updateDoctorRequestApproval(String id){
         Boolean val = hodDAO.updateDoctorRequest(id,"Apprved");
+        Boolean value = false;
         if(val) {
             UpdateDoctorRequest request = hodDAO.getDoctorRequestById(id);
             Doctor doctor = doctorDAO.getDoctorInfoById(request.getDoctorId());
@@ -25,12 +32,21 @@ public class HodService {
             if (!request.getSurgeon().equals("N.A")) {
                 doctor.setSurgeon(request.getSurgeon());
             }
-            Boolean value = doctorDAO.updateDoctorInfo(doctor);
+            LOGGER.setLevel(Level.INFO);
+            LOGGER.info("HOD approves doctor request");
+            value = doctorDAO.updateDoctorInfo(doctor);
+
         }
+        LOGGER.setLevel(Level.INFO);
+        LOGGER.info("HOD rejects the doctor request");
+        return value;
     }
 
-    public static void updateDoctorRequestDenial(String id){
+    public static Boolean updateDoctorRequestDenial(String id){
         Boolean val = hodDAO.updateDoctorRequest(id, "Rejected");
+        LOGGER.setLevel(Level.INFO);
+        LOGGER.info("HOD rejects the doctor request");
+        return val;
     }
     public static ArrayList getAllRequest(String doctorId){
         Department department = departmentDAO.getDepartmentInfoByHod(doctorId);
@@ -38,6 +54,8 @@ public class HodService {
         /*for(UpdateDoctorRequest d: request){
             System.out.println(d.getId());
         }*/
+        LOGGER.setLevel(Level.INFO);
+        LOGGER.info("HOD fetches all update request");
         return  request;
     }
 

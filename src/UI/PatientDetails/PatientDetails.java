@@ -3,9 +3,12 @@ package UI.PatientDetails;
 import java.awt.event.*;
 
 import DTO.Patient;
+import Exceptions.PatientLogsNotFoundException;
+import Exceptions.PatientNotFoundException;
 import Service.AdminService;
 import Service.PatientService;
 //import UI.*;
+import UI.DoctorLogin.DoctorLogin;
 import UI.Homepage.Homepage;
 import UI.PatientHome.PatientHome;
 
@@ -197,7 +200,7 @@ public class PatientDetails extends javax.swing.JFrame implements ActionListener
         pack();
     }// </editor-fold>
     private void fillDetails()
-    {
+    {   try {
         Patient p = PatientService.getPatientInfo(Pid);
         jTextField1.setText(p.getName());
         jTextField2.setText(String.valueOf(p.getAge()));
@@ -208,6 +211,12 @@ public class PatientDetails extends javax.swing.JFrame implements ActionListener
         jTextArea1.setText(p.getAddress());
         jPasswordField1.setText(p.getPassword());
     }
+    catch (PatientNotFoundException e){
+            JOptionPane.showMessageDialog(null, e.toString(), "InfoBox: " + "Patient not found exception", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+
     public void actionPerformed(ActionEvent ae)
     { 	String s=ae.getActionCommand();
         if(s.equals("BACK"))
@@ -225,23 +234,27 @@ public class PatientDetails extends javax.swing.JFrame implements ActionListener
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-
-                    Patient temp = PatientService.getPatientInfo(Pid);
-                    String patientName = jTextField1.getText();
-                    int patientAge = Integer.parseInt(jTextField2.getText());
-                    String patientAddress = jTextArea1.getText();
-                    String patientPhone = jTextField3.getText();
-                    String patientEmail = jTextField4.getText();
-                    String patientAilment = jTextField5.getText();
-                    String patientPassword = String.valueOf(jPasswordField1.getPassword());
-                    String patientGender = temp.getGender();
-                    //Patient p = new Patient(patientName,)
-                    Patient p = new Patient(patientName,Pid,patientGender,patientPhone,patientAddress,patientAge,patientAilment,patientEmail,patientPassword,temp.getHealthStatus(),temp.getStatus(),temp.getType());
-                    new PatientService().updatePatientInfo(p);
+                    try {
+                        Patient temp = PatientService.getPatientInfo(Pid);
+                        String patientName = jTextField1.getText();
+                        int patientAge = Integer.parseInt(jTextField2.getText());
+                        String patientAddress = jTextArea1.getText();
+                        String patientPhone = jTextField3.getText();
+                        String patientEmail = jTextField4.getText();
+                        String patientAilment = jTextField5.getText();
+                        String patientPassword = String.valueOf(jPasswordField1.getPassword());
+                        String patientGender = temp.getGender();
+                        //Patient p = new Patient(patientName,)
+                        Patient p = new Patient(patientName, Pid, patientGender, patientPhone, patientAddress, patientAge, patientAilment, patientEmail, patientPassword, temp.getHealthStatus(), temp.getStatus(), temp.getType());
+                        new PatientService().updatePatientInfo(p);
+                        new PatientHome(Pid).setVisible(true);
+                    } catch (PatientNotFoundException e) {
+                        JOptionPane.showMessageDialog(null, e.toString(), "InfoBox: " + "Patient not found exception", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
             });
             this.setVisible(false);
-            new PatientHome(Pid).setVisible(true);
+
         }
     }
 

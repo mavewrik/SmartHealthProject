@@ -4,6 +4,7 @@
 
 package UI.DoctorLogin;
 
+import Exceptions.InvalidLoginException;
 import Service.DoctorService;
 import UI.DoctorHome.DoctorHome;
 import UI.HODHome.HODHome;
@@ -110,19 +111,21 @@ public class DoctorLogin extends JFrame implements ActionListener {
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    if(new DoctorService().Login(textField1.getText(),passwordField1.getText())==0)
-                    {
-                        System.out.println("Login unsuccessful");
-                    }
-                    else
-                    {
-                        if(new DoctorService().isHod(textField1.getText())==true)
-                        {
-                            new HODHome(textField1.getText()).setVisible(true);
-                        }
-                        else
-                            new DoctorHome(textField1.getText()).setVisible(true);
+                    try {
+                        if (new DoctorService().Login(textField1.getText(), passwordField1.getText()) == 0) {
+                            System.out.println("Login unsuccessful");
+                        } else {
+                            if (new DoctorService().isHod(textField1.getText()) == true) {
+                                new HODHome(textField1.getText()).setVisible(true);
+                            } else
+                                new DoctorHome(textField1.getText()).setVisible(true);
 
+                        }
+                    }
+                    catch (InvalidLoginException e)
+                    {
+                        JOptionPane.showMessageDialog(null, e.toString(), "InfoBox: " + "Invalid Login", JOptionPane.INFORMATION_MESSAGE);
+                        new DoctorLogin().setVisible(true);
                     }
                 }
             });

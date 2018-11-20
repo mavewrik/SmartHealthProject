@@ -103,8 +103,10 @@ public class HODRequests extends JFrame implements ActionListener {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
                     new HodService().updateDoctorRequestApproval(textField1.getText());
+                    new HODHome(Did).setVisible(true);
                 }
             });
+            this.setVisible(false);
 
         }
         else if(s.equals("DENY"))
@@ -112,8 +114,10 @@ public class HODRequests extends JFrame implements ActionListener {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
                     new HodService().updateDoctorRequestDenial(textField1.getText());
+                    new HODHome(Did).setVisible(true);
                 }
             });
+            this.setVisible(false);
         }
         else if(s.equals("BACK"))
         {

@@ -15,7 +15,7 @@ public class hodDAO {
 
         DatabaseConnectionClass databseConnectionClass = DatabaseConnectionClass.getInstance();
 
-        boolean result = true;
+        boolean result = false;
 
         Connection conn = databseConnectionClass.getMySqlConnection("jdbc:mysql://localhost:3306/", "hospitalManagement", "root", "", "com.mysql.jdbc.Driver");
 

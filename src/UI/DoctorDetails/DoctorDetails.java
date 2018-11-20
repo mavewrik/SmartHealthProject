@@ -1,173 +1,158 @@
+/*
+ * Created by JFormDesigner on Tue Nov 20 17:28:53 IST 2018
+ */
+
 package UI.DoctorDetails;
 
-
 import DTO.Doctor;
-import DTO.Patient;
+import Exceptions.DoctorNotFoundException;
 import Service.DoctorService;
-import Service.PatientService;
-import UI.AdminHome.AdminHome;
 import UI.DoctorProfile.DoctorProfile;
+import UI.HODProfile.HODProfile;
 
-import javax.print.Doc;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.*;
 
-public class DoctorDetails extends javax.swing.JFrame implements ActionListener {
+public class DoctorDetails extends JFrame implements ActionListener {
     String Did;
     public DoctorDetails(String Did) {
+        this.Did = Did;
         initComponents();
-            this.Did = Did;
-            initComponents();
-            fillDetails();
-            jButton1.addActionListener(this);
-            jButton2.addActionListener(this);
-            addWindowListener(new WindowAdapter(){
-                public void windowClosing(WindowEvent we)
-                {
-                    System.exit(0);
-                }
-            });
+        fillDetails();
+        button1.addActionListener(this);
+        button2.addActionListener(this);
+        addWindowListener(new WindowAdapter()
+        {
+            public void windowClosing(WindowEvent we)
+            {
+                System.exit(0);
+            }
+        });
+    }
+    private void initComponents() {
+        // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
+        // Generated using JFormDesigner Evaluation license - Alvin Dey
+        textField1 = new JTextField();
+        button1 = new JButton();
+        label1 = new JLabel();
+        label2 = new JLabel();
+        textField2 = new JTextField();
+        label3 = new JLabel();
+        label4 = new JLabel();
+        textField3 = new JTextField();
+        label5 = new JLabel();
+        textField4 = new JTextField();
+        passwordField1 = new JPasswordField();
+        label6 = new JLabel();
+        button2 = new JButton();
 
+        //======== this ========
+        Container contentPane = getContentPane();
+        contentPane.setLayout(null);
+        contentPane.add(textField1);
+        textField1.setBounds(170, 40, 420, textField1.getPreferredSize().height);
+
+        //---- button1 ----
+        button1.setText("BACK");
+        contentPane.add(button1);
+        button1.setBounds(new Rectangle(new Point(210, 240), button1.getPreferredSize()));
+
+        //---- label1 ----
+        label1.setText("NAME");
+        contentPane.add(label1);
+        label1.setBounds(75, 45, 70, 25);
+
+        //---- label2 ----
+        label2.setText("DOCTOR DETAILS");
+        label2.setHorizontalAlignment(SwingConstants.CENTER);
+        contentPane.add(label2);
+        label2.setBounds(255, 5, 165, label2.getPreferredSize().height);
+        contentPane.add(textField2);
+        textField2.setBounds(170, 85, 105, textField2.getPreferredSize().height);
+
+        //---- label3 ----
+        label3.setText("AGE");
+        label3.setHorizontalAlignment(SwingConstants.CENTER);
+        contentPane.add(label3);
+        label3.setBounds(75, 90, 45, 25);
+
+        //---- label4 ----
+        label4.setText("PHONE");
+        label4.setHorizontalAlignment(SwingConstants.CENTER);
+        contentPane.add(label4);
+        label4.setBounds(280, 85, 85, 30);
+        contentPane.add(textField3);
+        textField3.setBounds(370, 85, 225, textField3.getPreferredSize().height);
+
+        //---- label5 ----
+        label5.setText("ADDRESS");
+        contentPane.add(label5);
+        label5.setBounds(70, 140, 75, label5.getPreferredSize().height);
+        contentPane.add(textField4);
+        textField4.setBounds(170, 135, 425, textField4.getPreferredSize().height);
+        contentPane.add(passwordField1);
+        passwordField1.setBounds(170, 185, 425, passwordField1.getPreferredSize().height);
+
+        //---- label6 ----
+        label6.setText("PASSWORD");
+        contentPane.add(label6);
+        label6.setBounds(60, 190, 95, label6.getPreferredSize().height);
+
+        //---- button2 ----
+        button2.setText("UPDATE");
+        contentPane.add(button2);
+        button2.setBounds(new Rectangle(new Point(415, 240), button2.getPreferredSize()));
+
+        { // compute preferred size
+            Dimension preferredSize = new Dimension();
+            for(int i = 0; i < contentPane.getComponentCount(); i++) {
+                Rectangle bounds = contentPane.getComponent(i).getBounds();
+                preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
+                preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
+            }
+            Insets insets = contentPane.getInsets();
+            preferredSize.width += insets.right;
+            preferredSize.height += insets.bottom;
+            contentPane.setMinimumSize(preferredSize);
+            contentPane.setPreferredSize(preferredSize);
+        }
+        pack();
+        setLocationRelativeTo(getOwner());
+        // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
     private void fillDetails()
-    {
+    {   try {
         Doctor d = DoctorService.getDoctorInfo(Did);
-        jTextField1.setText(d.getName());
-        jTextField2.setText(String.valueOf(d.getAge()));
-        jTextField4.setText(d.getPhoneNumber());
-        jTextField5.setText(d.getAddress());
-        jPasswordField1.setText(d.getPassword());
+        textField1.setText(d.getName());
+        textField2.setText(String.valueOf(d.getAge()));
+        textField3.setText(d.getPhoneNumber());
+        textField4.setText(d.getAddress());
+        passwordField1.setText(d.getPassword());
+        /*textField1.setText("Hi");
+        textField2.setText("85");
+        textField3.setText("dgdg");
+        textField4.setText("ddsg");
+        passwordField1.setText("dgdgg");*/
     }
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    catch(DoctorNotFoundException e){
+        e.printStackTrace();
+    }
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jTextField4 = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("DOCTOR DETAILS");
-        setPreferredSize(new java.awt.Dimension(617, 346));
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("DOCTOR DETAILS");
-
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel2.setText("NAME");
-
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel3.setText("AGE");
-
-        jButton1.setText("BACK");
-
-        jButton2.setText("UPDATE");
-
-        jLabel9.setText("PHONE NUMBER");
-
-
-        jLabel10.setText("ADDRESS");
-
-        jLabel11.setText("PASSWORD");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(256, 256, 256)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(201, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(32, 32, 32)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jPasswordField1))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(38, 38, 38)
-                                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jTextField4))
-                                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(213, 213, 213)
-                        .addComponent(jButton1)
-                        .addGap(130, 130, 130)
-                        .addComponent(jButton2)))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addGap(67, 67, 67))
-        );
-
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
-
+    }
     public void actionPerformed(ActionEvent ae)
     { 	String s=ae.getActionCommand();
         if(s.equals("BACK"))
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    new DoctorProfile(Did).setVisible(true);
+                    if (new DoctorService().isHod(Did) == true) {
+                        new HODProfile(Did).setVisible(true);
+                    } else
+                        new DoctorProfile(Did).setVisible(true);
                 }
             });
             this.setVisible(false);
@@ -176,40 +161,50 @@ public class DoctorDetails extends javax.swing.JFrame implements ActionListener 
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    Doctor temp = DoctorService.getDoctorInfo(Did);
-                    String DoctorName = jTextField1.getText();
-                    int DoctorAge = Integer.parseInt(jTextField2.getText());
-                    String DoctorPhone = jTextField4.getText();
-                    String DoctorAddress = jTextField5.getText();
-                    String DoctorPassword = String.valueOf(jPasswordField1.getPassword());
-                    String DoctorGender = temp.getGender();
-                    String DoctorId = temp.getId();
-                    String Doctordepartment = temp.getDepartment();
-                    Boolean hod = temp.isHod();
-                    String specialization = temp.getSpecialization();
-                    String designation = temp.getDesignation();
-                    String surgeon = temp.getSurgeon();
-                    String rating = temp.getRating();
-                    Doctor d = new Doctor(DoctorName,DoctorId,Doctordepartment,hod,specialization,DoctorAge,DoctorAddress,DoctorPhone,DoctorGender,DoctorPassword,designation,surgeon,rating);
-                    new DoctorService().updateDoctorInfo(d);
+                    try {
+                        Doctor temp = DoctorService.getDoctorInfo(Did);
+                        String DoctorName = textField1.getText();
+                        int DoctorAge = Integer.parseInt(textField2.getText());
+                        String DoctorPhone = textField3.getText();
+                        String DoctorAddress = textField4.getText();
+                        String DoctorPassword = String.valueOf(passwordField1.getPassword());
+                        String DoctorGender = temp.getGender();
+                        String DoctorId = temp.getId();
+                        String Doctordepartment = temp.getDepartment();
+                        Boolean hod = temp.isHod();
+                        String specialization = temp.getSpecialization();
+                        String designation = temp.getDesignation();
+                        String surgeon = temp.getSurgeon();
+                        String rating = temp.getRating();
+                        Doctor d = new Doctor(DoctorName, DoctorId, Doctordepartment, hod, specialization, DoctorAge, DoctorAddress, DoctorPhone, DoctorGender, DoctorPassword, designation, surgeon, rating);
+                        new DoctorService().updateDoctorInfo(d);
+                        if (new DoctorService().isHod(Did) == true) {
+                            new HODProfile(Did).setVisible(true);
+                        } else
+                            new DoctorProfile(Did).setVisible(true);
+                    }
+                    catch(DoctorNotFoundException e){
+                        e.printStackTrace();
+                    }
                 }
             });
             this.setVisible(false);
         }
     }
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    // End of variables declaration//GEN-END:variables
+    // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
+    // Generated using JFormDesigner Evaluation license - Alvin Dey
+    private JTextField textField1;
+    private JButton button1;
+    private JLabel label1;
+    private JLabel label2;
+    private JTextField textField2;
+    private JLabel label3;
+    private JLabel label4;
+    private JTextField textField3;
+    private JLabel label5;
+    private JTextField textField4;
+    private JPasswordField passwordField1;
+    private JLabel label6;
+    private JButton button2;
+    // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
